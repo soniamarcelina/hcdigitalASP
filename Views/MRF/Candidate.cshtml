@@ -1,0 +1,274 @@
+ @{
+    ViewData["Title"] = "Candidate";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+        
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+        		<div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Table Candidate</h6>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="py-2">
+                                <div class="row px-2">
+                                
+                                    <div class="col-lg-4">
+                                        <label>Position Name</label>
+                                        <input type="text" class="form-control" name="Position" value="" readonly="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Fungsi</label>
+                                        <input type="text" class="form-control" name="Fungsi" value="" readonly="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Supervisor Name</label>
+                                        <input type="text" class="form-control" name="Supervisor" value="" readonly="">
+                                    </div>
+
+                                </div>
+                                <div class="p-2">
+                                    <a href="#" onclick="selectCandidate()">
+                                        <button  class="btn btn-success">
+                                            Select Candidate <i class="fa fa-plus"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="table-responsive px-2">
+                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <table class="table table-bordered nowrap" id="candidateTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr style="text-align: center;">
+                                            <th>Name</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                            <th>Expected Salary</th>                                        
+                                            <th>Interview Score</th>
+                                            <th>Offer Salary</th>
+                                            <th>Final Salary</th>
+                                            <th>Last Updated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                               
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){ 
+        var mrftable = $('#candidateTable').DataTable({
+        scrollX:true,
+        ordering : true,
+        autoWidth : true,
+        fixedColumns: {
+            left: 2,
+        },
+        columnDefs: [
+            {
+                className: 'select-checkbox',
+                targets: 0
+            },
+            { "targets": 1, visible: true}, //status
+            { "targets": 2, visible: true}, //code
+            { "targets": 3, visible: true}, //type
+            { "targets": 4, visible: true}, //position title
+            { "targets": 5, visible: false}, //start
+            { "targets": 6 ,visible: false}, //end
+            { "targets": 7 ,visible:false}, //spv
+          ],
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        },
+                dom: 'Bfrtip',
+                buttons: [
+                         {
+                             text: 'Interview',
+                             action: function ( e, dt, node, config ) {
+                                 //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                                 var rows = mrftable.rows( { selected: true } ).data().toArray();
+                                 console.log( rows ); // array of selected rows (each row is an array of data)
+                                 var ids = rows.map(function(x) {
+                                     return x[12];
+                                 });
+                                 if (rows[0].candidate_status == "Candidate") {
+                                    window.location.href = 'AO/interview/'  
+                                 }else{
+                                    Swal.fire({
+                                      title: 'Interview Result!',
+                                      text: "Kandidat sudah interview, ingin interview ulang?",
+                                      icon: 'warning',
+                                      showCancelButton: true,
+                                      confirmButtonColor: '#3085d6',
+                                      cancelButtonColor: '#d33',
+                                      confirmButtonText: 'Ya, lanjutkan!'
+                                    }).then((result) => {
+                                      if (result.isConfirmed) {
+                                        window.location.href = 'AO/interview/'   
+                                      }
+                                    })
+                                 }
+                                 
+                             }
+                         },
+                         {
+                             text: 'Offering',
+                             action: function ( e, dt, node, config ) {
+                                 //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                                 var rows = mrftable.rows( { selected: true } ).data().toArray();
+                                 //console.log( rows ); // array of selected rows (each row is an array of data)
+                                 var ids = rows.map(function(x) {
+                                     return x[12];
+                                 });
+                                 if (rows[0].candidate_status == "Interview") {
+                                    window.location.href = '<?php echo base_url()?>TAD/AO/offering/'+rows[0].id   
+                                 }else{
+                                    Swal.fire({
+                                      title: 'Confirm Offering!',
+                                      text: "Kandidat belum interview, yakin langsung ke tahap offering?",
+                                      icon: 'warning',
+                                      showCancelButton: true,
+                                      confirmButtonColor: '#3085d6',
+                                      cancelButtonColor: '#d33',
+                                      confirmButtonText: 'Ya, lanjutkan!'
+                                    }).then((result) => {
+                                      if (result.isConfirmed) {
+                                        window.location.href = '<?php echo base_url()?>TAD/AO/offering/'+rows[0].id   
+                                      }
+                                    })
+                                 }
+                             }
+                         },
+                         {
+                             text: 'Assign',
+                             action: function ( e, dt, node, config ) {
+                                 //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                                 var rows = mrftable.rows( { selected: true } ).data().toArray();
+                                 //console.log( rows ); // array of selected rows (each row is an array of data)
+                                 var ids = rows.map(function(x) {
+                                     return x[12];
+                                 });
+                                 //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                                 var rows = mrftable.rows( { selected: true } ).data().toArray();
+                                 //console.log( rows ); // array of selected rows (each row is an array of data)
+                                 var ids = rows.map(function(x) {
+                                     return x[12];
+                                 });
+                                 if ((rows[0].candidate_status).includes("Offer")) {
+                                    window.location.href = '<?php echo base_url()?>TAD/AO/confirm/'+rows[0].id   
+                                 }else{
+                                    Swal.fire({
+                                      title: 'Confirm Assignment!',
+                                      text: "Kandidat belum Offering, yakin langsung ke tahap assignment?",
+                                      icon: 'warning',
+                                      showCancelButton: true,
+                                      confirmButtonColor: '#3085d6',
+                                      cancelButtonColor: '#d33',
+                                      confirmButtonText: 'Ya, lanjutkan!'
+                                    }).then((result) => {
+                                      if (result.isConfirmed) {
+                                        window.location.href = '<?php echo base_url()?>TAD/AO/confirm/'+rows[0].id   
+                                      }
+                                    })
+                                 }
+                             }
+                         },
+                         {
+                             text: 'Remove',
+                             action: function ( e, dt, node, config ) {
+                                 //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                                 var rows = this.rows( { selected: true } ).data().toArray();
+                                 //console.log( rows ); // array of selected rows (each row is an array of data)
+                                 Swal.fire({
+                                   title: 'Confirm Remove Candidate!',
+                                   text: "Yakin ingin menghilangkan kandidat?",
+                                   icon: 'warning',
+                                   showCancelButton: true,
+                                   confirmButtonColor: '#3085d6',
+                                   cancelButtonColor: '#d33',
+                                   confirmButtonText: 'Ya, Hilangkan!'
+                                 }).then((result) => {
+                                   if (result.isConfirmed) {
+                                     window.location.href = '<?php echo base_url()?>TAD/MRF/deleteCandidate/'+rows[0].id
+                                   }
+                                 })
+                                 
+                             }
+                         }
+
+                ]
+              });
+    });    
+        
+
+</script>
+<script type="text/javascript">
+    
+
+    function getCandidate(){
+        $.ajax({
+            url: "<?php echo base_url()?>TAD/MRF/getCandidate",
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function selectCandidate(){
+        var dynamicTable = $('#candidateTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+
+        $.ajax({
+                url: '/MRF/GetCandidate',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let tableHtml = "<table id='dataTable' class='table table-sm table-bordered small valign-middle'>";
+                     tableHtml += "<thead><tr><th>Nama</th><th>Gender</th><th>Tanggal Lahir</th><th>Pendidikan</th><th>Pengalaman Kerja</th><th>Action</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.nama + "</td>";
+                        tableHtml += "<td>" + row.jenis_Kelamin + "</td>";
+                        tableHtml += "<td>" + row.tgl_Lahir + "</td>";
+                        tableHtml += "<td>" + row.tingkat_Pendidikan + "</td>";
+                        tableHtml += "<td>" + row.pengalaman_Kerja_Pertama + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.nopek + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                     });
+                     tableHtml += "</tbody></table>";
+
+                     Swal.fire({
+                       title: 'Candidate List',
+                       html: tableHtml,
+                       width : 1500,
+                       showCloseButton: true,
+                     })
+
+                     $('#dataTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       responsive : true,
+                       select: {
+                            style: 'single'
+                       }
+                     });
+
+                }
+        });
+    }
+
+   
+</script>

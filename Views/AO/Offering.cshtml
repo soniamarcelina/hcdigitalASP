@@ -1,0 +1,262 @@
+@{
+    ViewData["Title"] = "Offering";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+<div class="card-body">
+  <div class="card shadow mb-2">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Compare Offering</h6>
+    </div>
+    <div class="card-body">
+        <div class="row col-md-12 mt-2 mb-4">
+          <div class="col-md-6">
+            <label>Nama Kandidat</label>
+            <input type="text" class="form-control form-control-bot-border required" name="name" placeholder="Select Kandidat" value="<?= $FormData['candidateName'] ?>" list="requestor" autocomplete="off" readonly>
+            <label>Tanggal & Tempat Lahir</label>
+            <input type="text" class="form-control form-control-bot-border" name="edu" value="<?= $FormData['candidateTL'] ?>" readonly>
+            <label>Jenjang Pendidikan Terakhir</label>
+            <input type="text" class="form-control form-control-bot-border" name="start" value="<?= $FormData['candidateEdu'] ?>" readonly>
+            <label>Jurusan Pendidikan Terakhir</label>
+            <input type="text" class="form-control form-control-bot-border" name="start" value="<?= $FormData['candidateMajor'] ?>" readonly>
+            <label>Asal Perguruan Tinggi</label>
+            <input type="text" class="form-control form-control-bot-border" name="start" value="<?= $FormData['candidateInst'] ?>" readonly>
+            <label>Status Pajak</label>
+            <input type="text" class="form-control form-control-bot-border" name="statusPajak" value="<?= $FormData['pajak'] ?>" readonly>
+
+            <label>Expected Salary</label>
+            <input type="text" class="form-control form-control-bot-border" name="expSalary" value="<?= number_format($FormData['expSalary']) ?>" readonly>
+          </div>
+          <div class="col-md-6 pl-4">
+            <label>Position Title</label>
+            <input type="text" class="form-control form-control-bot-border required" name="posTitle" placeholder="Select Position" value="<?= $FormData['posTitle'] ?>" list="requestor" autocomplete="off" readonly>
+            <label>Divisi</label>
+            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posDiv'] ?>" name="start" readonly>
+            <label>Departemen</label>
+            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posDept'] ?>" name="start" readonly>
+            <label>Work Schedule</label>
+            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posSch'] ?>" name="start" readonly>
+            <label>Work Location</label>
+            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posLoc'] ?>" name="start" readonly>
+            <label>Grade</label>
+            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['grade'] ?>" name="grade" readonly>
+          </div>
+        </div>
+        <div class="container-fluid py-4">
+            <!-- Progress bar container -->
+            <h6 class="d-block">Salary Range (Grade) vs Expected Salary</h6>
+            <span>Rp. <?= number_format($Grade->MinSalary) ?></span>
+            <div class="progress progress-grade d-inline-flex w-75">
+                <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="0%"></div>
+                <div class="progress-bar-end" id="progress-bar-end" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="100%"></div>
+
+            </div>
+            <span id="MaxSalary">Rp <?= number_format($Grade->MaxSalary) ?></span>
+        </div>
+        <div class="container-fluid py-4">
+            <!-- Progress bar container -->
+            
+            <h6 class="d-block">Internal Equity vs Expected Salary </h6>
+            <h6>Headcount : <?= $IEsummary[0]->headcount ?></h6>
+            <span>Rp. <?= number_format($IEsummary[0]->minIE) ?></span>
+            <div class="progress progress-ie d-inline-flex w-75">
+                <div class="progress-bar" id="progress-bar-ie" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="0%"></div>
+                <div class="progress-bar-end" id="progress-bar-end-ie" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="100%"></div>
+            </div>
+            <span id="MaxSalaryIE">Rp <?= number_format($IEsummary[0]->maxIE) ?></span>
+            
+        </div>
+        <div class="container-fluid py-4">
+            <label>Internal Equity Comparison (Top 5)</label>
+            <table class="table table-sm">
+                <tr>
+                    <th>Personnel Name</th>
+                    <th>Position</th>
+                    <th>Education</th>
+                    <th>Work Experience</th>
+                    <th>Salary</th>
+                </tr>
+                <?php foreach ($internalEquity as $IE) { ?>
+                    <tr>
+                        <td><?= $IE->Name ?></td>
+                        <td><?= $IE->Position ?></td>
+                        <td><?= $IE->LastEdu ?></td>
+                        <td><?= $IE->WorkExp ?></td>
+                        <td><?= number_format($IE->salary) ?></td>
+                    </tr>
+                <?php }?> 
+            </table>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="card-body">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Confirm Offering</h6>
+    </div>
+    <div class="card-body">
+        <div class="row col-md-12 mt-2 mb-4">
+            <div class="col-md-6">
+                <label>Final Salary</label>
+                <input type="text" class="form-control form-control-bot-border required" id="finalSalary" name="offer_salary" placeholder="Input Final Salary" value="" list="requestor" autocomplete="off">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="sameAsExp">
+                    <label class="custom-control-label" for="sameAsExp">Same as expected Salary</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label>Offering Type</label>
+                <select class="form-control form-control-bot-border" name="status">
+                    <option selected>Offering 1</option>
+                    <option>Offering 2</option>
+                    <option>Offering 3</option>
+                </select>
+                <div class="p-2 float-right">
+                    <a href="#" class="btn btn-primary sendOffer">Send Offering</a>    
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var minGrade = parseInt('<?= $Grade->MinSalary?>')
+        var maxGrade = parseInt('<?= $Grade->MaxSalary?>')
+        var minIE = parseInt('<?= $IEsummary[0]->minIE?>')
+        var maxIE = parseInt('<?= $IEsummary[0]->maxIE?>')
+
+        var expSalary = parseInt('<?= $MRFData->expected_salary?>');
+        var min_exp_sal = expSalary - minGrade;
+        var max_exp_sal = maxGrade - minGrade;
+        var percentile = (min_exp_sal/max_exp_sal)*100;
+
+        var min_exp_sal_IE = expSalary - minIE;
+        var max_exp_sal_IE = maxIE - minIE;
+        var percentile_IE = (min_exp_sal_IE/max_exp_sal_IE)*100;
+
+        // console.log(min_exp_sal_IE)
+        // console.log(max_exp_sal_IE)
+        // console.log((percentile_IE*100).toFixed(2));
+
+        updateProgressBar(percentile.toFixed(2),percentile_IE.toFixed(2))
+        $("#sameAsExp").change(function() {
+            if(this.checked) {
+                $('#finalSalary').attr('readonly',true)
+                $('#finalSalary').val(formatNumber('<?= $MRFData->expected_salary?>'))
+            }else{
+                $('#finalSalary').attr('readonly',false)
+            }
+        });
+
+    });
+
+
+    function formatNumber(x) {
+        // format number 1000000 to 1,234,567
+        //return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+        
+        
+        
+        // Function to update the progress bar
+        function updateProgressBar(percent,percentIE) {
+            var progressBar = $('#progress-bar');
+            var progressBarEnd = $('#progress-bar-end');
+
+            if (percent > 100) {
+                var maxGrade = parseInt('<?= $Grade->MaxSalary?>')
+                var overPercent = (percent - 100).toFixed(2)
+                var transformMax = (100 - overPercent).toFixed(2)
+                $('#MaxSalary').html('Rp '+formatNumber(parseInt('<?= $MRFData->expected_salary?>')))
+
+                $('.progress-grade').addClass('bg-danger')
+                progressBar.css('width', transformMax + '%').attr('aria-valuenow', transformMax);
+                progressBar.attr('data-content', ''+transformMax + '%'); // Update pop-up content
+                progressBar.popover('hide'); // Show the pop-up
+
+                //progressBarEnd.css('width', percent + '%').attr('aria-valuenow', percent);
+                progressBarEnd.attr('data-content', '+' +overPercent + '% from Max\n'+formatNumber(maxGrade)); // Update pop-up content
+                progressBarEnd.popover('show'); // Show the pop-up
+            }else{
+                progressBar.css('width', percent + '%').attr('aria-valuenow', percent);
+                progressBar.attr('data-content', ''+percent + '%'); // Update pop-up content
+                progressBar.popover('hide'); // Show the pop-up
+
+                //progressBarEnd.css('width', percent + '%').attr('aria-valuenow', percent);
+                progressBarEnd.attr('data-content', percent + '%'); // Update pop-up content
+                progressBarEnd.popover('show'); // Show the pop-up
+    
+            }   
+            if (percentIE > 100) {
+                var progressBarIE = $('#progress-bar-ie');
+                var progressBarEndIE = $('#progress-bar-end-ie');
+
+                var maxIE = parseInt('<?= $IEsummary[0]->maxIE?>')
+                var overPercentIE = (percentIE - 100).toFixed(2)
+                var transformMaxIE = (100 - overPercentIE).toFixed(2)
+                $('#MaxSalaryIE').html('Rp '+formatNumber(parseInt('<?= $MRFData->expected_salary?>')))
+
+                $('.progress-ie').addClass('bg-danger')
+                progressBarIE.css('width', transformMaxIE + '%').attr('aria-valuenow', transformMaxIE);
+                progressBarIE.attr('data-content', ''+transformMaxIE + '%'); // Update pop-up content
+                progressBarIE.popover('hide'); // Show the pop-up
+
+                //progressBarEnd.css('width', percent + '%').attr('aria-valuenow', percent);
+                progressBarEndIE.attr('data-content', '+' +overPercentIE + '% from Max\n'+formatNumber(maxIE)); // Update pop-up content
+                progressBarEndIE.popover('show'); // Show the pop-up
+            }else{
+                
+                var progressBarIE = $('#progress-bar-ie');
+                var progressBarEndIE = $('#progress-bar-end-ie');
+
+                progressBarIE.css('width', percentIE + '%').attr('aria-valuenow', percentIE);
+                progressBarIE.attr('data-content', ''+percentIE + '%'); // Update pop-up content
+                progressBarIE.popover('hide'); // Show the pop-up
+
+                //progressBarEnd.css('width', percent + '%').attr('aria-valuenow', percent);
+                progressBarEndIE.attr('data-content', percentIE + '%'); // Update pop-up content
+                progressBarEndIE.popover('show'); // Show the pop-up
+    
+            }
+        }
+
+    $(".sendOffer").click(function() {
+        
+        var data = {
+          'offer_salary' : $("input[name='offer_salary']").val().replace(/,/g,''), 
+          'status' : $("select[name='status']").val(), 
+
+        }
+        console.log(data)
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/AO/sendOffer/<?= $candidateID ?>",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+                    n = JSON.stringify(data)
+                    o = JSON.parse(n)
+                    var tempKey =o.data.tempKey;
+                    if (o.status == 2) {
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                        window.location.href = '<?php echo base_url()?>TAD/MRF/candidate/<?= $MRF_id ?>'; 
+                    }else{
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                           
+                    }
+                    
+                }
+        });
+    });
+</script>

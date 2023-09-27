@@ -1,0 +1,520 @@
+ @{
+    ViewData["Title"] = "Request OCF";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+<h1>@ViewData["Title"]</h1>
+        <!-- Card Body -->
+        <div class="card-body">
+        		<div>               
+        			
+        		</div>
+                <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Table Request OCF</h6>
+
+                        </div>
+                        <div class="card-body">
+                        <div class="mb-4 px-2">
+                                <button class="btn btn-primary  text-sm" type="button" href="#"
+                                    id="forceApprove" >
+                                    Force Approve
+                                </button>
+                            </div>
+                            <div class="table-responsive px-2">
+                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <table class="table table-bordered table-sm nowrap" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Status</th> 
+                                            <th class="text-center">Subject</th>     
+                                            <th class="text-center">Code OCF</th>   
+                                            <th class="text-center">Position Title</th>
+                                            <th class="text-center">Headcount</th>
+                                            <th class="text-center">Direct Supervisor</th>
+                                            <th class="text-center">Fungsi</th>
+                                            <th class="text-center">Company Name</th>
+                                            <th class="text-center">Nama Requestor</th>
+                                            <th class="text-center">Submit Date</th>
+                                            <th class="text-center">OCF ID</th>
+                                            <th class="text-center">tempKey</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ocf in Model)
+                                        {
+                                        <tr>
+                                            <td></td>
+                                            <td>@ocf.status</td>
+                                            <td>@ocf.subject</td>
+                                            <td>@ocf.Code</td>
+                                            <td>@ocf.PosTitle</td>
+                                            <td>@ocf.Headcount</td>
+                                            <td>@ocf.DirectPos</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@ocf.RequestorID</td>
+                                            <td></td>
+                                            <td>@ocf.id</td>
+                                            <td>@ocf.tempKey</td>  
+                                        </tr>
+                                        }              
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      var ocftable = $('#dataTable').DataTable({
+        scrollX:true,
+        ordering : true,
+        autoWidth : true,
+        fixedColumns: {
+            left: 2,
+        },
+        columnDefs: [
+            {
+                className: 'select-checkbox',
+                targets: 0
+            },
+            { "targets": 1, visible: true}, //status
+            { "targets": 2, visible: true}, //subject
+            { "targets": 3, visible: true}, //type
+            { "targets": 4, visible: true}, //code OCF
+            { "targets": 5, visible: false}, //position title
+            { "targets": 6 ,visible: false}, //headcount
+            { "targets": 7 ,visible:false}, //direct supervisor
+            { "targets": 8, visible: true}, //fungsi
+            { "targets": 9, visible: false}, //company name
+            { "targets": 10, visible: false}, //requestor
+            { "targets": 11, visible: false}, //ocf id
+            { "targets": 12, visible: false}, //tempKey
+          ],
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        },
+        buttons: [ 
+            {
+                extend: 'colvis',
+                collectionLayout: 'fixed columns',
+                collectionTitle: 'Column visibility control'
+            },
+            'excel',
+            {
+                extend: 'collection',
+                text: 'Actions',
+                buttons: [
+                    {
+                        text: 'View',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = ocftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[11];
+                            });
+                            viewOCF(ids)
+                        }
+                    },
+                    {
+                        text: 'Approval Progress',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = ocftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[11];
+                            });
+                            viewProgress(ids)
+                        }
+                    },
+                    {
+                        text: 'Cancel',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = ocftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[11];
+                            });
+                            Swal.fire({
+                              title: 'Do you want to delete OCF?',
+                              showDenyButton: true,
+                              showCancelButton: true,
+                              confirmButtonText: 'Yes, Delete',
+                              denyButtonText: `No`,
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                window.location.href = '<?php echo base_url()?>orgChange/delete/'+ids
+                              } else if (result.isDenied) {
+                                Swal.close()
+                              }
+                            })
+                        }
+                    },
+                    ]
+            }
+        ],
+        dom: 'Bfrtip',
+    });
+
+    $('#forceApprove').click( function () {
+            var rows = ocftable.rows( { selected: true } ).data().toArray();
+            console.log( rows ); // array of selected rows (each row is an array of data)
+            var ids = rows.map(function(x) {
+              return x[1];
+            });
+            console.log(ids)
+            forceApprove(ids[0])
+        });
+
+      });
+    
+</script>
+<script type="text/javascript">
+    function viewProgress(id){
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/orgChange/getProgress/"+id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    let tableHtml = "<table class='table table-sm table-bordered small'>";
+                     tableHtml += "<thead><tr><th>No</th><th>Approver Role</th><th>Approver</th><th>Status</th><th>Last Update</th></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(row => {
+                       tableHtml += `<tr><td>${row.approver_order}</td><td>${row.approver_role}</td><td>${row.employee.Position} - ${row.employee.Name}</td><td>${row.status}</td><td>${row.updated_at}</td></tr>`;
+                     });
+                     tableHtml += "</tbody></table>";
+
+                     Swal.fire({
+                       title: 'OCF Approval Progress',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+                }
+            });
+    }
+
+    async function forceApprove(tempKey){
+        const { value: formValues } = await Swal.fire({
+          title: 'Force Approve Confirmation',
+          html:
+            '<div class="text-left">'+
+            '<Label class="">Reason Force Approve</label>'+
+            '<select id="swal-input1" class="form-control my-2">' +
+                '<option value="Memo">Memo from Director</option>'+
+                '<option value="SK">SK</option>'+
+            '</select>'+
+            '<Label>Force Approve Password</label>'+
+            '<input id="swal-input2" type="password" class="form-control my-2">'+
+            '</div>',
+          focusConfirm: false,
+          preConfirm: () => {
+            return [
+              document.getElementById('swal-input1').value,
+              document.getElementById('swal-input2').value
+            ]
+          }
+        })
+
+        if (formValues) {
+            var data = {
+                'comments' : formValues[0],
+                'password' : formValues[1],
+                'tempKey' : tempKey,
+            }
+            $.ajax({
+                url: "<?php echo base_url()?>Approval/forceApproveOCF",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+    
+                   Swal.fire({
+                     title: 'Approve Status',
+                     html: data.msg,
+                     showCloseButton: true,
+                   });
+                    
+                    
+                }
+            });
+        }
+    }
+
+    function viewOCF(approval_id) {
+        
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/OrgChange/view/"+approval_id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                            var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].Code == id) {
+                                console.log(data[key])    
+                                 break;
+                               }
+                             }
+                             
+                    var resp = JSON.parse(data.OCFData.Responsibility)
+                    var tableHtml = '';
+                    resp.forEach(row => {
+                      tableHtml += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+                    });
+                    var resp = JSON.parse(data.OCFData.Competency)
+                    var tableHtml2 = '';
+                    resp.forEach(row => {
+                      tableHtml2 += `<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td></tr>`;
+                    });
+                    var resp = JSON.parse(data.OCFData.Education)
+                    var tableHtml3 = '';
+                    resp.forEach(row => {
+                      tableHtml3 += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+                    });
+                    var resp = JSON.parse(data.OCFData.Experience)
+                    var tableHtml4 = '';
+                    resp.forEach(row => {
+                      tableHtml4 += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+                    });
+                    var resp = JSON.parse(data.OCFData.Skill)
+                    var tableHtml5 = '';
+                    resp.forEach(row => {
+                      tableHtml5 += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+                    })
+                     Swal.fire({
+                       title: 'View OCF',
+                       showCancelButton: true,
+                       html: '<div class="card my-3 text-left" id="content">'+
+                                '<div class="card-body row mt-4">'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Requestor Data</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12">'+
+                                        `<label class="float-right">Date :${data.OCFData.CreatedDate}</label>`+
+                                    '</div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">No OCF</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9">${data.OCFData.Code}</div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Subsidiaries</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvSubs">${data.ReqData.Company_Name}</div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6"></div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Creator</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvCreator">${data.ReqData.Name}</div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6"></div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Job Position</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvCrPos">${data.ReqData.Position}</div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Position Data</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+ 
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Position Title</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvTitle">${data.OCFData.PosTitle}</div>`+
+                                    '</div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Headcount</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvHC">${data.OCFData.Headcount}</div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Budget</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="RvCost">${data.OCFData.costType}</div>`+
+                                    '</div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Location</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvWL">${data.OCFData.WorkLoc}</div>`+
+                                    '</div>'+
+                                    '<!-- Row 8 -->'+
+                                    '<div class="col-md-12 col-xl-12 row mb-4">'+
+                                        '<div class="col-md-5 col-xl-2">Work Schedule</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvWS">${data.OCFData.WorkSch}</div>`+
+                                    '</div>'+
+                                    '<!-- Row 7 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Direct Report</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvDirPos">${data.SPVData.Position}</div>`+
+                                    '</div>'+
+                                    '<!-- Row 5 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Division</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvDiv">${data.SPVData.Divisi}</div>`+
+                                    '</div>'+
+                                     '<!-- Row 6 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Department</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvDept">${data.SPVData.Departemen}</div>`+
+                                    '</div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Brief Justification</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        `<div class="col-md-12 col-xl-12 text-justify" id="rvJus">${data.OCFData.Justification}</div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Role Profile & Requirement</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-12 col-xl-12">'+
+                                            '<table class="table table-sm table-bordered" id="tb-resp">'+
+                                                '<thead>'+
+                                                    '<tr>'+
+                                                        '<th width="500px">Roles</th>'+
+                                                        '<th>Description/Responsibilities</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    tableHtml+
+                                                '</tbody>'+
+                                            '</table>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Competency Requirement</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-12 col-xl-12">'+
+                                            '<table class="table table-sm table-bordered" id="tb-comp">'+
+                                                '<thead>'+
+                                                    '<tr>'+
+                                                        '<th width="200px">Technical Competency</th>'+
+                                                        '<th width="150px">Skill Group</th>'+
+                                                        '<th width="100px">Level</th>'+
+                                                        '<th>Indicator</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    tableHtml2+
+                                                '</tbody>'+
+                                            '</table>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Education Requirement</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-12 col-xl-12">'+
+                                            '<table class="table table-sm table-bordered" id="tb-comp">'+
+                                                '<thead>'+
+                                                    '<tr>'+
+                                                        '<th width="500px">Degree</th>'+
+                                                        '<th>Majoring</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    tableHtml3+
+                                                '</tbody>'+
+                                            '</table>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Experience Requirement</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-12 col-xl-12">'+
+                                            '<table class="table table-sm table-bordered" id="tb-comp">'+
+                                                '<thead>'+
+                                                    '<tr>'+
+                                                        '<th width="500px">Minimum Years</th>'+
+                                                        '<th>Role Job</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    tableHtml4+
+                                                '</tbody>'+
+                                            '</table>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Skill Requirement</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-12 col-xl-12">'+
+                                            '<table class="table table-sm table-bordered" id="tb-comp">'+
+                                                '<thead>'+
+                                                    '<tr>'+
+                                                        '<th width="500px">Type</th>'+
+                                                        '<th>Certificate/License/Skill Name</th>'+
+                                                    '</tr>'+
+                                                '</thead>'+
+                                                '<tbody>'+
+                                                    tableHtml5+
+                                                '</tbody>'+
+                                            '</table>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'+
+                            '</div>',
+                        width : 1200,
+                        preConfirm: () => {
+                          return [
+                            
+                          ]
+                        },
+                     }).then((result) => {
+                       
+                     })
+                     
+                }
+
+            });
+    }
+
+</script>
+
+<script src="https://cdn.datatables.net/filters/1.6.5/js/dataTables.filters.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>

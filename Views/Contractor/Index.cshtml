@@ -1,0 +1,212 @@
+ @{
+    ViewData["Title"] = "Contractor";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+        <!-- Card Body -->
+        <div class="card-body">
+        		<div>               
+        			
+        		</div>
+                <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Table Contractor</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="py-2">
+                            </div>
+                            <div class="table-responsive px-2">
+                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <table class="table table-bordered table-sm nowrap" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center"> No. Urut</th>
+                                            <th class="text-center">No Kontrak</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Title</th>
+                                            <th class="text-center">Zona</th>
+                                            <th class="text-center">Company</th>
+                                            <th class="text-center">Work Location</th>
+                                            <th class="text-center">Headcount</th>
+                                            <th class="text-center">Start Tender</th>
+                                            <th class="text-center">End Tender</th>
+                                            <th class="text-center">Start Date</th>
+                                            <th class="text-center">End Date</th>
+                                            <th class="text-center">Jumlah Amandemen</th>
+                                            <th class="text-center">Start Date Amandemen</th>
+                                            <th class="text-center">End Date Amandemen</th>
+                                            <th class="text-center">Nilai Kontrak</th>
+                                            <th class="text-center">Service Fee</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      @foreach ( var ctr in Model)
+                                      {
+                                        <tr>
+                                            <td></td>
+                                            <td>@ctr.contractNo</td>
+                                            <td>@ctr.Name</td>
+                                            <td>@ctr.Title</td>
+                                            <td>@ctr.Zona</td>
+                                            <td>@ctr.Company</td>
+                                            <td>@ctr.WorkLoc</td>
+                                            <td>@ctr.Headcount</td>
+                                            <td>@ctr.start_tender</td>
+                                            <td>@ctr.end_tender</td>
+                                            <td>@ctr.start_date</td>
+                                            <td>@ctr.end_date</td>
+                                            <td>@ctr.jml_amandemen</td>
+                                            <td>@ctr.start_date_amd</td>
+                                            <td>@ctr.end_date_amd</td>
+                                            <td>@ctr.nilai_kontrak</td>
+                                            <td>@ctr.service_fee</td>
+                                        </tr>
+                                      }                       
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+<style type="text/css">
+    .my-actions { margin: 0 2em; }
+    .order-1 { order: 1; }
+    .order-2 { order: 2; }
+    .order-3 { order: 3; }
+
+    .right-gap {
+      margin-right: auto;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      var contrtable = $('#dataTable').DataTable({
+        scrollX:true,
+        ordering : true,
+        autoWidth : true,
+        fixedColumns: {
+            left: 2,
+        },
+        columnDefs: [
+            {
+                className: 'select-checkbox',
+                targets: 0
+            },
+            { "targets": 1, visible: true}, //nocontr
+            { "targets": 2, visible: true}, //nama
+            { "targets": 3, visible: true}, //title
+            { "targets": 4, visible: true}, //zona
+            { "targets": 5, visible: false}, //comp
+            { "targets": 6 ,visible: false}, //workloc
+            { "targets": 7 ,visible:false}, //headcount
+            { "targets": 8, visible: true}, //start
+            { "targets": 9, visible: false}, //end
+            { "targets": 10, visible: false}, //start
+            { "targets": 11, visible: false}, //end
+            { "targets": 12, visible: false}, //jml amd
+            { "targets": 13, visible: false}, //start
+            { "targets": 14, visible: false}, //end
+            { "targets": 15, visible: false}, //nilai kontr
+            { "targets": 16, visible: false}, //fee
+          ],
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        },
+        buttons: [ 
+            {
+                extend: 'colvis',
+                collectionLayout: 'fixed columns',
+                collectionTitle: 'Column visibility control'
+            },
+            'excel',
+            {
+                extend: 'collection',
+                text: 'Actions',
+                buttons: [
+                    {
+                        text: 'Add',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = contrtable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[1];
+                            });
+                            Swal.fire({
+                              title: 'Do you want to Add Data?',
+                              showCancelButton: true,
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                window.location.href = '<?php echo base_url()?>Contractor/add/'
+                              } else if (result.isDenied) {
+                                Swal.close()
+                              }
+                            })
+                        }
+                    },
+                    {
+                        text: 'Edit',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = contrtable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[1];
+                            });
+                            Swal.fire({
+                              title: 'Do you want to edit?',
+                              showCancelButton: true,
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                window.location.href = '<?php echo base_url()?>Contractor/edit/'+ids
+                              } else if (result.isDenied) {
+                                Swal.close()
+                              }
+                            })
+                        }
+                    },
+                    
+                    {
+                        text: 'Delete',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = contrtable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[1];
+                            });
+                            Swal.fire({
+                              title: 'Do you want to delete?',
+                              showDenyButton: true,
+                              showCancelButton: true,
+                              confirmButtonText: 'Yes, Delete',
+                              denyButtonText: `No`,
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                window.location.href = '<?php echo base_url()?>Contractor/delete/'+ids
+                              } else if (result.isDenied) {
+                                Swal.close()
+                              }
+                            })
+                        }
+                    },
+
+                ]
+            }
+        ],
+        dom: 'Bfrtip',
+    });
+      });
+    
+</script>        
+        
+
+<script src="https://cdn.datatables.net/filters/1.6.5/js/dataTables.filters.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+

@@ -1,0 +1,1394 @@
+ @{
+    ViewData["Title"] = "Create OCF";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+        <!-- Card Body -->
+        <div class="card-body">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Create OCF</h6>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="post">
+                          <div class="container px-0">
+                            <ul class="nav nav-tabs">
+                              <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tab1">1. Requestor Data</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab2">2. Position Data</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab3">3. Justification</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab4">4. Role Profile</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab5" id="link-tab5">5. Review</a>
+                              </li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <!-- REQUESTOR DATA FORM -->
+                              <div class="tab-pane fade show active" id="tab1">
+                                <div class="row">
+                                <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Subject</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <input type="text"  class="form-control form-control-bot-border required" name="subject" placeholder="Enter subject" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Requestor</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>Requested By</label>
+                                                <input type="text" class="form-control form-control-bot-border required" name="empName" placeholder="Select Requestor" onclick="selectList()" required>
+                                                <label>Employee ID</label>                                 
+                                                <input type="text" class="form-control form-control-bot-border" name="empID"  readonly>
+                                                <label>Job Title</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empPos"  readonly>
+                                                <label>Division</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empDiv"  readonly>
+                                                <label>Department</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empDept"  readonly>
+                                                <label>Section</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empSec" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">OCF Information</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>OCF #</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="OCF_No" readonly>
+                                                <label>Date</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="CreatedDate" readonly>
+                                                <label>Subsidiaries</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empSubs" readonly>
+                                            </div>
+                                        </div>
+                                        <a href="#tab2" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+                              <!-- POSITION DATA FORM -->
+                              <div class="tab-pane fade" id="tab2">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Proposed Position Data</h6>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <label>Job Position Name</label>
+                                                <input type="text" class="form-control form-control-bot-border required" name="newPos" placeholder="Associate ....." required>
+                                                <label>Working Location</label>
+                                                <select class="form-control form-control-bot-border required" name="newWL" required>
+                                                    <option>Office</option>
+                                                    <option>Onshore</option>
+                                                    <option>Offshore</option>
+                                                </select>
+                                                <label>Working Schedule</label>
+                                                <select class="form-control form-control-bot-border required" name="newWS" required>
+                                                    <option>5:2</option>
+                                                    <option>6:3</option>
+                                                    <option>2:1</option>
+                                                    <option>2:2</option>
+                                                    <option>12:12</option>
+                                                    <option>14:7</option>
+                                                    <option>14:14</option>
+                                                    <option>Call out</option>
+                                                    <option>Others</option>
+                                                </select>
+                                                <label>Working City</label>
+                                                <select class="form-control form-control-bot-border required" name="newWC" required>
+                                                    <option>Jakarta</option>
+                                                    <option>Surabaya</option>
+                                                    <option>Sorong</option>
+                                                    <option>Gresik</option>
+                                                    <option>Lamongan</option>
+                                                    <option>Field Poleng</option>
+                                                    <option>Field Cepu</option>
+                                                    <option>Field Sukowati</option>
+                                                    <option>Rembang</option>
+                                                    <option>Tuban</option>
+                                                    <option>Bojonegoro</option>
+                                                    <option>Donggi Matindok</option>
+                                                    <option>Field Papua</option>
+                                                </select>
+                                                <label>Headcount</label>
+                                                <input type="number" class="form-control form-control-bot-border required" name="newCount" required>
+                                                <label>Grade </label><a onclick="showGrade()"><i class="fa fa-fw fa-info-circle" style="color: blue" title="Check for Grade Range"></i></a>
+                                                <select class="form-control form-control-bot-border required" name="newGrade" required>
+                                                    <option>A</option>
+                                                    <option>B</option>
+                                                    <option>C</option>
+                                                    <option>D</option>
+                                                    <option>E1</option>
+                                                    <option>E2</option>
+                                                    <option>F</option>
+                                                    <option>G</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Direct Report/Spv</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>Job Position</label>
+                                                <input type="hidden" name="DirID" value="<?= $FormData['DirID'] ?>">
+                                                <input type="text" class="form-control form-control-bot-border" name="DirPos" onclick="selectSPVList()"  placeholder="Select Direct Report/Spv Position">
+                                                <label>Direct Report Name</label>                                              
+                                                <input type="text" class="form-control form-control-bot-border" name="DirName"  readonly>
+                                                <label>Department</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="DirDept"  readonly>
+                                                <label>Division</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="DirDiv"  readonly>
+                                                <div class="btn-group py-2" data-toggle="buttons">
+                                                  <label class="btn btn-primary active">
+                                                    <input type="radio" name="cost_opt" id="cost_opt_cc" autocomplete="off"> Cost Center
+                                                  </label>
+                                                  <label class="btn btn-primary">
+                                                    <input type="radio" name="cost_opt" id="cost_opt_afe" autocomplete="off"> AFE
+                                                  </label>
+                                                </div>
+                                                <input type="text" class="form-control form-control-bot-border required" name="costCenter" required>
+                                            </div>
+                                        </div>
+                                        <a href="#tab3" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="tab3">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Justification</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>Note:</label>
+                                                <ul>
+                                                    <li>For Headcount Reduction / Addiction, please describe the workload changes as justification</li>
+                                                    <li>For Position's Attribute Changes, please describe the changes on roles and responsibility or business strategy as justification</li>
+                                                </ul>
+                                                <textarea class="form-control required" style="height: 150px" required name="Justification" placeholder="Enter Justification"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Attachment</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <input type="file" name="" value="Upload" class="btn btn-secondary">
+                                                <a href="#" class="btn btn-primary">Upload</a>
+                                            </div>
+                                            <div class="table-responsive px-2">
+                                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                    <table class="table table-bordered" id="fileTable" width="100%" cellspacing="0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>File Name</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="file-table">                  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#tab4" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="tab-pane fade" id="tab4">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3" id="Role">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Brief Role and Responsibility</h6>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <a href="#Role" class="btn btn-success my-3" onclick="addResponsibility()">
+                                                    <i class="fa fa-fw fa-plus"></i>
+                                                    Add Responsibility
+                                                </a>
+                                                <table id="respTable" class="display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Roles</th>
+                                                                <th>Description/Responsibilites</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Data will be dynamically added here -->
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3" id="Role">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Required Competency</h6>
+                                            </div>
+                                            <div class="card-body">
+
+                                                <a href="#Role" class="btn btn-success my-3" onclick="selectCompetency()">
+                                                    <i class="fa fa-fw fa-plus"></i>
+                                                    Add Competency
+                                                </a>
+                                                <table id="competencyTable" class="display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Technical Competency</th>
+                                                                <th>Skill Group</th>
+                                                                <th>Level</th>
+                                                                <th>Indicator</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Data will be dynamically added here -->
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3" id="edu">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Required Education</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <a href="#edu" class="btn btn-success my-3" onclick="addEducation()">
+                                                    <i class="fa fa-fw fa-plus"></i>
+                                                    Add Education
+                                                </a>
+                                                <table id="EducationTable" class="display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Degree</th>
+                                                                <th>Majoring</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Data will be dynamically added here -->
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                        <div class="card my-3" id="exp">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Required Experienced Background</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <a href="#exp" class="btn btn-success my-3" onclick="addExp()">
+                                                    <i class="fa fa-fw fa-plus"></i>
+                                                    Add Experience
+                                                </a>
+                                                <table id="ExpTable" class="display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Minimum Years</th>
+                                                                <th>Role / Job</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Data will be dynamically added here -->
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Required Skills/Certification</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <a href="#" class="btn btn-success my-3" onclick="addSkill()">
+                                                    <i class="fa fa-fw fa-plus"></i>
+                                                    Add Skill/Certification
+                                                </a>
+                                                <table id="SkillTable" class="display" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Type</th>
+                                                                <th>Certificate/License/Skill</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Data will be dynamically added here -->
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                        <a href="#tab5" class="btn btn-md btn-primary float-right saveDraftBtn">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+<!--Review Section -->
+                              <div class="tab-pane fade" id="tab5">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+
+                                        <h6 class="py-2">Review Your Organization Change Form Before Submit </h6>
+                                        <div class="card my-3">
+                                            <div class="card-body row mt-4">
+                                                <div class="col-md-12 col-xl-12 text-center mb-4">
+                                                    <h5>Organization Change Form</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Separator -->
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Requestor Data</h5>
+                                                    <hr>
+                                                </div>
+
+                                                <div class="col-md-12 col-xl-12">
+                                                    <label class="float-right">Date : <?= date('d F Y') ?></label>
+                                                </div>
+                                                <!-- Row 2 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">No OCF</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvNO"></div>
+                                                </div>
+                                                <!-- Row 3 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Subsidiaries</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvSubs"></div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <!-- Row 4 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Creator</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvCreator"></div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <!-- Row 4 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Job Position</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvCrPos"></div>
+                                                </div>
+                                                <div class="col-xl-6 mb-4"></div>
+                                                
+                                                <!-- Separator -->
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Position Data</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Position Title</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvTitle"></div>
+                                                </div>
+                                                <!-- Row 2 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Headcount</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvHC"></div>
+                                                </div>
+                                                <!-- Row 3 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Budget</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="RvCost"></div>
+                                                </div>
+                                                <!-- Row 4 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Location</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvWL"></div>
+                                                </div>
+
+                                                 <!-- Row 8 -->
+                                                <div class="col-md-12 col-xl-12 row mb-4">
+                                                    <div class="col-md-5 col-xl-2">Work Schedule</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvWS"></div>
+                                                </div>
+
+                                                 <!-- Row 7 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Direct Report</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvDirPos"></div>
+                                                </div>
+                                                 <!-- Row 5 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Department</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvDept"></div>
+                                                </div>
+                                                 <!-- Row 6 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Division</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvDiv"></div>
+                                                </div>
+
+                                                <!-- Separator -->
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Brief Justification</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12 text-justify" id="rvJus"></div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <!-- Separator -->
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Role Profile & Requirement</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12">
+                                                        <table class="table table-sm table-bordered" id="tb-resp">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="w-25">Roles</th>
+                                                                    <th>Description/Responsibilities</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Competency Requirement</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12"> 
+                                                        <table class="table table-sm table-bordered" id="tb-comp">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="w-25">Technical Competency</th>
+                                                                    <th>Skill Group</th>
+                                                                    <th>Level</th>
+                                                                    <th>Indicator</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody >
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Education Requirement</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12">
+                                                        <table class="table table-sm table-bordered" id="tb-edu">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="w-25">Degree</th>
+                                                                    <th>Majoring</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Experience Requirement</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12">
+                                                        <table class="table table-sm table-bordered" id="tb-exp">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="w-25">Minimum Years</th>
+                                                                    <th>Role/Job</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="valign-middle">
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Skills Requirement</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12">
+                                                        <table class="table table-sm table-bordered" id="tb-skill">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="w-25">Type</th>
+                                                                    <th>Certificate/License/Skill Name</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12 text-center">
+                                                    <a href="#" class="btn btn-primary"> Back </a>
+                                                    <a href="#Submit" class="btn btn-success submitBtn"> SUBMIT </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
+
+                        </form>
+                    </div>
+                </div>
+        </div>
+    <script type="text/javascript">
+    
+    $(document).ready(function() {
+
+        //Load File Datatable
+      $('#fileTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        },
+      });
+
+      //Load Responsibility Table
+      const resptable = JSON.parse('<?php echo $FormData['Responsibility']?>');
+      if(resptable.length > 0){
+        resptable.forEach((element, index) => {
+            var i = 0
+          element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
+        });
+      }
+
+      $('#respTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        data : resptable,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        }
+      });
+      $('#respTable').on('click', '.delete-btn', function() {
+              
+              var dynamicTable = $('#respTable').DataTable();
+              var row = $(this).closest('tr');
+              var id = $(this).data('id');
+              dynamicTable.row(row).remove().draw();
+
+      });
+
+
+      //Load Education Table
+      const edutable = JSON.parse('<?php echo $FormData['Education']?>');
+      if(edutable.length > 0){
+        edutable.forEach((element, index) => {
+            var i = 0
+          element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
+        });
+      }
+      $('#EducationTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        data : edutable,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        }
+      });
+      $('#EducationTable').on('click', '.delete-btn', function() {
+              
+              var dynamicTable = $('#EducationTable').DataTable();
+              var row = $(this).closest('tr');
+              var id = $(this).data('id');
+              dynamicTable.row(row).remove().draw();
+
+      });
+
+      //Load Competency Table
+      const comptable = JSON.parse('<?php echo $FormData['Competency']?>');
+      if(comptable.length > 0){
+        comptable.forEach((element, index) => {
+            var i = 0
+          element[4] = `<a href="#Role" data-id="`+element[4]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
+        });
+      }
+
+      $('#competencyTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        data : comptable,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        }
+      });
+      $('#competencyTable').on('click', '.delete-btn', function() {
+              
+              var dynamicTable = $('#competencyTable').DataTable();
+              var row = $(this).closest('tr');
+              var id = $(this).data('id');
+              dynamicTable.row(row).remove().draw();
+
+      });
+
+      //Load Experience Table
+      const exptable = JSON.parse('<?php echo $FormData['Experience']?>');
+      if(exptable.length > 0){
+        exptable.forEach((element, index) => {
+            var i = 0
+          element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
+        });
+      }
+
+
+      $('#ExpTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        data: exptable,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        }
+      });
+      $('#ExpTable').on('click', '.delete-btn', function() {
+              
+              var dynamicTable = $('#ExpTable').DataTable();
+              var row = $(this).closest('tr');
+              var id = $(this).data('id');
+              dynamicTable.row(row).remove().draw();
+
+      });
+
+      //Load Skill Table
+      const skilltable = JSON.parse('<?php echo $FormData['Skill']?>');
+      if(skilltable.length > 0){
+        skilltable.forEach((element, index) => {
+            var i = 0
+          element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
+        });
+      }
+
+
+      $('#SkillTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        data : skilltable,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        }
+      });
+      $('#SkillTable').on('click', '.delete-btn', function() {
+              
+              var dynamicTable = $('#SkillTable').DataTable();
+              var row = $(this).closest('tr');
+              var id = $(this).data('id');
+              dynamicTable.row(row).remove().draw();
+
+      });
+
+    });
+
+    var listRole = JSON.parse(JobRoles);
+
+    var tempKey =''
+    var OCF_id = '<?php echo $OCF_id ?>'
+    if (OCF_id != '0') {
+        tempKey = '<?php echo $tempKey; ?>'
+    }
+    $(".saveDraftBtn").click(function() {
+        var responsibilityTable = $('#respTable').DataTable();
+        var Responsibility = responsibilityTable.data().toArray(); 
+        
+        var educationTable = $('#EducationTable').DataTable();
+        var Education = educationTable.data().toArray();
+
+        var CompetencyTable = $('#competencyTable').DataTable();
+        var Competency = CompetencyTable.data().toArray();
+
+        var ExperienceTable = $('#ExpTable').DataTable();
+        var Experience = ExperienceTable.data().toArray();
+
+        var SkillTable = $('#SkillTable').DataTable();
+        var Skill = SkillTable.data().toArray();
+
+        var qualifyTable = $('#qualifyTable').DataTable();
+        var Qualification = qualifyTable.data().toArray();
+        var costType = '';
+        if ($('#cost_opt_cc').is(":checked")){
+
+            costType = 'CC'
+        }else{
+            costType = 'AFE'
+        }
+
+        var data = {
+            'subject': $('[name="subject"]').val(),
+            'status' : 'Draft',
+            'RequestorID' : $('[name="empID"]').val(),
+            'Code' : $('[name="OCF_No"]').val(),
+            'DirectPos' : $('[name="DirID"]').val(),
+            'PosTitle' : $('[name="newPos"]').val(),
+            'Headcount' : $('[name="newCount"]').val(),
+            'Grade' : $('[name="newGrade"]').val(),
+            'WorkLoc' : $('[name="newWL"]').val(),
+            'WorkSch' : $('[name="newWS"]').val(),
+            'WorkCity' : $('[name="newWC"]').val(),
+            'costType' : costType,
+            'costCenter' : $('[name="costCenter"]').val(),
+            'Justification' : $('[name="Justification"]').val(),
+            'Responsibility' : JSON.stringify(Responsibility),
+            'Education' : JSON.stringify(Education),
+            'Competency' : JSON.stringify(Competency),
+            'Experience' : JSON.stringify(Experience),
+            'Skill' : JSON.stringify(Skill),
+            'Qualification' : Qualification,
+            'CreatorID' : '<?php echo $this->session->userdata('id'); ?>',
+            'tempKey' : tempKey,
+        }
+        //console.log(data);
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/orgChange/insert",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+                    n = JSON.stringify(data)
+                    o = JSON.parse(n)
+                    var tempKey =o.data.tempKey;
+                    if (o.status == 2) {
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                    }else{
+                        window.location.href = '<?php echo base_url()?>TAD/orgChange/create/'+tempKey;    
+                    }
+                    
+                }
+            });
+    });
+
+    //Check Review
+    $("#link-tab5").click(function() {
+
+        if (checkInputs()) {
+            //$('#tab5').show();
+            var responsibilityTable = $('#respTable').DataTable();
+            var arrResponsibility = responsibilityTable.data().toArray();  
+
+            var educationTable = $('#EducationTable').DataTable();
+            var arrEducation = educationTable.data().toArray();
+
+            var competencyTable = $('#competencyTable').DataTable();
+            var arrCompetency = competencyTable.data().toArray();  
+
+            var experienceTable = $('#ExpTable').DataTable();
+            var arrExperience = experienceTable.data().toArray();
+
+            var skillTable = $('#SkillTable').DataTable();
+            var arrSkill = skillTable.data().toArray();
+
+
+            var qualifyTable = $('#qualifyTable').DataTable();
+            var Qualification = qualifyTable.data().toArray();
+            var costType = '';
+            var costName = '';
+            if ($('#cost_opt_cc').is(":checked")){
+
+                costType = 'CC'
+                costName = 'Cost Center'
+            }else{
+                costType = 'AFE'
+                costName = 'Authorization for Expenditure'
+            }
+            var data = {
+                'subject': $('[name="subject"]').val(),
+                'status' : 'Draft',
+                'RequestorID' : $('[name="empID"]').val(),
+                'Code' : $('[name="OCF_No"]').val(),
+                'DirectPos' : $('[name="DirID"]').val(),
+                'PosTitle' : $('[name="newPos"]').val(),
+                'Headcount' : $('[name="newCount"]').val(),
+                'Grade' : $('[name="newGrade"]').val(),
+                'WorkLoc' : $('[name="newWL"]').val(),
+                'WorkSch' : $('[name="newWS"]').val(),
+                'WorkCity' : $('[name="newWC"]').val(),
+                'costType' : costType,
+                'costCenter' : $('[name="costCenter"]').val(),
+                'Justification' : $('[name="Justification"]').val(),
+                'Responsibility' : JSON.stringify(arrResponsibility),
+                'Education' : JSON.stringify(arrEducation),
+                'Competency' : JSON.stringify(arrCompetency),
+                'Experience' : JSON.stringify(arrExperience),
+                'Skill' : JSON.stringify(arrSkill),
+                'Qualification' : Qualification,
+                'CreatorID' : '<?php echo $this->session->userdata('id'); ?>',
+                'tempKey' : tempKey,
+            }
+            $('#rvNO').text($('[name="OCF_No"]').val())
+            $('#rvSubs').text($('[name="empSubs"]').val())
+            $('#rvCreator').text($('[name="empName"]').val())
+            $('#rvCrPos').text($('[name="empPos"]').val())
+            
+
+            $('#rvTitle').text($('[name="newPos"]').val())
+            $('#rvHC').text($('[name="newCount"]').val())
+            $('#RvCost').text(costName+ ' - ' + $('[name="costCenter"]').val())
+
+            $('#rvDirPos').text($('[name="DirPos"]').val())
+            $('#rvDept').text($('[name="DirDept"]').val())
+            $('#rvDiv').text($('[name="DirDiv"]').val())
+            $('#rvJus').text($('[name="Justification"]').val())
+            var contentResp = '';
+            arrResponsibility.forEach((element, index) => {
+              contentResp = contentResp+`<tr><td>${element[0]}</td><td>${element[1]}</td></tr>`;
+            });
+            $("#tb-resp tbody").html(contentResp)
+
+            var contentComp = '';
+            arrCompetency.forEach((element, index) => {
+              contentComp = contentComp+`<tr><td class="w-25">${element[0]}</td><td>${element[1]}</td><td class="text-center">${element[2]}</td><td>${element[3]}</td></tr>`;
+            });
+
+            $("#tb-comp tbody").html(contentComp)
+
+            var contentEdu = '';
+            arrEducation.forEach((element, index) => {
+              contentEdu = contentEdu+`<tr><td>${element[0]}</td><td>${element[1]}</td></tr>`;
+            });
+
+            $("#tb-edu tbody").html(contentEdu)
+
+            var contentExp = '';
+            arrExperience.forEach((element, index) => {
+              contentExp = contentExp+`<tr><td>${element[0]}</td><td>${element[1]}</td></tr>`;
+            });
+
+            $("#tb-exp tbody").html(contentExp)
+
+            var contentSkill = '';
+            arrSkill.forEach((element, index) => {
+              contentSkill = contentSkill+`<tr><td>${element[0]}</td><td>${element[1]}</td></tr>`;
+            });
+
+            $("#tb-skill tbody").html(contentSkill)
+            
+        }else{
+            
+            alert('Some Required Fields are not filled!');
+        }
+    });
+
+    $(".submitBtn").click(function() {
+        if (checkInputs()) {
+            var responsibilityTable = $('#respTable').DataTable();
+            var Responsibility = responsibilityTable.data().toArray();
+            
+            var educationTable = $('#EducationTable').DataTable();
+            var Education = educationTable.data().toArray();
+
+            var competencyTable = $('#competencyTable').DataTable();
+            var Competency = competencyTable.data().toArray();  
+
+            var experienceTable = $('#ExpTable').DataTable();
+            var Experience = experienceTable.data().toArray();
+
+            var skillTable = $('#SkillTable').DataTable();
+            var Skill = skillTable.data().toArray();
+
+            var qualifyTable = $('#qualifyTable').DataTable();
+            var Qualification = qualifyTable.data().toArray();
+            var costType = '';
+            if ($('#cost_opt_cc').is(":checked")){
+
+                costType = 'CC'
+            }else{
+                costType = 'AFE'
+            }
+
+            var data = {
+                'subject': $('[name="subject"]').val(),
+                'status' : 'Routing',
+                'RequestorID' : $('[name="empID"]').val(),
+                'Code' : $('[name="OCF_No"]').val(),
+                'DirectPos' : $('[name="DirID"]').val(),
+                'PosTitle' : $('[name="newPos"]').val(),
+                'Headcount' : $('[name="newCount"]').val(),
+                'Grade' : $('[name="newGrade"]').val(),
+                'WorkLoc' : $('[name="newWL"]').val(),
+                'WorkSch' : $('[name="newWS"]').val(),
+                'WorkCity' : $('[name="newWC"]').val(),
+                'costType' : costType,
+                'costCenter' : $('[name="costCenter"]').val(),
+                'Justification' : $('[name="Justification"]').val(),
+                'Responsibility' : JSON.stringify(Responsibility),
+                'Education' : JSON.stringify(Education),
+                'Competency' : JSON.stringify(Competency),
+                'Experience' : JSON.stringify(Experience),
+                'Skill' : JSON.stringify(Skill),
+                'Qualification' : Qualification,
+                'CreatorID' : '<?php echo $this->session->userdata('id'); ?>',
+                'tempKey' : tempKey,
+            }
+            //console.log(data);
+            $.ajax({
+                    url: "<?php echo base_url()?>TAD/orgChange/submit", 
+                    type: "POST",
+                    dataType: "json",
+                    data: data,
+                    success: function(data) {
+                        n = JSON.stringify(data)
+                        o = JSON.parse(n)
+                        if (o.status == 2) {
+                            Swal.fire({ 
+                              title: 'Update Status',
+                              html: o.msg,
+                              showCloseButton: false,
+                            }).then((result) => {
+                              if (result.isConfirmed) {
+                                
+                                window.location.href = '<?php echo base_url()?>TAD/orgChange';   
+                              }
+                            })
+                            
+                        }else{
+                            Swal.fire({
+                              title: 'Update Status',
+                              html: o.msg,
+                              showCloseButton: true,
+                            })
+                        }
+                        
+                    }
+                });
+        }else{
+           Swal.fire({
+             title: 'Submit Error',
+             html: 'Some Data Requireed Before Submit OCF',
+             showCloseButton: true,
+           }); 
+        }
+    });
+    
+</script>
+
+<script type="text/javascript">
+    function selectCompetency(){
+        var dynamicTable = $('#competencyTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+
+        $.ajax({
+                url: '/Competency/GetCompetency',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let tableHtml = "<table id='compTable' class='table table-sm table-bordered small valign-middle'>";
+                     tableHtml += "<thead><tr><th style='width:10%'>Competency</th><th style='width:10%' >Skill Group</th><th>Sub Skill Group</th><th>Level</th><th style='width:50%' >Indicator</th><th>Action</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.name + "</td>";
+                        tableHtml += "<td>" + row.skill_group + "</td>";
+                        tableHtml += "<td>" + row.sub_skill_group + "</td>";
+                        tableHtml += "<td>" + row.level + "</td>";
+                        tableHtml += "<td>" + row.indicator + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                    });
+                     tableHtml += "</tbody></table>";
+                     Swal.fire({
+                       title: 'Competency List',
+                       html: tableHtml,
+                       width : 1500,
+                       showCloseButton: true,
+                     })
+
+                     $('#compTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       responsive : true,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+
+                     var currentDate = new Date(); // Current date
+                     var currentYear = currentDate.getFullYear(); // Get the current year
+
+                     $('#compTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].id == id) {
+                                    var resultArr = [data[key].name,data[key].skill_group,data[key].level,data[key].indicator,`<a href="#competencyTable" data-id="${lastRow+1}" class="btn btn-danger delete-btn btn-sm">Remove</a>`]
+                                    dynamicTable.row.add(resultArr).draw();
+                                 Swal.close()
+                                 break;
+                               }
+                             }
+
+                         });
+
+                }
+        });
+    }
+
+    function selectList() {
+        $.ajax({
+            url: '/OCF/GetPosition',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                let tableHtml = "<table class='table table-sm table-bordered small' id='positionTable'>";
+                    tableHtml += "<thead><tr><th>ID Position</th><th>Job Position</th><th>Employee Name</th><th>Action</th></tr></thead>";
+                    tableHtml += "<tbody>";
+                    data.forEach (function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.ID_Position + "</td>";
+                        tableHtml += "<td>" + row.Position + "</td>";
+                        tableHtml += "<td>" + row.Name + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.ID_Position + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                    });
+                    tableHtml += "</tbody></table>";
+                     Swal.fire({
+                       title: 'Select Requestor',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     });
+
+                      $('#positionTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+
+            }
+        });
+    }
+
+   function selectSPVList(input){
+        $.ajax({
+                url: '/OCF/GetPosition',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let tableHtml = "<table class='table table-sm table-bordered small' id='posisiTable'>";
+                     tableHtml += "<thead><tr><th>ID Position</th><th>Job Position</th><th>Employee Name</th><th>Action</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.ID_Position + "</td>";
+                        tableHtml += "<td>" + row.Position + "</td>";
+                        tableHtml += "<td>" + row.Name + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.ID_Position + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                     });
+                     tableHtml += "</tbody></table>";
+                     Swal.fire({
+                       title: 'Select Direct/SPV Position',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+
+                     $('#posisiTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+
+                     
+                     $('#positionTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].ID_Position == id) {
+                                 $('[name="empName"]').val(data[key].Name);
+                                 $('[name="empID"]').val(data[key].Person_Id);
+                                 $('[name="empPos"]').val(data[key].Position);
+                                 $('[name="empDiv"]').val(data[key].Divisi);
+                                 $('[name="empDept"]').val(data[key].Departemen);
+                                 $('[name="empSec"]').val(data[key].Section);
+                                 var DirectID = data[key].ID_Position_Atasan;
+                                    for (var key2 in data) {
+                                        if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
+
+                                            $('[name="DirID"]').val(data[key2].ID_Position);
+                                            $('[name="DirPos"]').val(data[key2].Position);
+                                            $('[name="DirName"]').val(data[key2].Name);
+                                            $('[name="DirDiv"]').val(data[key2].Divisi);
+                                            $('[name="DirDept"]').val(data[key2].Departemen);
+                                            $('[name="costCenter"]').val(data[key2].Cost_Center_Posisi);
+                                            $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
+                                            $('[name="empSubs"]').val(data[key].Company_Name);
+                                        }
+                                    }
+                                 Swal.close()
+                                 break;
+                               }
+                             }
+
+                         });
+
+
+                }
+        });
+    }
+
+    async function addResponsibility() {
+    $.ajax({
+        url: '/OCF/GetRoles',
+        type: 'GET',
+        dataType: 'json',
+        success: async function (data) {
+            let listOption = '';
+            data.forEach(function (row) {
+                listOption += `<option value="${row.verb}">${row.verb}</option>`;
+            });
+
+            var dynamicTable = $('#respTable').DataTable();
+            var lastRow = dynamicTable.row().count();
+            console.log(lastRow);
+
+            const { value: formValues } = await Swal.fire({
+                title: 'Add Responsibility inputs',
+                html: '<div class="table-responsive px-2">' +
+                    '<div class="text-sm-left">' +
+                    '<label>Roles</label>' +
+                    '<select name="roles" id="swal-verb" class="form-control">' +
+                    listOption +
+                    '</select>' +
+                    '<label>Descriptions</label>' +
+                    '<input type="text" name="desc" id="swal-desc" class="form-control">' +
+                    '</div>' +
+                    '</div>',
+                focusConfirm: false,
+                preConfirm: () => {
+                    return [
+                        document.getElementById('swal-verb').value,
+                        document.getElementById('swal-desc').value,
+                        `<a href="#Role" data-id="${lastRow + 1}" class="btn btn-danger delete-btn btn-sm">Remove</a>`
+                    ]
+                }
+            })
+
+            if (formValues) {
+                dynamicTable.row.add(formValues).draw();
+            }
+        }
+    });
+}
+
+    async function addEducation(){
+        let listOption ='';
+        
+        var degree = ['SMA/SMK','Diploma I/II','Diploma III','Diploma IV','S1 - Sarjana','S2 - Magister','S3 - Doktoral']
+        degree.forEach(row => {
+          listOption += `<option value="${row}">${row}</option>`;
+        });
+
+        var dynamicTable = $('#EducationTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+        //console.log(lastRow);
+
+        const { value: formValues } = await Swal.fire({
+          title: 'Add Education Requirement',
+          html: '<div class="table-responsive px-2">'+
+                  '<div class="text-sm-left">'+
+                    '<label>Roles</label>'+
+                    '<select name="roles" id="swal-degree" class="form-control">'+
+                    listOption+
+                    '</select>'+
+                    '<label>Majoring</label>'+
+                    '<input type="text" name="desc" id="swal-major" class="form-control">'+
+                  '</div>'+
+              '</div>',
+          focusConfirm: false,
+          preConfirm: () => {
+            return [
+              document.getElementById('swal-degree').value,
+              document.getElementById('swal-major').value,
+              `<a href="#edu" data-id="${lastRow+1}" class="btn btn-danger delete-btn btn-sm">Remove</a>`
+            ]
+          }
+        })
+
+        if (formValues) {
+
+            dynamicTable.row.add(formValues).draw();
+        }
+    }
+
+     async function addExp(){
+        let listOption ='';
+        
+        var exp = ['0 Years','1 Years','2-5 Years','5-10 Years','>10 Years']
+        exp.forEach(row => {
+          listOption += `<option value="${row}">${row}</option>`;
+        });
+
+        var dynamicTable = $('#ExpTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+        //console.log(lastRow);
+
+        const { value: formValues } = await Swal.fire({
+          title: 'Add Experience Requirement',
+          html: '<div class="table-responsive px-2">'+
+                  '<div class="text-sm-left">'+
+                    '<label>Years of Experience</label>'+
+                    '<select name="roles" id="swal-years" class="form-control">'+
+                    listOption+
+                    '</select>'+
+                    '<label>Role/Job</label>'+
+                    '<input type="text" name="desc" id="swal-major" class="form-control">'+
+                  '</div>'+
+              '</div>',
+          focusConfirm: false,
+          preConfirm: () => {
+            return [
+              document.getElementById('swal-years').value,
+              document.getElementById('swal-major').value,
+              `<a href="#exp" data-id="${lastRow+1}" class="btn btn-danger delete-btn btn-sm">Remove</a>`
+            ]
+          }
+        })
+
+        if (formValues) {
+
+            dynamicTable.row.add(formValues).draw();
+        }
+    }
+
+    async function addSkill(){
+        let listOption ='';
+        
+        var type = ['Skills','Certification','Professional License']
+        type.forEach(row => {
+          listOption += `<option value="${row}">${row}</option>`;
+        });
+
+        var dynamicTable = $('#SkillTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+        //console.log(lastRow);
+
+        const { value: formValues } = await Swal.fire({
+          title: 'Add Skills Requirement',
+          html: '<div class="table-responsive px-2">'+
+                  '<div class="text-sm-left">'+
+                    '<label>Type</label>'+
+                    '<select name="roles" id="swal-type" class="form-control">'+
+                    listOption+
+                    '</select>'+
+                    '<label>Role/Job</label>'+
+                    '<input type="text" name="desc" id="swal-skills" class="form-control">'+
+                  '</div>'+
+              '</div>',
+          focusConfirm: false,
+          preConfirm: () => {
+            return [
+              document.getElementById('swal-type').value,
+              document.getElementById('swal-skills').value,
+              `<a href="#SkillTable" data-id="${lastRow+1}" class="btn btn-danger delete-btn btn-sm">Remove</a>`
+            ]
+          }
+        })
+
+        if (formValues) {
+
+            dynamicTable.row.add(formValues).draw();
+        }   
+    }
+   
+    function showGrade(){
+        $.ajax({
+                url: '/Grade/GetGrade',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let tableHtml = "<table class='table table-sm table-bordered small'>";
+                     tableHtml += "<thead><tr><th>Grade</th><th>Nomenklatur</th><th>Kompetensi</th><th>Work Exp</th><th>Min Salary</th><th>Mid Salary</th><th>Max Salary</th><th>Min Education</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(function(row){
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.id + "</td>";
+                        tableHtml += "<td>" + row.nomenklatur + "</td>";
+                        tableHtml += "<td>" + row.kompetensi + "</td>";
+                        tableHtml += "<td>" + row.workExp + "</td>";
+                        tableHtml += "<td>" + row.minSalary + "</td>";
+                        tableHtml += "<td>" + row.midSalary + "</td>";
+                        tableHtml += "<td>" + row.maxSalary + "</td>";
+                        tableHtml += "<td>" + row.minEdu + "</td>";
+                        tableHtml += "</tr>";
+                     });
+                     tableHtml += "</tbody></table>";
+
+                     Swal.fire({
+                       title: 'Grade Matriks',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+                }
+            });
+    }
+
+</script>

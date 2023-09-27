@@ -1,0 +1,711 @@
+ @{
+    ViewData["Title"] = "Create MRF";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+<h1>@ViewData["Title"]</h1>
+        <div class="card-body">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Create MRF</h6>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="post">
+                          <div class="container px-0">
+                            <ul class="nav nav-tabs">
+                              <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tab1">1. Requestor Data</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab2">2. Position Data</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab3">3. Justification</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab4" id="link-tab4">4. Review</a>
+                              </li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane fade show active" id="tab1">
+                                <div class="row">
+                                    <!-- Requestor SEction -->
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Requestor</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <input type="text" class="form-control form-control-bot-border required" name="empName" placeholder="Select Requestor" onclick="selectReq()" required>
+                                                <label>Employee ID</label>                                 
+                                                <input type="text" class="form-control form-control-bot-border" name="empID" readonly>
+                                                <label>Job Title</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empPos" readonly>
+                                                <label>Division</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empDiv" readonly>
+                                                <label>Department</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empDept" readonly>
+                                                <label>Section</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empSec" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">MRF Information</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>MRF #</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="MRF_No" readonly>
+                                                <label>Date</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="CreatedDate" readonly>
+                                                <label>Subsidiaries</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empSubs" readonly>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+                              <!-- position section -->
+                              <div class="tab-pane fade" id="tab2">
+                              <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3" id="Role">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Position Data</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive px-2">
+                                                    <div class="row text-sm-left">
+                                                    <!-- Type -->
+                                                    <div class="col-lg-12 mb-4">
+                                                        <div class="card bg-white shadow">
+                                                            <h5 style="margin: 10px;">Proposed Contract Data</h5> 
+                                                            <hr class="sidebar-head my-0 bg-white"></hr>
+                                                            <div class="row justify-content-md-right text-sm-left" style="margin: 10px;">
+                                                                <div class="col-md-6">
+                                                                    <label>Type</label>
+                                                                    <select class="form-control" name="type" id="type">
+                                                                        <option value="New">New Hire</option>
+                                                                        <option value="Extension">Extend</option>
+                                                                        <option value="Replacement">Replacement</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="row col-md-6">
+                                                                    <div class="col-md-6">
+                                                                        <label>Start Date</label>
+                                                                        <input type="date" class="form-control required" name="start" required>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label>End Date</label>
+                                                                        <input type="date" class="form-control required" name="end" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Position -->
+                                                    <div class="col-lg-6 mb-4">
+                                                       <div class="card bg-white shadow">
+                                                           <h5 style="margin: 10px;">Position Data</h5> 
+                                                           <hr class="sidebar-head my-0 bg-white"></hr>
+                                                           <div class="row justify-content-md-right text-sm-left" style="margin: 10px;">
+                                                                <div class="col-md-5 py-2">TAD Position Title</div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border required" name="posTitle" placeholder="Select Position" list="requestor"  onclick="selectPosition()" required>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Position ID
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="posID" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Previous/Current TAD
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="prevTAD" readonly>
+                                                                </div>
+
+                                                                <div class="col-sm-5 py-2">
+                                                                    Previous/Current TAD Age
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="prevAge" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Direct Supervisor Name
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="DirName" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Direct Supervisor Title
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="DirPos" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Division
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="Division" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Department
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="Dept" readonly>
+                                                                </div>
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Preview MRF -->
+                                                    <div class="col-lg-6 mb-4">
+                                                        <div class="card bg-white shadow">
+                                                            <h5 style="margin: 10px;">Info MRF</h5> 
+                                                            <hr class="sidebar-head my-0 bg-white"></hr>
+                                                            <div class="row justify-content-md-right text-sm-left" style="margin: 10px;">
+                                                                <div class="col-sm-5 py-2">
+                                                                    Previous MRF#
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="prevMRF" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Previous/Current Period
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="prevPeriod" readonly>
+                                                                </div><div class="col-sm-5 py-2">
+                                                                    Performance Review
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <a href="#" onclick="perfReview()">Recommended (View)</a>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Work Location
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="workLoc" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Working Schedule
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="workSchedule" readonly>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Work Term
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <select class="form-control" name="workTerm">
+                                                                        <option value="monthly">Monthly</option>
+                                                                        <option value="daily">Daily</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    ABO/ABI
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <select class="form-control" name="ABO_ABI">
+                                                                        <option value="ABO">ABO</option>
+                                                                        <option value="ABI">ABI</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-5 py-2">
+                                                                    Cost Center
+                                                                </div>
+                                                                <div class="col-sm-7 py-2">
+                                                                    <input type="text" class="form-control form-control-bot-border" name="costCenter" value="" readonly>
+                                                                </div>
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                        <a href="#" class="btn btn-md btn-outline-primary " id="">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="tab-pane fade" id="tab3">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Justification</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>Note:</label>
+                                                <ul>
+                                                    <li>Please describe the workload changes as justification</li>
+                                                </ul>
+                                                <textarea class="form-control required" style="height: 150px" name="Justification" placeholder="Enter Justification" required="" value=""></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Attachment</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <input type="file" name="" value="Upload" class="btn btn-secondary">
+                                                <a href="#" class="btn btn-primary">Upload</a>
+                                            </div>
+                                            <div class="table-responsive px-2">
+                                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>File Name</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="file-table">                  
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+                              <!-- Role Profile section -->
+                              
+                        <!--Review Section -->
+                              <div class="tab-pane fade" id="tab4">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-body row mt-4">
+                                                <div class="col-md-12 col-xl-12 text-center mb-4">
+                                                    <h5>Manpower Requisite Form</h5>
+                                                    <hr>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12">
+                                                    <label class="float-right">Date : <?= date('d F Y') ?></label>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Requestor Data</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 2 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">No MRF</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvNO"></div>
+                                                </div>
+                                                <!-- Row 3 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Subsidiaries</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvSubs"></div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <!-- Row 4 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Creator</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvCreator"></div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <!-- Row 4 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Job Position</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvCrPos"></div>
+                                                </div>
+                                                <div class="col-xl-6 mb-2"></div>
+                                                
+                                                <!-- Separator -->
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Position Data</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Position Title</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvTitle"></div>
+                                                </div>
+                                                <div class="col-xl-6 col-md-6"></div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Division</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDiv"></div>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-6 col-xl-6 row mb-4">
+                                                    <div class="col-md-5 col-xl-4">Department</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDept"></div>
+                                                </div>
+                                                 <!-- Row 7 -->
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Direct Report</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDirPos"></div>
+                                                </div>
+                                                <div class="col-xl-6 col-md-6"></div>
+                                                 <!-- Row 5 -->
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Division</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDirDept"></div>
+                                                </div>
+                                                 <!-- Row 6 -->
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Department</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDirDiv"></div>
+                                                </div>
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Previous MRF</h5>
+                                                    <hr>
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">MRF Type</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvType">Extend</div>
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Prev MRF</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvPrevMrf"></div>
+                                                </div>
+                                                 <!-- Row 6 -->
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">TAD Name</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvPrevTad"></div>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>MRF Contract Details</h5>
+                                                    <hr>
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Start Date</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvStart"></div>
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">End Date</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvEnd"></div>
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Duration</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDur"></div>
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Working Location</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvWL">Extend</div>
+                                                </div>
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Working Schedule</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvWS">Extend</div>
+                                                </div>
+
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Budget Type</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvBudget">ABO - Monthly</div>
+                                                </div>
+
+                                                <div class="col-md-6 col-xl-6 row">
+                                                    <div class="col-md-5 col-xl-4">Cost Center</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvCost">HZN10111</div>
+                                                </div>
+                                                <!-- Separator -->
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5>Brief Justification</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12 text-justify" id="rvJus">
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <br>
+
+                                            </div>
+                                        </div>
+                                                <div class="col-xl-12 text-center">
+                                                    <a href="#" class="btn btn-primary"> Back </a>
+                                                    <a href="#Submit" class="btn btn-success submitBtn"> SUBMIT </a>
+                                                </div>
+                                    </div>
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
+
+                        </form>
+                    </div>
+                </div>
+        </div>
+<script type="text/javascript">
+    function perfReview(){
+        Swal.fire({
+          title: 'Performance Review',
+          html: 'MRF No : xxx',
+          width : 1200,
+          showCloseButton: true,
+        })
+    }
+
+    function selectReq(){
+        let tableHtml = "<table class='table table-sm table-bordered small' id='tablePosition'>";
+            tableHtml += "<thead><tr><th>ID Position</th><th>Job Position</th><th>Employee Name</th><th>Action</th></tr></thead>";
+            tableHtml += "<tbody>";
+            tableHtml += '<tr><td></td><td></td><td></td><td><a class="btn btn-primary select-button">Select</a></td></tr>';
+            tableHtml += "</tbody></table>";
+
+                     Swal.fire({
+                       title: 'Select Requestor',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+
+                     $('#tablePosition').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+        
+    }
+
+    function selectPosition(){
+        var dynamicTable = $('#posTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+
+        let tableHtml = "<table id='posisiTable' class='table table-sm table-bordered small valign-middle nowrap'>";
+            tableHtml += "<thead><tr><th style='width:10%'>ID Position</th><th style='width:20%' >Position Title</th><th>Direct Supervisor</th><th>Direktorat</th><th>Division</th><th>Pers Area</th><th>Action</th></tr></thead>";
+            tableHtml += "<tbody>";
+            tableHtml += `<tr><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="#" class="btn btn-info select-button" data-id="${row.Id_Position}">Select</a></td></tr>`;
+            tableHtml += "</tbody></table>";
+                     Swal.fire({
+                       title: 'Position List',
+                       html: tableHtml,
+                       width : 1200,
+                       showCloseButton: true,
+                     })
+
+                     $('#posisiTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       responsive : true,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+    }
+
+    $(".saveDraftBtn").click(function() {
+        var tempKey =''
+        var MRF_id = '<?php echo $MRF_id ?>'
+        if (MRF_id != '0') {
+            tempKey = '<?php echo $tempKey; ?>'
+        }
+        var data = {
+            'mrf_code' : $('[name="MRF_No"]').val(),
+            'status' : 'Draft',
+            'mrf_type' : $('[name="type"]').val(),
+            'Id_position' : $('[name="posID"]').val(),
+            'workTerm' : $('[name="workTerm"]').val(),
+            'ABI_ABO' : $('[name="ABO_ABI"]').val(),
+            'prev_mrf' : $('[name="prevMRF"]').val(),
+            'justification' : $('[name="Justification"]').val(),
+            'start_date' : $('[name="start"]').val(),
+            'end_date' : $('[name="end"]').val(),
+            'RequestorID' : $('[name="empID"]').val(),
+            'created_by' : '<?php echo $this->session->userdata('id'); ?>',
+            'tempKey' : tempKey,
+        }
+        //alert(JSON.stringify(data));
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/MRF/insert",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+                    n = JSON.stringify(data)
+                    o = JSON.parse(n)
+                    var tempKey =o.data.tempKey;
+                    if (o.status == 2) {
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                        window.location.href = '<?php echo base_url()?>TAD/MRF/create/'+tempKey; 
+                    }else{
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                           
+                    }
+                    
+                }
+            });
+    });
+
+    $(".submitBtn").click(function() {
+        var tempKey =''
+        var MRF_id = '<?php echo $MRF_id ?>'
+        if (MRF_id != '0') {
+            tempKey = '<?php echo $tempKey; ?>'
+        }
+        if (checkInputs()) {
+            var data = {
+            'mrf_code' : $('[name="MRF_No"]').val(),
+            'status' : 'Routing',
+            'mrf_type' : $('[name="type"]').val(),
+            'id_position' : $('[name="posID"]').val(),
+            'workTerm' : $('[name="workTerm"]').val(),
+            'ABI_ABO' : $('[name="ABO_ABI"]').val(),
+            'prev_mrf' : $('[name="prevMRF"]').val(),
+            'justification' : $('[name="Justification"]').val(),
+            'start_date' : $('[name="start"]').val(),
+            'end_date' : $('[name="end"]').val(),
+            'RequestorID' : $('[name="empID"]').val(),
+            'created_by' : '<?php echo $this->session->userdata('id'); ?>',
+            'tempKey' : tempKey,
+        }
+        //alert(JSON.stringify(data));
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/MRF/submit",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+                    n = JSON.stringify(data)
+                    o = JSON.parse(n)
+                    var tempKey =o.data.tempKey;
+                    if (o.status == 2) {
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                        window.location.href = '<?php echo base_url()?>TAD/MRF'; 
+                    }else{
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                         
+                    }
+                    
+                }
+            });
+        }else{
+           Swal.fire({
+             title: 'Submit Error',
+             html: 'Some Data Requireed Before Submit OCF',
+             showCloseButton: true,
+           }); 
+        }
+    });
+
+    //Check Review
+    $("#link-tab4").click(function() {
+        if (checkInputs()) {
+            console.log('test')
+            var data = {
+                'mrf_code' : $('[name="MRF_No"]').val(),
+                'status' : 'Draft',
+                'mrf_type' : $('[name="type"]').val(),
+                'Id_position' : $('[name="posID"]').val(),
+                'workTerm' : $('[name="workTerm"]').val(),
+                'ABI_ABO' : $('[name="ABO_ABI"]').val(),
+                'prev_mrf' : $('[name="prevMRF"]').val(),
+                'justification' : $('[name="Justification"]').val(),
+                'start_date' : $('[name="start"]').val(),
+                'end_date' : $('[name="end"]').val(),
+                'RequestorID' : $('[name="empID"]').val(),
+                'created_by' : '<?php echo $this->session->userdata('id'); ?>',
+            }
+            $('#rvNO').text($('[name="MRF_No"]').val())
+            $('#rvSubs').text($('[name="empSubs"]').val())
+            $('#rvCreator').text($('[name="empName"]').val())
+            $('#rvCrPos').text($('[name="empPos"]').val())
+            
+
+            $('#rvTitle').text($('[name="posTitle"]').val())
+            $('#RvCost').text($('[name="ABO_ABI"]').val()+ ' - ' + $('[name="workTerm"]').val())
+
+            $('#rvDiv').text($('[name="Division"]').val())
+            $('#rvDept').text($('[name="Dept"]').val())
+            $('#rvDirPos').text($('[name="DirPos"]').val())
+            $('#rvDirDept').text($('[name="Division"]').val())
+            $('#rvDirDiv').text($('[name="Dept"]').val())
+            $('#rvJus').text($('[name="Justification"]').val())
+
+            $('#rvType').text($('[name="type"]').val())
+            $('#rvPrevTad').text($('[name="prevTAD"]').val())
+            $('#rvPrevMrf').text($('[name="prevMRF"]').val())
+            $('#rvStart').text($('[name="start"]').val())
+            $('#rvEnd').text($('[name="end"]').val())
+
+            $('#rvWL').text($('[name="workLoc"]').val())
+            $('#rvWS').text($('[name="workSchedule"]').val())
+            $('#rvBudget').text($('[name="ABO_ABI"]').val()+' - '+$('[name="workTerm"]').val())
+            $('#rvCost').text($('[name="costCenter"]').val())
+            
+            function differenceInMonths(date1, date2) {
+              const monthDiff = date1.getMonth() - date2.getMonth();
+              const yearDiff = date1.getYear() - date2.getYear();
+
+              return monthDiff + yearDiff * 12;
+            }
+
+            // June 5, 2022
+            const date1 = new Date($('[name="end"]').val());
+
+            // March 17, 2021
+            const date2 = new Date($('[name="start"]').val());
+
+            const difference = differenceInMonths(date1, date2);
+
+           $('#rvDur').text(difference+ ' Months')
+
+        }else{
+            
+            alert('Some Required Fields are not filled!');
+        }
+    });
+
+</script>

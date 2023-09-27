@@ -1,0 +1,296 @@
+ @{
+    ViewData["Title"] = "Approval MRF";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+<h1>@ViewData["Title"]</h1>
+        
+        <!-- Card Body -->
+        <div class="card-body">
+                <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Table Approval MRF</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="py-2">
+                            </div>
+                            <div class="table-responsive px-2">
+                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <table class="table table-bordered table-sm nowrap" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>  
+                                            <th class="text-center">Status</th>
+                                            <th class="text-center">MRF No</th>
+                                            <th class="text-center">Type</th>    
+                                            <th class="text-center">Position</th>
+                                            <th class="text-center">Duration</th>
+                                            <th class="text-center">Created By</th>
+                                            <th class="text-center">Approver</th>
+                                            <th class="text-center">Last Change</th>
+                                            <th class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">
+                                                <a class="btn btn-info btn-sm" href="#" onclick="showApprove()">View</a>
+                                            </td>
+                                        </tr>               
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      var aprMrftable = $('#dataTable').DataTable({
+        scrollX:true,
+        ordering : true,
+        autoWidth : true,
+        fixedColumns: {
+            left: 2,
+        },
+        columnDefs: [
+            {
+                className: 'select-checkbox',
+                targets: 0
+            },
+            { "targets": 1, visible: true}, //status
+            { "targets": 2, visible: true}, //subject
+            { "targets": 3, visible: true}, //type
+            { "targets": 4, visible: true}, //code OCF
+            { "targets": 5, visible: false}, //position title
+            { "targets": 6 ,visible: false}, //headcount
+            { "targets": 7 ,visible:false}, //direct supervisor
+            { "targets": 8 ,visible:false}, //direct supervisor
+            //{ "targets": 9 ,visible:false}, //direct supervisor
+          ],
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        },
+        buttons: [ 
+            {
+                extend: 'colvis',
+                collectionLayout: 'fixed columns',
+                collectionTitle: 'Column visibility control'
+            },
+            'excel',
+            {
+                extend: 'collection',
+                text: 'View',
+                buttons: [
+                    {
+                        text: 'View',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = aprMrftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[12];
+                            });
+                            showApprove(ids)
+                        }
+                    },
+                   
+                    
+                    ]
+            }
+        ],
+        dom: 'Bfrtip',
+    });
+      });
+    
+</script>
+
+<script type="text/javascript">
+    function showApprove() {
+       
+                     Swal.fire({
+                       title: 'Approval MRF',
+                       showDenyButton: true,
+                       showCancelButton: true,
+                       confirmButtonText: 'Approve',
+                       denyButtonText: 'Reject',
+                       customClass: {
+                         actions: 'my-actions',
+                         cancelButton: 'order-1 right-gap',
+                         confirmButton: 'order-2 btn-success',
+                         denyButton: 'order-3',
+
+                       },
+                       html: 
+                            '<div class="card my-3 text-left">'+
+                                '<div class="card-body row mt-4">'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Requestor Data</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12">'+
+                                        `<label class="float-right">Date :  </label>`+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">No MRF</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9"></div>`+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Type MRF</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Subsidiaries</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvSubs"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Creator</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvCreator"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Job Position</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvCrPos"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Position Data</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Position Title</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvTitle"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Division</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDiv"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Department</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-12 mb-4"></div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Direct Report</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDirPos"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Row 5 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Division</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDiv"></div>`+
+                                    '</div>'+
+                                     '<!-- Row 6 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Department</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>MRF Contract Detail</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Start Date</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">End Date</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Durasi</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Location</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvWL"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 5 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Work Schedule</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="newWS"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 6 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Budget Type</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="RvCost"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 5 -->'+
+                                    '<div class="col-md-5 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Cost Center</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvCost"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Brief Justification</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        `<div class="col-md-12 col-xl-12 text-justify" id="rvJus"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6"></div>'+
+                                    
+                                '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="col-xl-12 text-left py-4">'+
+                                '<label>Comments</label>'+
+                                '<input type="text" id="comments" class="form-control" placeholder="Remarks">'+
+                            '</div>',
+                        width : 1200,
+                        
+                     })
+    }
+                
+</script>
+
+<script src="https://cdn.datatables.net/filters/1.6.5/js/dataTables.filters.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+<script src="~/assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>

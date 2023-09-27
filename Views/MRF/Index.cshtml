@@ -1,0 +1,532 @@
+ @{
+    ViewData["Title"] = "Request MRF";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+<h1>@ViewData["Title"]</h1>
+        
+        <!-- Card Body -->
+        <div class="card-body">
+        		<div>               
+        			
+        		</div>
+                <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Table Request MRF</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="dropdown mb-4 px-2">
+                                <button class="btn btn-primary dropdown-toggle text-sm" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Super Actions
+                                </button>
+                                <div class="dropdown-menu animated--fade-in"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#" id="forceApprove">Force Approve</a>
+                                    <a class="dropdown-item" asp-controller="MRF" asp-action="Candidate" id="srcCandidate">Candidate List</a>
+                                    <a class="dropdown-item" asp-controller="AO" asp-action="Offering" id="Offering">Offering</a>
+                                </div>
+                            </div>
+                            <div class="table-responsive px-2">
+                                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                <table class="table table-bordered table-sm text-small nowrap" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Status</th>      
+                                            <th class="text-center">Code MRF</th>
+                                            <th class="text-center">MRF Type</th>   
+                                            <th class="text-center">Position Title</th>
+                                            <th class="text-center">Start Date</th>
+                                            <th class="text-center">End Date</th>
+                                            <th class="text-center">Direct Supervisor</th>
+                                            <th class="text-center">Fungsi</th>
+                                            <th class="text-center">Company Name</th>
+                                            <th class="text-center">Nama Requestor</th>
+                                            <th class="text-center">Submit Date</th>
+                                            <th class="text-center">ID MRF</th>
+                                            <th class="text-center">Temp Key</th>
+                                            <th class="text-center">Total Candidate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   @foreach (var mrf in Model)
+                                   { 
+                                        <tr>
+                                            <td></td>
+                                            <td>@mrf.status</td>
+                                            <td>@mrf.mrf_code</td>
+                                            <td>@mrf.mrf_type</td>
+                                            <td></td>
+                                            <td>@mrf.start_date</td>
+                                            <td>@mrf.end_date</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>@mrf.created_by</td>
+                                            <td></td>
+                                            <td>@mrf.id_mrf</td>
+                                            <td>@mrf.tempKey</td>
+                                            <td></td>
+                                        </tr>
+                                   }                           
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      var mrftable = $('#dataTable').DataTable({
+        scrollX:true,
+        ordering : true,
+        autoWidth : true,
+        fixedColumns: {
+            left: 2,
+        },
+        columnDefs: [
+            {
+                className: 'select-checkbox',
+                targets: 0
+            },
+            { "targets": 1, visible: true}, //status
+            { "targets": 2, visible: true}, //code
+            { "targets": 3, visible: true}, //type
+            { "targets": 4, visible: true}, //position title
+            { "targets": 5, visible: false}, //start
+            { "targets": 6 ,visible: false}, //end
+            { "targets": 7 ,visible:false}, //spv
+            { "targets": 8, visible: true}, //fungsi
+            { "targets": 9, visible: false}, //company
+            { "targets": 10, visible: false}, //requestor
+            { "targets": 11, visible: false}, //created date
+            { "targets": 12, visible: false}, //id
+            { "targets": 13, visible: false}, //tempkey
+            { "targets": 14, visible: true}, //headcount candidate
+          ],
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        },
+        buttons: [ 
+            {
+                extend: 'colvis',
+                collectionLayout: 'fixed columns',
+                collectionTitle: 'Column visibility control'
+            },
+            'excel',
+            {
+                extend: 'collection',
+                text: 'Actions',
+                buttons: [
+                    {
+                        text: 'View',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = mrftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[12];
+                            });
+                            viewMRF(ids)
+                        }
+                    },
+                    {
+                        text: 'Approval Progress',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = mrftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[12];
+                            });
+                            viewProgress(ids)
+                        }
+                    },
+                    {
+                        text: 'Track MRF',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = mrftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[12];
+                            });
+                            viewMRFProgress(ids)
+                        }
+                    },
+                    {
+                        text: 'View Candidates',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = mrftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[12];
+                            });
+                            viewMRFProgress(ids)
+                        }
+                    },
+                    {
+                        text: 'Performance Review',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = mrftable.rows( { selected: true } ).data().toArray();
+                            console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[12];
+                            });
+                            window.location.href = '<?php echo base_url()?>TAD/Performance/view/'+ids
+                        }
+                    },
+                    {
+                        text: 'Cancel',
+                        action: function ( e, dt, node, config ) {
+                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                            var rows = mrftable.rows( { selected: true } ).data().toArray();
+                            //console.log( rows ); // array of selected rows (each row is an array of data)
+                            var ids = rows.map(function(x) {
+                                return x[12];
+                            });
+                            Swal.fire({
+                              title: 'Do you want to delete MRF?',
+                              showDenyButton: true,
+                              showCancelButton: true,
+                              confirmButtonText: 'Yes, Delete',
+                              denyButtonText: `No`,
+                            }).then((result) => {
+                              /* Read more about isConfirmed, isDenied below */
+                              if (result.isConfirmed) {
+                                window.location.href = '<?php echo base_url()?>TAD/MRF/delete/'+ids
+                              } else if (result.isDenied) {
+                                Swal.close()
+                              }
+                            })
+                        }
+                    },
+
+                ]
+            }
+        ],
+        dom: 'Bfrtip',
+      });
+
+
+
+      
+        $('#forceApprove').click( function () {
+            var rows = mrftable.rows( { selected: true } ).data().toArray();
+            console.log( rows ); // array of selected rows (each row is an array of data)
+            var ids = rows.map(function(x) {
+              return x[13];
+            });
+            console.log(ids)
+            forceApprove(ids[0])
+        });
+
+        $('#srcCandidate').click( function () {
+            var rows = mrftable.rows( { selected: true } ).data().toArray();
+            console.log( rows ); // array of selected rows (each row is an array of data)
+            var ids = rows.map(function(x) {
+              return x[12];
+            });
+            
+            window.location.href = '<?php echo base_url()?>TAD/MRF/Candidate/'+ids
+        });
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    function viewProgress(id){
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/MRF/getProgress/"+id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    let tableHtml = "<table class='table table-sm table-bordered small'>";
+                     tableHtml += "<thead><tr><th>No</th><th>Approver Role</th><th>Approver</th><th>Status</th><th>Last Update</th></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(row => {
+                       tableHtml += `<tr><td>${row.approver_order}</td><td>${row.approver_role}</td><td>${row.employee.Position} - ${row.employee.Name}</td><td>${row.status}</td><td>${row.updated_at}</td></tr>`;
+                     });
+                     tableHtml += "</tbody></table>";
+
+                     Swal.fire({
+                       title: 'MRF Approval Progress',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+                }
+            });
+    }
+
+    function viewMRF(id) {
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/MRF/viewMRF/"+id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].mrf_code == id) {
+                                console.log(data[key])    
+                                 break;
+                               }
+                             }
+                     Swal.fire({
+                       title: 'View MRF',
+                       html: '<div class="card my-3 text-left">'+
+                                '<div class="card-body row mt-4">'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Requestor Data</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<div class="col-md-12 col-xl-12">'+
+                                        `<label class="float-right">Date :</label>`+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">No MRF</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Subsidiaries</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvSubs"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Creator</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvCreator"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        '<div class="col-md-5 col-xl-2">Job Position</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-9" id="rvCrPos"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Position Data</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Position Title</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvTitle"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Division</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvWL"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Departemen</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvWS">$</div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-12 mb-4"></div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Direct Report</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDirPos"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Row 5 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Division</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDiv"></div>`+
+                                    '</div>'+
+                                     '<!-- Row 6 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Department</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>MRF Contract Detail</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Start Date</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 2 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">End Date</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 3 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Durasi</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDept"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Row 4 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Location</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvWL"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 5 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Work Schedule</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvWS"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 6 -->'+
+                                    '<div class="col-md-6 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Budget Type</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="RvCost"></div>`+
+                                    '</div>'+
+                                    '<!-- Row 5 -->'+
+                                    '<div class="col-md-5 col-xl-6 row">'+
+                                        '<div class="col-md-5 col-xl-4">Cost Center</div>'+
+                                        '<div class="col-md-1 col-xl-1">:</div>'+
+                                        `<div class="col-md-6 col-xl-7" id="rvDiv"></div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6 mb-4"></div>'+
+                                    '<!-- Separator -->'+
+                                    '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
+                                        '<h5>Brief Justification</h5>'+
+                                        '<hr>'+
+                                    '</div>'+
+                                    '<!-- Row 1 -->'+
+                                    '<div class="col-md-12 col-xl-12 row">'+
+                                        `<div class="col-md-12 col-xl-12 text-justify" id="rvJus"Justification}</div>`+
+                                    '</div>'+
+                                    '<div class="col-xl-6"></div>'+
+                                    
+                                '</div>'+
+                            '</div>'+
+                            '</div>'+
+                            '<div class="col-xl-12 text-left py-4">'+
+                                '<label>Comments</label>'+
+                                '<input type="text" id="comments" class="form-control" placeholder="Reason for Reject">'+
+                            '</div>',
+                        width : 1200,
+                    //     preConfirm: () => {
+                    //       return [
+                    //         document.getElementById('comments').value
+                    //       ]
+                    //     },
+                    //  }).then((result) => {
+                    //    if (result.isConfirmed) {
+                    //      Swal.fire('Approved!', '', 'success')
+                    //    } else if (result.isDenied) {
+                    //      Swal.fire('Rejected!', '', 'info')
+                    //    }
+                       showCloseButton: true,
+                        
+                     })
+                }
+
+            });
+        
+    }
+
+    function viewMRFProgress(id){
+        $.ajax({
+                url: "<?php echo base_url()?>TAD/MRF/getProgress/"+id,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    let tableHtml = "<table class='table table-sm table-bordered small'>";
+                     tableHtml += "<thead><tr><th>No</th><th>Check List</th><th>Status</th><th>Last Update</th></thead>";
+                     tableHtml += "<tbody>";
+                     // data.forEach(row => {
+                     //   tableHtml += `<tr><td>${row.approver_order}</td><td>${row.approver_role}</td><td>${row.employee.Position}  - ${row.employee.Name}</td><td>${row.status}</td><td>${row.updated_at}</td></tr>`;
+                     // });
+                     tableHtml +=`<tr><td>1</td><td>Search Candidate</td><td>Done</td><td>20-08-2023 10:00:00</td></tr>`
+                     tableHtml +=`<tr><td>2</td><td>Interview Candidate</td><td>Done</td><td>20-08-2023 10:00:00</td></tr>`
+                     tableHtml +=`<tr><td>3</td><td>Offering Candidate</td><td>Offering 1</td><td>20-08-2023 10:00:00</td></tr>`
+                     tableHtml +=`<tr><td>4</td><td>Assignment Order</td><td>Waiting Offering</td><td>20-08-2023 10:00:00</td></tr>`
+                     tableHtml +=`<tr><td>5</td><td>Performance Review</td><td>Not Yet</td><td>20-08-2023 10:00:00</td></tr>`
+                     tableHtml += "</tbody></table>";
+
+                     Swal.fire({
+                       title: 'MRF Tracking',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+                }
+            });
+    }
+
+    async function forceApprove(tempKey){
+        const { value: formValues } = await Swal.fire({
+          title: 'Force Approve Confirmation',
+          html:
+            '<div class="text-left">'+
+            '<Label class="">Reason Force Approve</label>'+
+            '<select id="swal-input1" class="form-control my-2">' +
+                '<option value="Memo">Memo from Director</option>'+
+                '<option value="SK">SK</option>'+
+            '</select>'+
+            '<Label>Force Approve Password</label>'+
+            '<input id="swal-input2" type="password" class="form-control my-2">'+
+            '</div>',
+          focusConfirm: false,
+          preConfirm: () => {
+            return [
+              document.getElementById('swal-input1').value,
+              document.getElementById('swal-input2').value
+            ]
+          }
+        })
+
+        if (formValues) {
+            var data = {
+                'comments' : formValues[0],
+                'password' : formValues[1],
+                'tempKey' : tempKey,
+            }
+            $.ajax({
+                url: "<?php echo base_url()?>Approval/forceApproveMRF",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+    
+                   Swal.fire({
+                     title: 'Approve Status',
+                     html: data.msg,
+                     showCloseButton: true,
+                   });
+                    
+                    
+                }
+            });
+        }
+    }
+</script>
+
+<!-- <script src="https://cdn.datatables.net/filters/1.6.5/js/dataTables.filters.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+
+<script src="<?php echo base_url()?>assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url()?>assets/vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
