@@ -64,6 +64,10 @@ namespace hcdigital.Data
             // .WithMany()
             // .HasForeignKey(p => p.ID_Position) // Kolom dalam tabel Position
             // .HasPrincipalKey(d => d.ID_Position); // Kolom dalam tabel DirectPos
+            //  modelBuilder.Entity<MRF>()
+            // .HasOne(m => m.Position) // Relasi ke tadposition
+            // .WithMany()
+            // .HasForeignKey(m => m.id_position);
             
             
         }

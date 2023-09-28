@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using hcdigital.Models;
 using hcdigital.Data;
 
@@ -27,6 +28,18 @@ public class MRFController : Controller
     {
         var manpower = _context.mrf?.ToList() ?? new List<MRF>();
         return View(manpower);
+    //    var mrfData = _context.mrf?.Include(m => m.Position).ToList();
+    //     return View(mrfData);
+        //     var mrfPositionData = (from mrf in _context.mrf
+        //                   join tadposition in _context.tadposition on mrf.id_position equals tadposition.Id_Position
+        //                   where mrf != null
+        //                   select new MRF
+        //                     {
+        //                         Position = tadposition
+                               
+        //                     }).ToList();
+
+        // return View(mrfPositionData);
     }
 
      [HttpGet("Approval")]

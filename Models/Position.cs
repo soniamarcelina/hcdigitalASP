@@ -33,7 +33,9 @@ namespace hcdigital.Models
         public string? Status{get; set;}
         public string? Ocf_id{get; set;}
 
-         public DirectPos? masteremployee { get; set; }
+        public DirectPos? masteremployee { get; set; }
+        public ICollection<MRF>? mrf { get; set; }
+        
       
     }
 }
