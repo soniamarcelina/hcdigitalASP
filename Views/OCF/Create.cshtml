@@ -1003,7 +1003,7 @@
                                 window.location.href = '<?php echo base_url()?>TAD/orgChange';   
                               }
                             })
-                            
+
                         }else{
                             Swal.fire({
                               title: 'Update Status',
@@ -1097,10 +1097,10 @@
                     tableHtml += "<tbody>";
                     data.forEach (function(row) {
                         tableHtml += "<tr>";
-                        tableHtml += "<td>" + row.ID_Position + "</td>";
-                        tableHtml += "<td>" + row.Position + "</td>";
-                        tableHtml += "<td>" + row.Name + "</td>";
-                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.ID_Position + "'>Select</a></td>";
+                        tableHtml += "<td>" + row.iD_Position + "</td>";
+                        tableHtml += "<td>" + row.position + "</td>";
+                        tableHtml += "<td>" + row.name + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.iD_Position + "'>Select</a></td>";
                         tableHtml += "</tr>";
                     });
                     tableHtml += "</tbody></table>";
@@ -1134,14 +1134,14 @@
                      tableHtml += "<tbody>";
                      data.forEach(function(row) {
                         tableHtml += "<tr>";
-                        tableHtml += "<td>" + row.ID_Position + "</td>";
-                        tableHtml += "<td>" + row.Position + "</td>";
-                        tableHtml += "<td>" + row.Name + "</td>";
-                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.ID_Position + "'>Select</a></td>";
+                        tableHtml += "<td>" + row.iD_Position + "</td>";
+                        tableHtml += "<td>" + row.position + "</td>";
+                        tableHtml += "<td>" + row.name + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.iD_Position + "'>Select</a></td>";
                         tableHtml += "</tr>";
                      });
                      tableHtml += "</tbody></table>";
-                     Swal.fire({
+                    Swal.fire({
                        title: 'Select Direct/SPV Position',
                        html: tableHtml,
                        width : 1000,

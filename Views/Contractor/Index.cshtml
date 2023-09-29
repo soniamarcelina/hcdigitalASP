@@ -139,7 +139,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Contractor/add/'
+                                window.location.href = '/Contractor/Add/'
                               } else if (result.isDenied) {
                                 Swal.close()
                               }
@@ -161,7 +161,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Contractor/edit/'+ids
+                                window.location.href = 'Contractor/Edit/' +ids[0]
                               } else if (result.isDenied) {
                                 Swal.close()
                               }
@@ -187,7 +187,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Contractor/delete/'+ids
+                                window.location.href = '/Contractor/Delete/'+ids[0]
                               } else if (result.isDenied) {
                                 Swal.close()
                               }

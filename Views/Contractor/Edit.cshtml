@@ -1,0 +1,116 @@
+@model hcdigital.Models.Contractor
+
+ @{
+    ViewData["Title"] = "Add Contractor";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+
+<div class="col-lg-12">
+
+    <!-- Dropdown Card Example -->
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary text-uppercase">Edit Contractor</h6>
+        </div>
+        
+        <div class="card-body">
+    <table class="table table-add">
+        <form asp-action="Update">
+            <tr>
+                <td>Nomor Kontrak</td>
+                <td><input class="form-control" type="number" name="contractNo"  asp-for="contractNo" readonly></td>
+            </tr>
+            <tr>
+                <td>Nama</td>
+                
+                <td><input class="form-control form-control-bot-border" type="text" name="Name"  asp-for="Name"></td>
+            </tr>
+
+            <tr>
+                <td>Title</td>
+                
+                <td><input class="form-control form-control-bot-border" type="text" name="Title"  asp-for="Title"></td>
+            </tr>
+
+            <tr>
+                <td>Zona</td>
+                
+                <td><input class="form-control form-control-bot-border" type="text" name="Zona" asp-for="Zona"></td>
+            </tr>
+
+            <tr>
+                <td>Company</td>
+                
+                <td><input class="form-control form-control-bot-border" type="text" name="Company" asp-for="Company"></td>
+            </tr>
+
+            <tr>
+                <td>Work Location</td>
+                
+                <td><input class="form-control form-control-bot-border" type="text" name="WorkLoc" asp-for="WorkLoc"></td>
+            </tr>
+
+            <tr>
+                <td>Headcount</td>
+                
+                <td><input class="form-control form-control-bot-border" type="text" name="Headcount" asp-for="Headcount"></td>
+            </tr>
+            <tr>
+                <td>Start Tender</td>
+                
+                <td><input class="form-control form-control-bot-border" type="date" asp-for="start_tender"></td>
+            </tr>
+
+            <tr>
+                <td>End Tender</td>
+                
+                <td><input class="form-control form-control-bot-border" type="date" name="end_tender" asp-for="end_tender"></td>
+            </tr>
+            <tr>
+                <td>Start Date</td>
+                
+                <td><input class="form-control form-control-bot-border" type="date" name="start_date" asp-for="start_date"></td>
+            </tr>
+
+            <tr>
+                <td>End Date</td>
+                
+                <td><input class="form-control form-control-bot-border" type="date" name="end_date" asp-for="end_date"></td>
+            </tr>
+            <tr>
+                <td>Jumlah Amandemen</td>
+                
+                <td><input class="form-control form-control-bot-border" type="number" name="jml_amandemen" asp-for="jml_amandemen"></td>
+            </tr>
+            <tr>
+                <td>Start Amandemen</td>
+                
+                <td><input class="form-control form-control-bot-border" type="date" name="start_date_amd" asp-for="start_date_amd"></td>
+            </tr>
+
+            <tr>
+                <td>End Amandemen</td>
+                
+                <td><input class="form-control form-control-bot-border" type="date" name="end_date_amd" asp-for="end_date_amd"></td>
+            </tr>
+            <tr>
+                <td>Nilai Kontrak</td>
+                
+                <td><input class="form-control form-control-bot-border" type="text" name="nilai_kontrak" asp-for="nilai_kontrak"></td>
+            </tr>
+            <tr>
+                <td>Service Fee</td>
+                
+                <td><input class="form-control form-control-bot-border" type="number" name="service_fee" asp-for="service_fee"></td>
+            </tr>
+                
+                <td colspan="2" style="text-align: center;"><input class="btn btn-warning" type="submit" name="simpan" value="Submit"></td>
+            </tr>
+        </form>
+    </table>
+</div>
+</div>
+</div>
+   

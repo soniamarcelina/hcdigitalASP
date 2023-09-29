@@ -115,7 +115,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Competency/add/'+ids
+                                window.location.href = 'Competency/Add/'
                               } else if (result.isDenied) {
                                 Swal.close()
                               }
@@ -137,7 +137,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Competency/edit/'+ids
+                                window.location.href = 'Competency/Edit/'+ids[0]
                               } else if (result.isDenied) {
                                 Swal.close()
                               }
@@ -163,7 +163,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Competency/delete/'+ids
+                                window.location.href = 'Competency/Delete/'+ids[0]
                               } else if (result.isDenied) {
                                 Swal.close()
                               }

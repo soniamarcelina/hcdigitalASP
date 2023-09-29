@@ -109,7 +109,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Grade/add/'+ids
+                                window.location.href = 'Grade/Add/'+ids
                               } else if (result.isDenied) {
                                 Swal.close()
                               }
@@ -131,7 +131,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Grade/edit/'+ids
+                                window.location.href = 'Grade/Edit/'+ids[0]
                               } else if (result.isDenied) {
                                 Swal.close()
                               }
@@ -157,7 +157,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>Grade/delete/'+ids
+                                window.location.href = 'Grade/Delete/'+ids[0]
                               } else if (result.isDenied) {
                                 Swal.close()
                               }

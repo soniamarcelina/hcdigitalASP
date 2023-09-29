@@ -31,7 +31,5 @@ namespace hcdigital.Models
         public string? GL {get; set;}
         public string? photo {get; set;}
 
-        public ICollection<Position>? position { get; set; }
-
     }
 }

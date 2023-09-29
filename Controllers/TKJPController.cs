@@ -20,6 +20,71 @@ public class TKJPController : Controller
         return View(employee);
     }
 
+    public IActionResult Insert(TKJP tademployee)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.tademployee?.Add(tademployee);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "TKJP"); // Ganti "Index" dengan tindakan yang sesuai.
+        }
+
+        return View(tademployee);
+    }
+
+    [Route("TKJP/Add")]
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    [Route("TKJP/Edit/{Nopek}")]
+   public IActionResult Edit(int Nopek)
+    {
+        // Dapatkan data employee berdasarkan ID dari database
+        TKJP? emp = _context.tademployee?.Find(Nopek);
+
+        if (emp == null)
+        {
+            return NotFound();
+        }
+
+        return View(emp);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Update(TKJP tademployee)
+    {
+        if (ModelState.IsValid)
+        {
+            // Simpan perubahan ke dalam database
+            _context.Update(tademployee);
+            _context.SaveChanges();
+            
+            return RedirectToAction("Index"); // Arahkan pengguna kembali ke halaman utama
+        }
+
+        return View(tademployee);
+    }
+
+    [Route("TKJP/Delete/{Nopek}")]
+    public IActionResult Delete(int Nopek)
+    {
+        // Dapatkan data employee berdasarkan ID dari database
+        TKJP? employee = _context.tademployee?.Find(Nopek);
+
+        if (employee == null)
+        {
+            return NotFound();
+        }
+
+        _context.tademployee?.Remove(employee);
+        _context.SaveChanges();
+
+        return RedirectToAction("Index"); // Redirect ke halaman utama atau tampilan daftar data.
+    }
+
     public IActionResult Search()
     {
         return View();

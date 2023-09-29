@@ -41,9 +41,9 @@ public class OCFController : Controller
         {
             // Ambil data dari database 
             var data = _context.masteremployee?.ToList() ?? new List<DirectPos>(); 
-
-            // Kirim data sebagai respons JSON
             return Ok(data);
+            // Kirim data sebagai respons JSON
+            //return Ok(data);
         }
         catch (Exception ex)
         {

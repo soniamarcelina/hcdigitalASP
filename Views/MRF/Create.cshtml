@@ -37,7 +37,7 @@
                                                 <h6 class="m-0 font-weight-bold text-primary">Requestor</h6>
                                             </div>
                                             <div class="card-body">
-                                                <input type="text" class="form-control form-control-bot-border required" name="empName" placeholder="Select Requestor" onclick="selectReq()" required>
+                                                <input type="text" class="form-control form-control-bot-border required" name="empName" placeholder="Select Requestor" onclick="selectList()" required>
                                                 <label>Employee ID</label>                                 
                                                 <input type="text" class="form-control form-control-bot-border" name="empID" readonly>
                                                 <label>Job Title</label>
@@ -480,29 +480,43 @@
         })
     }
 
-    function selectReq(){
-        let tableHtml = "<table class='table table-sm table-bordered small' id='tablePosition'>";
-            tableHtml += "<thead><tr><th>ID Position</th><th>Job Position</th><th>Employee Name</th><th>Action</th></tr></thead>";
-            tableHtml += "<tbody>";
-            tableHtml += '<tr><td></td><td></td><td></td><td><a class="btn btn-primary select-button">Select</a></td></tr>';
-            tableHtml += "</tbody></table>";
-
+    function selectList() {
+        $.ajax({
+            url: '/OCF/GetPosition',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                let tableHtml = "<table class='table table-sm table-bordered small' id='positionTable'>";
+                    tableHtml += "<thead><tr><th>ID Position</th><th>Job Position</th><th>Employee Name</th><th>Action</th></tr></thead>";
+                    tableHtml += "<tbody>";
+                    data.forEach (function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.iD_Position + "</td>";
+                        tableHtml += "<td>" + row.position + "</td>";
+                        tableHtml += "<td>" + row.name + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.iD_Position + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                    });
+                    tableHtml += "</tbody></table>";
                      Swal.fire({
                        title: 'Select Requestor',
                        html: tableHtml,
                        width : 1000,
                        showCloseButton: true,
-                     })
+                     });
 
-                     $('#tablePosition').DataTable({
+                      $('#positionTable').DataTable({
                        ordering : true,
                        autoWidth : false,
                        select: {
                              style: 'single'
                        },
                      });
-        
+
+            }
+        });
     }
+
 
     function selectPosition(){
         var dynamicTable = $('#posTable').DataTable();
@@ -511,7 +525,7 @@
         let tableHtml = "<table id='posisiTable' class='table table-sm table-bordered small valign-middle nowrap'>";
             tableHtml += "<thead><tr><th style='width:10%'>ID Position</th><th style='width:20%' >Position Title</th><th>Direct Supervisor</th><th>Direktorat</th><th>Division</th><th>Pers Area</th><th>Action</th></tr></thead>";
             tableHtml += "<tbody>";
-            tableHtml += `<tr><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="#" class="btn btn-info select-button" data-id="${row.Id_Position}">Select</a></td></tr>`;
+            tableHtml += `<tr><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="#" class="btn btn-info select-button" data-id="">Select</a></td></tr>`;
             tableHtml += "</tbody></table>";
                      Swal.fire({
                        title: 'Position List',
@@ -530,55 +544,59 @@
                      });
     }
 
+    
+
     $(".saveDraftBtn").click(function() {
-        var tempKey =''
-        var MRF_id = '<?php echo $MRF_id ?>'
-        if (MRF_id != '0') {
-            tempKey = '<?php echo $tempKey; ?>'
+        var tempKey = '';
+        var MRF_id = '<%= MRF_id %>';
+        
+        if (MRF_id !== '0') {
+            tempKey = '<%= tempKey %>';
         }
+
         var data = {
-            'mrf_code' : $('[name="MRF_No"]').val(),
-            'status' : 'Draft',
-            'mrf_type' : $('[name="type"]').val(),
-            'Id_position' : $('[name="posID"]').val(),
-            'workTerm' : $('[name="workTerm"]').val(),
-            'ABI_ABO' : $('[name="ABO_ABI"]').val(),
-            'prev_mrf' : $('[name="prevMRF"]').val(),
-            'justification' : $('[name="Justification"]').val(),
-            'start_date' : $('[name="start"]').val(),
-            'end_date' : $('[name="end"]').val(),
-            'RequestorID' : $('[name="empID"]').val(),
-            'created_by' : '<?php echo $this->session->userdata('id'); ?>',
-            'tempKey' : tempKey,
-        }
-        //alert(JSON.stringify(data));
+            mrf_code: $('[name="MRF_No"]').val(),
+            status: 'Draft',
+            mrf_type: $('[name="type"]').val(),
+            Id_position: $('[name="posID"]').val(),
+            workTerm: $('[name="workTerm"]').val(),
+            ABI_ABO: $('[name="ABO_ABI"]').val(),
+            prev_mrf: $('[name="prevMRF"]').val(),
+            justification: $('[name="Justification"]').val(),
+            start_date: $('[name="start"]').val(),
+            end_date: $('[name="end"]').val(),
+            RequestorID: $('[name="empID"]').val(),
+            created_by: '<%= this.Session["id"] %>',
+            tempKey: tempKey
+        };
+
         $.ajax({
-                url: "<?php echo base_url()?>TAD/MRF/insert",
-                type: "POST",
-                dataType: "json",
-                data: data,
-                success: function(data) {
-                    n = JSON.stringify(data)
-                    o = JSON.parse(n)
-                    var tempKey =o.data.tempKey;
-                    if (o.status == 2) {
-                        Swal.fire({
-                          title: 'Update Status',
-                          html: o.msg,
-                          showCloseButton: true,
-                        });
-                        window.location.href = '<?php echo base_url()?>TAD/MRF/create/'+tempKey; 
-                    }else{
-                        Swal.fire({
-                          title: 'Update Status',
-                          html: o.msg,
-                          showCloseButton: true,
-                        });
-                           
-                    }
-                    
+            url: '<%= ResolveUrl("~/MRF/insert") %>',
+            type: 'POST',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+                var o = JSON.parse(data);
+                var tempKey = o.data.tempKey;
+                
+                if (o.status === 2) {
+                    Swal.fire({
+                        title: 'Update Status',
+                        html: o.msg,
+                        showCloseButton: true
+                    });
+                    window.location.href = '<%= ResolveUrl("~/MRF/create/") %>' + tempKey;
+                } else {
+                    Swal.fire({
+                        title: 'Update Status',
+                        html: o.msg,
+                        showCloseButton: true
+                    });
                 }
-            });
+            }
+        });
+
+        return false; // Prevent the postback
     });
 
     $(".submitBtn").click(function() {

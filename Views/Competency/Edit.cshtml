@@ -1,0 +1,66 @@
+@model hcdigital.Models.Competency
+
+ @{
+    ViewData["Title"] = "Add Competency";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+
+<div class="col-lg-12">
+
+    <!-- Dropdown Card Example -->
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div
+            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary text-uppercase">Edit Competency</h6>
+            
+        </div>
+        
+        <div class="card-body">
+    <table class="table table-add">
+        <form asp-action="Update">
+                
+            <tr>
+                <td>ID</td>
+                <td><input class="form-control" type="id" name="id" asp-for="id" readonly></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                
+                <td><input class="form-control" type="text" name="name"  asp-for="name"></td>
+            </tr>
+            <tr>
+                <td>Skill Group</td>
+                
+                <td><input class="form-control" type="text" name="skill_group" asp-for="skill_group"></td>
+            </tr>
+            <tr>
+                <td>Sub Skill Group</td>
+                
+                <td><input class="form-control" type="text" name="sub_skill_group"  asp-for="sub_skill_group"></td>
+            </tr>
+            <tr>
+                <td>Definition</td>
+                
+                <td><textarea class="form-control" cols="30" rows="2"  name="definition" asp-for="definition"></textarea></td>
+            </tr>
+            <tr>
+                <td>Level</td>
+                
+                <td><input class="form-control" type="number" name="level" asp-for="level"></td>
+            </tr>
+            <tr>
+                <td>Indicator</td>
+                
+                <td><textarea class="form-control" cols="30" rows="5" name="indicator" asp-for="indicator"></textarea></td>
+            </tr>
+             
+            <tr>
+                <td colspan="2" style="text-align: center;"><input class="btn btn-warning" type="submit" name="Simpan" value="Submit"></td>
+            </tr>
+        </form>
+    </table>
+</div>
+</div>
+</div>
+   
