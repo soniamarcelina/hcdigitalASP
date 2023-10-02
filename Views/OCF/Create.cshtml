@@ -1,3 +1,4 @@
+
  @{
     ViewData["Title"] = "Create OCF";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
@@ -54,15 +55,15 @@
                                             </div>
                                             <div class="card-body">
                                                 <label>Requested By</label>
-                                                <input type="text" class="form-control form-control-bot-border required" name="empName" placeholder="Select Requestor" onclick="selectList()" required>
+                                                <input type="text" class="form-control form-control-bot-border required" name="empName" placeholder="Select Requestor" onclick="selectList(this)" required>
                                                 <label>Employee ID</label>                                 
-                                                <input type="text" class="form-control form-control-bot-border" name="empID"  readonly>
+                                                <input type="text" class="form-control form-control-bot-border" name="empID" readonly>
                                                 <label>Job Title</label>
-                                                <input type="text" class="form-control form-control-bot-border" name="empPos"  readonly>
+                                                <input type="text" class="form-control form-control-bot-border"  name="empPos"  readonly>
                                                 <label>Division</label>
-                                                <input type="text" class="form-control form-control-bot-border" name="empDiv"  readonly>
+                                                <input type="text" class="form-control form-control-bot-border"  name="empDiv" readonly>
                                                 <label>Department</label>
-                                                <input type="text" class="form-control form-control-bot-border" name="empDept"  readonly>
+                                                <input type="text" class="form-control form-control-bot-border" name="empDept" readonly>
                                                 <label>Section</label>
                                                 <input type="text" class="form-control form-control-bot-border" name="empSec" readonly>
                                             </div>
@@ -155,14 +156,14 @@
                                             </div>
                                             <div class="card-body">
                                                 <label>Job Position</label>
-                                                <input type="hidden" name="DirID" value="<?= $FormData['DirID'] ?>">
-                                                <input type="text" class="form-control form-control-bot-border" name="DirPos" onclick="selectSPVList()"  placeholder="Select Direct Report/Spv Position">
-                                                <label>Direct Report Name</label>                                              
-                                                <input type="text" class="form-control form-control-bot-border" name="DirName"  readonly>
+                                                <input type="hidden" name="DirID" >
+                                                <input type="text" class="form-control form-control-bot-border" name="DirPos" onclick="selectSPVList(this)"  placeholder="Select Direct Report/Spv Position">
+                                                <label>Direct Report Name</label>      
+                                                <input type="text" class="form-control form-control-bot-border" name="DirName" readonly>
                                                 <label>Department</label>
-                                                <input type="text" class="form-control form-control-bot-border" name="DirDept"  readonly>
+                                                <input type="text" class="form-control form-control-bot-border" name="DirDept" readonly>
                                                 <label>Division</label>
-                                                <input type="text" class="form-control form-control-bot-border" name="DirDiv"  readonly>
+                                                <input type="text" class="form-control form-control-bot-border" name="DirDiv" readonly>
                                                 <div class="btn-group py-2" data-toggle="buttons">
                                                   <label class="btn btn-primary active">
                                                     <input type="radio" name="cost_opt" id="cost_opt_cc" autocomplete="off"> Cost Center
@@ -595,7 +596,7 @@
         </div>
     <script type="text/javascript">
     
-    $(document).ready(function() {
+    @* $(document).ready(function() {
 
         //Load File Datatable
       $('#fileTable').DataTable({
@@ -604,18 +605,18 @@
         select: {
               style: 'single' // Enable multi-row selection (can also use 'single')
         },
-      });
+      }); *@
 
       //Load Responsibility Table
-      const resptable = JSON.parse('<?php echo $FormData['Responsibility']?>');
+      @* const resptable = JSON.parse('');
       if(resptable.length > 0){
         resptable.forEach((element, index) => {
             var i = 0
           element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
         });
-      }
+      } *@
 
-      $('#respTable').DataTable({
+      @* $('#respTable').DataTable({
         ordering : true,
         autoWidth : false,
         data : resptable,
@@ -630,18 +631,18 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
 
       //Load Education Table
-      const edutable = JSON.parse('<?php echo $FormData['Education']?>');
+      @* const edutable = JSON.parse('<?php echo $FormData['Education']?>');
       if(edutable.length > 0){
         edutable.forEach((element, index) => {
             var i = 0
           element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
         });
-      }
-      $('#EducationTable').DataTable({
+      } *@
+      @* $('#EducationTable').DataTable({
         ordering : true,
         autoWidth : false,
         data : edutable,
@@ -656,18 +657,18 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
       //Load Competency Table
-      const comptable = JSON.parse('<?php echo $FormData['Competency']?>');
+      @* const comptable = JSON.parse('<?php echo $FormData['Competency']?>');
       if(comptable.length > 0){
         comptable.forEach((element, index) => {
             var i = 0
           element[4] = `<a href="#Role" data-id="`+element[4]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
         });
-      }
+      } *@
 
-      $('#competencyTable').DataTable({
+      @* $('#competencyTable').DataTable({
         ordering : true,
         autoWidth : false,
         data : comptable,
@@ -682,19 +683,19 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
       //Load Experience Table
-      const exptable = JSON.parse('<?php echo $FormData['Experience']?>');
+      @* const exptable = JSON.parse('<?php echo $FormData['Experience']?>');
       if(exptable.length > 0){
         exptable.forEach((element, index) => {
             var i = 0
           element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
         });
-      }
+      } *@
 
 
-      $('#ExpTable').DataTable({
+      @* $('#ExpTable').DataTable({
         ordering : true,
         autoWidth : false,
         data: exptable,
@@ -709,19 +710,19 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
       //Load Skill Table
-      const skilltable = JSON.parse('<?php echo $FormData['Skill']?>');
+      @* const skilltable = JSON.parse('<?php echo $FormData['Skill']?>');
       if(skilltable.length > 0){
         skilltable.forEach((element, index) => {
             var i = 0
           element[2] = `<a href="#Role" data-id="`+element[2]+`" class="btn btn-danger delete-btn btn-sm">Remove</a>`;
         });
-      }
+      } *@
 
 
-      $('#SkillTable').DataTable({
+      @* $('#SkillTable').DataTable({
         ordering : true,
         autoWidth : false,
         data : skilltable,
@@ -738,11 +739,11 @@
 
       });
 
-    });
+    }); *@
 
-    var listRole = JSON.parse(JobRoles);
+   // var listRole = JSON.parse('');
 
-    var tempKey =''
+    @* var tempKey =''
     var OCF_id = '<?php echo $OCF_id ?>'
     if (OCF_id != '0') {
         tempKey = '<?php echo $tempKey; ?>'
@@ -771,7 +772,7 @@
             costType = 'CC'
         }else{
             costType = 'AFE'
-        }
+        } 
 
         var data = {
             'subject': $('[name="subject"]').val(),
@@ -785,7 +786,7 @@
             'WorkLoc' : $('[name="newWL"]').val(),
             'WorkSch' : $('[name="newWS"]').val(),
             'WorkCity' : $('[name="newWC"]').val(),
-            'costType' : costType,
+            'costType' : costType, 
             'costCenter' : $('[name="costCenter"]').val(),
             'Justification' : $('[name="Justification"]').val(),
             'Responsibility' : JSON.stringify(Responsibility),
@@ -794,12 +795,12 @@
             'Experience' : JSON.stringify(Experience),
             'Skill' : JSON.stringify(Skill),
             'Qualification' : Qualification,
-            'CreatorID' : '<?php echo $this->session->userdata('id'); ?>',
-            'tempKey' : tempKey,
-        }
-        //console.log(data);
-        $.ajax({
-                url: "<?php echo base_url()?>TAD/orgChange/insert",
+            'CreatorID' : '1',
+            'tempKey' : tempKey, 
+         }  *@
+       // console.log(data); 
+        @* $.ajax({
+                url: "",
                 type: "POST",
                 dataType: "json",
                 data: data,
@@ -819,14 +820,14 @@
                     
                 }
             });
-    });
+    }); *@
 
     //Check Review
-    $("#link-tab5").click(function() {
+    @* $("#link-tab5").click(function() {
 
-        if (checkInputs()) {
+        if (checkInputs()) { *@
             //$('#tab5').show();
-            var responsibilityTable = $('#respTable').DataTable();
+            @* var responsibilityTable = $('#respTable').DataTable();
             var arrResponsibility = responsibilityTable.data().toArray();  
 
             var educationTable = $('#EducationTable').DataTable();
@@ -853,8 +854,8 @@
             }else{
                 costType = 'AFE'
                 costName = 'Authorization for Expenditure'
-            }
-            var data = {
+            } *@
+            @* var data = {
                 'subject': $('[name="subject"]').val(),
                 'status' : 'Draft',
                 'RequestorID' : $('[name="empID"]').val(),
@@ -865,20 +866,20 @@
                 'Grade' : $('[name="newGrade"]').val(),
                 'WorkLoc' : $('[name="newWL"]').val(),
                 'WorkSch' : $('[name="newWS"]').val(),
-                'WorkCity' : $('[name="newWC"]').val(),
-                'costType' : costType,
-                'costCenter' : $('[name="costCenter"]').val(),
-                'Justification' : $('[name="Justification"]').val(),
-                'Responsibility' : JSON.stringify(arrResponsibility),
-                'Education' : JSON.stringify(arrEducation),
+                'WorkCity' : $('[name="newWC"]').val(), *@
+                @* 'costType' : costType, *@
+                @* 'costCenter' : $('[name="costCenter"]').val(),
+                'Justification' : $('[name="Justification"]').val(), *@
+                @* 'Responsibility' : JSON.stringify(arrResponsibility), *@
+                @* 'Education' : JSON.stringify(arrEducation),
                 'Competency' : JSON.stringify(arrCompetency),
                 'Experience' : JSON.stringify(arrExperience),
                 'Skill' : JSON.stringify(arrSkill),
                 'Qualification' : Qualification,
-                'CreatorID' : '<?php echo $this->session->userdata('id'); ?>',
-                'tempKey' : tempKey,
-            }
-            $('#rvNO').text($('[name="OCF_No"]').val())
+                'CreatorID' : '1',
+                'tempKey' : tempKey, *@
+            @* } *@
+            @* $('#rvNO').text($('[name="OCF_No"]').val())
             $('#rvSubs').text($('[name="empSubs"]').val())
             $('#rvCreator').text($('[name="empName"]').val())
             $('#rvCrPos').text($('[name="empPos"]').val())
@@ -930,9 +931,9 @@
             
             alert('Some Required Fields are not filled!');
         }
-    });
+    }); *@
 
-    $(".submitBtn").click(function() {
+    @* $(".submitBtn").click(function() {
         if (checkInputs()) {
             var responsibilityTable = $('#respTable').DataTable();
             var Responsibility = responsibilityTable.data().toArray();
@@ -957,9 +958,9 @@
                 costType = 'CC'
             }else{
                 costType = 'AFE'
-            }
+            } *@
 
-            var data = {
+            @* var data = {
                 'subject': $('[name="subject"]').val(),
                 'status' : 'Routing',
                 'RequestorID' : $('[name="empID"]').val(),
@@ -971,21 +972,21 @@
                 'WorkLoc' : $('[name="newWL"]').val(),
                 'WorkSch' : $('[name="newWS"]').val(),
                 'WorkCity' : $('[name="newWC"]').val(),
-                'costType' : costType,
-                'costCenter' : $('[name="costCenter"]').val(),
-                'Justification' : $('[name="Justification"]').val(),
-                'Responsibility' : JSON.stringify(Responsibility),
+                @* 'costType' : costType, *@
+                @* 'costCenter' : $('[name="costCenter"]').val(),
+                'Justification' : $('[name="Justification"]').val(), *@
+                @* 'Responsibility' : JSON.stringify(Responsibility),
                 'Education' : JSON.stringify(Education),
                 'Competency' : JSON.stringify(Competency),
                 'Experience' : JSON.stringify(Experience),
                 'Skill' : JSON.stringify(Skill),
                 'Qualification' : Qualification,
-                'CreatorID' : '<?php echo $this->session->userdata('id'); ?>',
-                'tempKey' : tempKey,
-            }
-            //console.log(data);
-            $.ajax({
-                    url: "<?php echo base_url()?>TAD/orgChange/submit", 
+                'CreatorID' : '1',
+                'tempKey' : tempKey, *@
+            @* }
+            console.log(data);  *@
+            @* $.ajax({
+                    url: "", 
                     type: "POST",
                     dataType: "json",
                     data: data,
@@ -1000,7 +1001,7 @@
                             }).then((result) => {
                               if (result.isConfirmed) {
                                 
-                                window.location.href = '<?php echo base_url()?>TAD/orgChange';   
+                                window.location.href = '';   
                               }
                             })
 
@@ -1014,14 +1015,14 @@
                         
                     }
                 });
-        }else{
+        } else{
            Swal.fire({
              title: 'Submit Error',
              html: 'Some Data Requireed Before Submit OCF',
              showCloseButton: true,
            }); 
         }
-    });
+    }); *@
     
 </script>
 
@@ -1086,7 +1087,7 @@
         });
     }
 
-    function selectList() {
+    function selectList(input) {
         $.ajax({
             url: '/OCF/GetPosition',
             type: 'GET',
@@ -1118,6 +1119,63 @@
                              style: 'single'
                        },
                      });
+
+                     var currentDate = new Date(); // Current date
+                     var currentYear = currentDate.getFullYear(); // Get the current year
+
+                @* $('#positionTable').on('click', '.select-button', function () {
+                var id = $(this).data('ID_Position');
+
+                var selectedData = data.find(function (row) {
+                    return row.ID_Position === id;
+                });
+
+                if (selectedData) {
+                    $('[name="empName"]').val(selectedData.Name);
+                    $('[name="empID"]').val(selectedData.Person_Id);
+                    $('[name="empPos"]').val(selectedData.Position);
+                    $('[name="empDiv"]').val(selectedData.Divisi);
+                    $('[name="empDept"]').val(selectedData.Departemen);
+                    $('[name="empSec"]').val(selectedData.Section);
+                    $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
+                    $('[name="CreatedDate"]').val(currentDate);
+
+                    Swal.close();
+                }
+            }); *@
+
+             $('#positionTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('ID_Position');
+                             for (var key in data) {
+                                if (data[key].ID_Position == id) {
+                                 $('[name="empName"]').val(data[key].Name);
+                                 $('[name="empID"]').val(data[key].Person_Id);
+                                 $('[name="empPos"]').val(data[key].Position);
+                                 $('[name="empDiv"]').val(data[key].Divisi);
+                                 $('[name="empDept"]').val(data[key].Departemen);
+                                 $('[name="empSec"]').val(data[key].Section);
+                                 var DirectID = data[key].ID_Position_Atasan;
+                                    for (var key2 in data) {
+                                        if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
+
+                                            $('[name="DirID"]').val(data[key2].ID_Position);
+                                            $('[name="DirPos"]').val(data[key2].Position);
+                                            $('[name="DirName"]').val(data[key2].Name);
+                                            $('[name="DirDiv"]').val(data[key2].Divisi);
+                                            $('[name="DirDept"]').val(data[key2].Departemen);
+                                            $('[name="costCenter"]').val(data[key2].Cost_Center_Posisi);
+                                            $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
+                                            $('[name="empSubs"]').val(data[key].Company_Name);
+                                        }
+                                    }
+                                 Swal.close()
+                                 break;
+                               }
+                             }
+
+                         });
+
 
             }
         });
@@ -1157,40 +1215,28 @@
                      });
 
                      
-                     $('#positionTable').on('click', '.select-button', function() {
-                             var index;
-                             var id = $(this).data('id');
-                             for (var key in data) {
-                                if (data[key].ID_Position == id) {
-                                 $('[name="empName"]').val(data[key].Name);
-                                 $('[name="empID"]').val(data[key].Person_Id);
-                                 $('[name="empPos"]').val(data[key].Position);
-                                 $('[name="empDiv"]').val(data[key].Divisi);
-                                 $('[name="empDept"]').val(data[key].Departemen);
-                                 $('[name="empSec"]').val(data[key].Section);
-                                 var DirectID = data[key].ID_Position_Atasan;
-                                    for (var key2 in data) {
-                                        if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
+                       $('#positionTable').on('click', '.select-button', function () {
+                var id = $(this).data('ID_Position');
 
-                                            $('[name="DirID"]').val(data[key2].ID_Position);
-                                            $('[name="DirPos"]').val(data[key2].Position);
-                                            $('[name="DirName"]').val(data[key2].Name);
-                                            $('[name="DirDiv"]').val(data[key2].Divisi);
-                                            $('[name="DirDept"]').val(data[key2].Departemen);
-                                            $('[name="costCenter"]').val(data[key2].Cost_Center_Posisi);
-                                            $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
-                                            $('[name="empSubs"]').val(data[key].Company_Name);
-                                        }
-                                    }
-                                 Swal.close()
-                                 break;
-                               }
-                             }
+                var selectedData = data.find(function (row) {
+                    return row.ID_Position === id;
+                });
 
-                         });
+                if (selectedData) {
+                    $('[name="empName"]').val(selectedData.Name);
+                    $('[name="empID"]').val(selectedData.Person_Id);
+                    $('[name="empPos"]').val(selectedData.Position);
+                    $('[name="empDiv"]').val(selectedData.Divisi);
+                    $('[name="empDept"]').val(selectedData.Departemen);
+                    $('[name="empSec"]').val(selectedData.Section);
+                    $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
+                    $('[name="CreatedDate"]').val(currentDate);
 
-
+                    Swal.close();
                 }
+            });
+
+        }
         });
     }
 
