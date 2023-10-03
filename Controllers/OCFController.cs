@@ -70,6 +70,34 @@ public class OCFController : Controller
         }
     }
 
+    [HttpPost("Submit")]
+    public IActionResult Submit([FromBody] OCF ocf)
+    {
+        try
+        {
+             _context.ocf?.Add(ocf);
+            _context.SaveChanges();
+
+            // Response berhasil
+            var response = new
+            {
+                status = 2,
+                msg = "Data berhasil disimpan."
+            };
+            return Json(response);
+        }
+        catch (Exception ex)
+        {
+            // Response gagal
+            var response = new
+            {
+                status = 1,
+                msg = "Terjadi kesalahan saat menyimpan data: " + ex.Message
+            };
+            return Json(response);
+        }
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

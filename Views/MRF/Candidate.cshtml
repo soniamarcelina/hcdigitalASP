@@ -98,12 +98,12 @@
                                  //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
                                  var rows = mrftable.rows( { selected: true } ).data().toArray();
                                  console.log( rows ); // array of selected rows (each row is an array of data)
-                                 var ids = rows.map(function(x) {
+                                 @* var ids = rows.map(function(x) {
                                      return x[12];
-                                 });
-                                 if (rows[0].candidate_status == "Candidate") {
-                                    window.location.href = 'AO/interview/'  
-                                 }else{
+                                 });*@
+                                 @* if (rows[0].candidate_status == "Candidate") {
+                                    window.location.href = 'AO/Interview/'  
+                                 }else{  *@
                                     Swal.fire({
                                       title: 'Interview Result!',
                                       text: "Kandidat sudah interview, ingin interview ulang?",
@@ -114,10 +114,10 @@
                                       confirmButtonText: 'Ya, lanjutkan!'
                                     }).then((result) => {
                                       if (result.isConfirmed) {
-                                        window.location.href = 'AO/interview/'   
+                                        window.location.href = 'AO/Interview/'   
                                       }
                                     })
-                                 }
+                                // }
                                  
                              }
                          },
@@ -130,9 +130,9 @@
                                  var ids = rows.map(function(x) {
                                      return x[12];
                                  });
-                                 if (rows[0].candidate_status == "Interview") {
+                                 @* if (rows[0].candidate_status == "Interview") {
                                     window.location.href = '<?php echo base_url()?>TAD/AO/offering/'+rows[0].id   
-                                 }else{
+                                 }else{ *@
                                     Swal.fire({
                                       title: 'Confirm Offering!',
                                       text: "Kandidat belum interview, yakin langsung ke tahap offering?",
@@ -143,10 +143,10 @@
                                       confirmButtonText: 'Ya, lanjutkan!'
                                     }).then((result) => {
                                       if (result.isConfirmed) {
-                                        window.location.href = '<?php echo base_url()?>TAD/AO/offering/'+rows[0].id   
+                                        window.location.href = 'MRF/Offering/'  
                                       }
                                     })
-                                 }
+                                 //}
                              }
                          },
                          {

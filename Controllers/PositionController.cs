@@ -36,6 +36,7 @@ public class PositionController : Controller
         // var combinedData = query.ToList();
 
         // return View(combinedData);
+
         // var query = from directPos in _context.masteremployee
         //     from pos in _context.tadposition.Where(p => p.ID_Position == directPos.ID_Position).DefaultIfEmpty()
         //     select new { directPos, pos };
@@ -43,34 +44,6 @@ public class PositionController : Controller
         //     var combinedData = query.ToList();
 
         //     return View(combinedData);
-
-
-
-    
-    // var positionQuery = _context.tadposition;
-    
-    // if (positionQuery != null)
-    // {
-    //     var joinedData = _context.tadposition
-    //         .Join(
-    //             positionQuery.Where(dp => dp != null), // Filter nilai null
-    //             position => position.DirectPos_ID,
-    //             directPos => directPos?.ID_Position, // Gunakan null-conditional operator
-    //             (position, directPos) => new
-    //             {
-    //                 tadposition = position,
-    //                 masteremployee = directPos
-    //             }
-    //         )
-    //         .ToList();
-
-    //     return View(joinedData);
-    // }
-    // else
-    // {
-    //     // Lakukan penanganan jika _context.DirectPos adalah null
-    //     return View(new List<Position>());
-    // }
         
      }
 

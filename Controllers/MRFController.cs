@@ -54,6 +54,12 @@ public class MRFController : Controller
         return View();
     }
 
+    [HttpGet("Interview")]
+      public IActionResult Interview()
+    {
+        return View();
+    }
+
     [HttpGet("GetCandidate")]
     public IActionResult GetCandidate()
     {

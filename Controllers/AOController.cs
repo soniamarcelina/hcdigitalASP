@@ -24,10 +24,11 @@ public class AOController : Controller
         return View();
     }
 
-    public IActionResult Offering()
-    {
-        return View();
-    }
+//    [Route("AO/Offering")]
+//     public IActionResult Offering()
+//     {
+//         return View();
+//     }
 
     public IActionResult Approval()
     {

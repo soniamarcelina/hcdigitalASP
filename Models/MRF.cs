@@ -22,6 +22,6 @@ namespace hcdigital.Models
         public int RequestorID {get; set;}
         public int created_by {get; set;}
         public string? tempKey {get; set;}
-        public Position? Position { get; set; }
+        //public Position? Position { get; set; }
     }
 }
