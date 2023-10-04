@@ -58,7 +58,7 @@
                                             <td>@ao.point_of_hire</td>
 
                                             <td class="text-center">
-                                                <a class="btn btn-info btn-sm" href="#" onclick="showApprove()">View</a>
+                                                <a class="btn btn-info btn-sm" href="#" onclick="showApprove(@ao.id)">View</a>
                                             </td>
                                         </tr>
                                    }                           
@@ -110,7 +110,6 @@
             'excel',
             {
                 // extend: 'collection',
-                text: 'View',
                 buttons: [
                     {
                         text: 'View',
@@ -159,7 +158,7 @@
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-5 col-xl-4">Date </div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-6 col-xl-7"> <?= date('d F Y')?> </div>`+
+                        `<div class="col-md-6 col-xl-7"></div>`+
                       '</div>'+
                       '<!-- Row 2 -->'+
                     '<div class="col-md-12 col-xl-12 row">'+
@@ -285,7 +284,7 @@
                           '<table style="width:120% text-align=center;">'+
                             '<tr>'+
                               '<td style="width:10%">Date</td>'+
-                              '<td style="width:30%">: <?= date('d F Y')?></td>'+
+                              '<td style="width:30%">: </td>'+
                               '<td></td>'+
                             '</tr>'+
                             '<tr>'+
@@ -314,7 +313,7 @@
                           '<table style="width:100%">'+
                             '<tr>'+
                               '<td style="width:10%">Date</td>'+
-                              '<td style="width:30%">: <?= date('d F Y')?></td>'+
+                              '<td style="width:30%">: </td>'+
                               '<td></td>'+
                             '</tr>'+
                             '<tr>'+

@@ -34,6 +34,29 @@ namespace hcdigital.Data
         public DbSet<JobRoles>? jobroles {get; set;}
         public DbSet<Candidate>? mrf_candidate {get; set;}
 
+        public IQueryable<TKJP> GetFilter(string Nama, int Nopek)
+        {
+        // Filter data berdasarkan nama (jika disediakan) dan ID (jika disediakan).
+        var query = tademployee?.AsQueryable();
+
+        if (!string.IsNullOrEmpty(Nama))
+        {
+            query = query?.Where(t => t != null && t.Nama != null && t.Nama.Contains(Nama));
+        }
+
+        if (Nopek != 0)
+        {
+            query = query?.Where(t => t != null && t.Nopek == Nopek);
+        }
+
+        return query ?? Enumerable.Empty<TKJP>().AsQueryable();
+        }
+
+        public Approval? GetByID(int id)
+        {
+            return Approval?.Find(id);
+        }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

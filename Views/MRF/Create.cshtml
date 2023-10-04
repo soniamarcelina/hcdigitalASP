@@ -480,7 +480,7 @@
         })
     }
 
-    function selectList(input) {
+function selectList(input) {
         $.ajax({
             url: '/OCF/GetPosition',
             type: 'GET',
@@ -512,12 +512,51 @@
                              style: 'single'
                        },
                      });
+
+                     var currentDate = new Date(); // Current date
+                     var currentYear = currentDate.getFullYear(); // Get the current year
+
+                    $('#positionTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('ID_Position');
+                             for (var key in data) {
+                                if (data[key].ID_Position == id) {
+                                 $('[name="empName"]').val(data[key].name);
+                                 $('[name="empID"]').val(data[key].person_Id);
+                                 $('[name="empPos"]').val(data[key].position);
+                                 $('[name="empDiv"]').val(data[key].divisi);
+                                 $('[name="empDept"]').val(data[key].departemen);
+                                 $('[name="empSec"]').val(data[key].section);
+                                 $('[name="empSubs"]').val(data[key].company_Name);
+                                 
+                                 var DirectID = data[key].ID_Position_Atasan;
+                                    for (var key2 in data) {
+                                        if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
+
+                                            $('[name="DirID"]').val(data[key2].iD_Position);
+                                            $('[name="DirPos"]').val(data[key2].position);
+                                            $('[name="DirName"]').val(data[key2].name);
+                                            $('[name="DirDiv"]').val(data[key2].divisi);
+                                            $('[name="DirDept"]').val(data[key2].departemen);
+                                            $('[name="costCenter"]').val(data[key2].cost_Center_Posisi);
+                                            $('[name="MRF_No"]').val('REG/PPC51200/'+currentYear+'/____');
+                                            
+                                        }
+                                    } 
+                                    console.log(data)
+                                 Swal.close()
+                                 break;
+                               }
+                             }
+
+                         });
+
+
             }
         });
     }
 
-
-    function selectPosition(){
+    @* function selectPosition(){
         var dynamicTable = $('#posTable').DataTable();
         var lastRow = dynamicTable.row().count();
 
@@ -542,6 +581,110 @@
                        },
                      });
                      
+    } *@
+
+     function selectPosition(input){
+        var dynamicTable = $('#posTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+
+        $.ajax({
+                url: '/MRF/GetPosition',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let tableHtml = "<table id='posisiTable' class='table table-sm table-bordered small valign-middle nowrap'>";
+                     tableHtml += "<thead><tr><th style='width:10%'>ID Position</th><th style='width:20%' >Position Title</th><th>Direct Supervisor</th><th>Direktorat</th><th>Division</th><th>Pers Area</th><th>Action</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.id_Position + "</td>";
+                        tableHtml += "<td>" + row.posTitle + "</td>";
+                        tableHtml += "<td>" + row.directPos_ID + "</td>";
+                        tableHtml += "<td>" + row.direktorat + "</td>";
+                        tableHtml += "<td>" + row.division + "</td>";
+                        tableHtml += "<td>" + row.persArea_ID + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id_Position + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                        });
+                     tableHtml += "</tbody></table>";
+                     Swal.fire({
+                       title: 'Position List',
+                       html: tableHtml,
+                       width : 1500,
+                       showCloseButton: true,
+                     })
+
+                     $('#posisiTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       responsive : true,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+
+                     var currentDate = new Date(); // Current date
+                     var currentYear = currentDate.getFullYear(); // Get the current year
+
+                     $('#posisiTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('id');
+                             
+                             var index;
+                             var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].Id_Position == id) {
+                                    
+                                     $('[name="posTitle"]').val(data[key].PosTitle);
+                                     $('[name="posID"]').val(data[key].Id_Position);
+
+                                     if ($('[name="type"]').val() == "Extension" || $('[name="type"]').val() == "Replacement"){
+                                        
+                                        if (data[key].prevAO != null) {
+                                            
+                                        
+                                            dob = new Date(data[key].prevAO.Tgl_Lahir);
+                                            var today = new Date();
+                                            var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+                                            
+                                            $('[name="prevTAD"]').val(data[key].prevAO.Nama);
+                                            $('[name="prevAge"]').val(age+' Years Old');
+                                            $('[name="prevMRF"]').val(data[key].prevAO.mrf_code);
+                                            $('[name="prevPeriod"]').val(data[key].prevAO.start_date);
+                                        }else{
+                                            alert('This position not available for extend');
+                                            $('[name="posTitle"]').val('');
+                                            $('[name="posID"]').val('');
+                                            $('[name="prevTAD"]').val('');
+                                            $('[name="prevAge"]').val('');
+                                            $('[name="DirName"]').val('');
+                                            $('[name="DirPos"]').val('');
+                                            $('[name="Division"]').val('');
+                                            $('[name="Department"]').val('');
+                                            $('[name="workSchedule"]').val('');
+                                            $('[name="workLoc"]').val('');
+                                            $('[name="costCenter"]').val('');
+                                            $('[name="type"]').val('New')
+                                        }                                          
+                                     }
+                                     
+                                     $('[name="DirName"]').val(data[key].SPV.Name);
+                                     $('[name="DirPos"]').val(data[key].SPV.Position);
+                                     $('[name="Division"]').val(data[key].Division);
+                                     $('[name="Department"]').val(data[key].Department);
+                                     $('[name="workSchedule"]').val(data[key].Work_Schedule);
+                                     $('[name="workLoc"]').val(data[key].PersArea_ID);
+                                     $('[name="costCenter"]').val(data[key].CostCenter);
+                                        
+
+                                }
+                                Swal.close();
+                             }
+
+                         });
+
+                }
+        });
     }
 
     
@@ -618,7 +761,7 @@
             'start_date' : $('[name="start"]').val(),
             'end_date' : $('[name="end"]').val(),
             'RequestorID' : $('[name="empID"]').val(),
-            'created_by' : '<?php echo $this->session->userdata('id'); ?>',
+            'created_by' : '1',
             'tempKey' : tempKey,
         }
         //alert(JSON.stringify(data));
@@ -674,7 +817,7 @@
                 'start_date' : $('[name="start"]').val(),
                 'end_date' : $('[name="end"]').val(),
                 'RequestorID' : $('[name="empID"]').val(),
-                'created_by' : '<?php echo $this->session->userdata('id'); ?>',
+                'created_by' : '1',
             }
             $('#rvNO').text($('[name="MRF_No"]').val())
             $('#rvSubs').text($('[name="empSubs"]').val())

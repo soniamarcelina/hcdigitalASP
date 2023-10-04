@@ -1,3 +1,5 @@
+ @model hcdigital.Models.MRF
+
  @{
     ViewData["Title"] = "Candidate";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
@@ -11,7 +13,7 @@
         <div class="card-body">
         		<div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Table Candidate</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Table Candidate - @Model.mrf_code</h6>
 
                         </div>
                         <div class="card-body">
@@ -20,15 +22,15 @@
                                 
                                     <div class="col-lg-4">
                                         <label>Position Name</label>
-                                        <input type="text" class="form-control" name="Position" value="" readonly="">
+                                        <input type="text" class="form-control" name="Position" value="@Model.id_position" readonly="">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>Fungsi</label>
-                                        <input type="text" class="form-control" name="Fungsi" value="" readonly="">
+                                        <input type="text" class="form-control" name="Fungsi" readonly="">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>Supervisor Name</label>
-                                        <input type="text" class="form-control" name="Supervisor" value="" readonly="">
+                                        <input type="text" class="form-control" name="Supervisor" readonly="">
                                     </div>
 
                                 </div>
@@ -67,29 +69,41 @@
 
 <script type="text/javascript">
     $(document).ready(function(){ 
-        var mrftable = $('#candidateTable').DataTable({
-        scrollX:true,
-        ordering : true,
-        autoWidth : true,
-        fixedColumns: {
-            left: 2,
-        },
-        columnDefs: [
-            {
-                className: 'select-checkbox',
-                targets: 0
-            },
-            { "targets": 1, visible: true}, //status
-            { "targets": 2, visible: true}, //code
-            { "targets": 3, visible: true}, //type
-            { "targets": 4, visible: true}, //position title
-            { "targets": 5, visible: false}, //start
-            { "targets": 6 ,visible: false}, //end
-            { "targets": 7 ,visible:false}, //spv
-          ],
-        select: {
-              style: 'single' // Enable multi-row selection (can also use 'single')
-        },
+        //candidateTable();
+
+        @* function candidateTable(){
+             $.ajax({
+                'url': "",
+                'method': "GET",
+                'contentType': 'application/json'
+            }).done( function(data) {
+              data = JSON.parse(data)
+              data.forEach(function (row){
+                row.expected_salary = formatNumber(parseInt(row.expected_salary))
+                row.offer_salary = formatNumber(parseInt(row.offer_salary))
+                row.final_salary = formatNumber(parseInt(row.final_salary))
+                row.interview_score = parseFloat(row.interview_score).toFixed(2)+' %'
+              }) *@
+              
+              var mrftable = $('#candidateTable').DataTable({
+                ordering : true,
+                autoWidth : false,
+                columns: [
+                        { data: 'Name' },
+                        { data: 'candidate_status' },
+                        { data: 'id' },
+                        { data: 'expected_salary' },
+                        { data: 'interview_score' },
+                        { data: 'offer_salary' },
+                        { data: 'final_salary' },
+                        { data: 'last_updated' },
+                    ],
+                columnDefs : [
+                    {targets : 2, visible : false}
+                ],
+                select: {
+                      style: 'single' // Enable multi-row selection (can also use 'single')
+                },
                 dom: 'Bfrtip',
                 buttons: [
                          {
@@ -97,13 +111,13 @@
                              action: function ( e, dt, node, config ) {
                                  //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
                                  var rows = mrftable.rows( { selected: true } ).data().toArray();
-                                 console.log( rows ); // array of selected rows (each row is an array of data)
-                                 @* var ids = rows.map(function(x) {
+                                 //console.log( rows ); // array of selected rows (each row is an array of data)
+                                 var ids = rows.map(function(x) {
                                      return x[12];
-                                 });*@
+                                 });
                                  @* if (rows[0].candidate_status == "Candidate") {
-                                    window.location.href = 'AO/Interview/'  
-                                 }else{  *@
+                                    window.location.href = '<?php echo base_url()?>TAD/AO/interview/'+rows[0].id   
+                                 }else{ *@
                                     Swal.fire({
                                       title: 'Interview Result!',
                                       text: "Kandidat sudah interview, ingin interview ulang?",
@@ -114,7 +128,7 @@
                                       confirmButtonText: 'Ya, lanjutkan!'
                                     }).then((result) => {
                                       if (result.isConfirmed) {
-                                        window.location.href = 'AO/Interview/'   
+                                        window.location.href = '/AO/Interview/'   
                                       }
                                     })
                                 // }
@@ -131,7 +145,7 @@
                                      return x[12];
                                  });
                                  @* if (rows[0].candidate_status == "Interview") {
-                                    window.location.href = '<?php echo base_url()?>TAD/AO/offering/'+rows[0].id   
+                                    window.location.href = '/AO/Offering/'  
                                  }else{ *@
                                     Swal.fire({
                                       title: 'Confirm Offering!',
@@ -143,7 +157,7 @@
                                       confirmButtonText: 'Ya, lanjutkan!'
                                     }).then((result) => {
                                       if (result.isConfirmed) {
-                                        window.location.href = 'MRF/Offering/'  
+                                        window.location.href = '/AO/Offering/'  
                                       }
                                     })
                                  //}
@@ -208,10 +222,15 @@
 
                 ]
               });
+
+              @* });
+            
+        } *@
     });    
         
 
 </script>
+
 <script type="text/javascript">
     
 
@@ -265,6 +284,40 @@
                             style: 'single'
                        }
                      });
+                      $('#dataTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].Nopek == id) {
+                                    
+                                    cData = {
+                                        'mrf_id' : '@Model.id_mrf',
+                                        'status' : 'Candidate',
+                                        'personnel_id' : data[key].Nopek
+                                    }
+                                    @* $.ajax({
+                                            url: `/MRF/InsertCandidate/<?= $rows->id_mrf ?>`,
+                                            type: "POST",
+                                            dataType: "json",
+                                            data: cData,
+                                            success: function(data) {
+                                                n = JSON.stringify(data)
+                                                o = JSON.parse(n)
+                                                
+                                                Swal.fire({
+                                                    title: 'Update Status',
+                                                    html: o.msg,
+                                                    showCloseButton: true,
+                                                });
+                                                
+                                            }
+                                        }); *@
+                                 location.reload();
+                                 break;
+                               }
+                             }
+
+                         });
 
                 }
         });

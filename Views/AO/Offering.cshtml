@@ -11,58 +11,58 @@
         <div class="row col-md-12 mt-2 mb-4">
           <div class="col-md-6">
             <label>Nama Kandidat</label>
-            <input type="text" class="form-control form-control-bot-border required" name="name" placeholder="Select Kandidat" value="<?= $FormData['candidateName'] ?>" list="requestor" autocomplete="off" readonly>
+            <input type="text" class="form-control form-control-bot-border required" name="name" placeholder="Select Kandidat" list="requestor" autocomplete="off" readonly>
             <label>Tanggal & Tempat Lahir</label>
-            <input type="text" class="form-control form-control-bot-border" name="edu" value="<?= $FormData['candidateTL'] ?>" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="edu" readonly>
             <label>Jenjang Pendidikan Terakhir</label>
-            <input type="text" class="form-control form-control-bot-border" name="start" value="<?= $FormData['candidateEdu'] ?>" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="start" readonly>
             <label>Jurusan Pendidikan Terakhir</label>
-            <input type="text" class="form-control form-control-bot-border" name="start" value="<?= $FormData['candidateMajor'] ?>" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="start" readonly>
             <label>Asal Perguruan Tinggi</label>
-            <input type="text" class="form-control form-control-bot-border" name="start" value="<?= $FormData['candidateInst'] ?>" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="start" readonly>
             <label>Status Pajak</label>
-            <input type="text" class="form-control form-control-bot-border" name="statusPajak" value="<?= $FormData['pajak'] ?>" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="statusPajak" readonly>
 
             <label>Expected Salary</label>
-            <input type="text" class="form-control form-control-bot-border" name="expSalary" value="<?= number_format($FormData['expSalary']) ?>" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="expSalary" readonly>
           </div>
           <div class="col-md-6 pl-4">
             <label>Position Title</label>
-            <input type="text" class="form-control form-control-bot-border required" name="posTitle" placeholder="Select Position" value="<?= $FormData['posTitle'] ?>" list="requestor" autocomplete="off" readonly>
+            <input type="text" class="form-control form-control-bot-border required" name="posTitle" placeholder="Select Position" list="requestor" autocomplete="off" readonly>
             <label>Divisi</label>
-            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posDiv'] ?>" name="start" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="start" readonly>
             <label>Departemen</label>
-            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posDept'] ?>" name="start" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="start" readonly>
             <label>Work Schedule</label>
-            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posSch'] ?>" name="start" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="start" readonly>
             <label>Work Location</label>
-            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['posLoc'] ?>" name="start" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="start" readonly>
             <label>Grade</label>
-            <input type="text" class="form-control form-control-bot-border" value="<?= $FormData['grade'] ?>" name="grade" readonly>
+            <input type="text" class="form-control form-control-bot-border" name="grade" readonly>
           </div>
         </div>
         <div class="container-fluid py-4">
             <!-- Progress bar container -->
             <h6 class="d-block">Salary Range (Grade) vs Expected Salary</h6>
-            <span>Rp. <?= number_format($Grade->MinSalary) ?></span>
+            <span>Rp. </span>
             <div class="progress progress-grade d-inline-flex w-75">
                 <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="0%"></div>
                 <div class="progress-bar-end" id="progress-bar-end" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="100%"></div>
 
             </div>
-            <span id="MaxSalary">Rp <?= number_format($Grade->MaxSalary) ?></span>
+            <span id="MaxSalary">Rp. </span>
         </div>
         <div class="container-fluid py-4">
             <!-- Progress bar container -->
             
             <h6 class="d-block">Internal Equity vs Expected Salary </h6>
-            <h6>Headcount : <?= $IEsummary[0]->headcount ?></h6>
-            <span>Rp. <?= number_format($IEsummary[0]->minIE) ?></span>
+            <h6>Headcount : </h6>
+            <span>Rp. </span>
             <div class="progress progress-ie d-inline-flex w-75">
                 <div class="progress-bar" id="progress-bar-ie" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="0%"></div>
                 <div class="progress-bar-end" id="progress-bar-end-ie" role="progressbar" aria-valuemin="0" aria-valuemax="100" data-toggle="popover" data-trigger="hover" data-placement="top" data-content="100%"></div>
             </div>
-            <span id="MaxSalaryIE">Rp <?= number_format($IEsummary[0]->maxIE) ?></span>
+            <span id="MaxSalaryIE">Rp. </span>
             
         </div>
         <div class="container-fluid py-4">
@@ -75,15 +75,15 @@
                     <th>Work Experience</th>
                     <th>Salary</th>
                 </tr>
-                <?php foreach ($internalEquity as $IE) { ?>
+               
                     <tr>
-                        <td><?= $IE->Name ?></td>
-                        <td><?= $IE->Position ?></td>
-                        <td><?= $IE->LastEdu ?></td>
-                        <td><?= $IE->WorkExp ?></td>
-                        <td><?= number_format($IE->salary) ?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
-                <?php }?> 
+               
             </table>
         </div>
     </div>
@@ -157,9 +157,6 @@
         //return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
-        
-        
         
         // Function to update the progress bar
         function updateProgressBar(percent,percentIE) {

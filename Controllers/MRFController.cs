@@ -48,18 +48,32 @@ public class MRFController : Controller
         return View();
     }
      
-     [HttpGet("Candidate")]
-      public IActionResult Candidate()
+     [HttpGet("Candidate/{id_mrf}")]
+    public IActionResult Candidate(int id_mrf)
     {
-        return View();
+        // Dapatkan data employee berdasarkan ID dari database
+        MRF? scr = _context.mrf?.Find(id_mrf);
+
+        if (scr == null)
+        {
+            return NotFound();
+        }
+
+        return View(scr);
     }
 
-    [HttpGet("Interview")]
-      public IActionResult Interview()
+     [HttpPost]
+    public IActionResult InsertCandidate(int id, [FromBody] Candidate cData)
     {
-        return View();
+        // Lakukan logika penyisipan kandidat di sini dengan menggunakan data dari cData dan id
+        // ...
+        
+        // Setelah selesai, kembalikan respons yang sesuai
+        var response = new { msg = "Candidate inserted successfully" };
+        return Json(response);
     }
 
+    
     [HttpGet("GetCandidate")]
     public IActionResult GetCandidate()
     {
@@ -77,6 +91,25 @@ public class MRFController : Controller
             return BadRequest(new { error = ex.Message });
         }
     }
+
+    [HttpGet("GetPosition")]
+    public IActionResult GetPosition()
+    {
+        try
+        {
+            // Ambil data dari database 
+            var data = _context.tadposition?.ToList() ?? new List<Position>(); 
+            return Ok(data);
+            // Kirim data sebagai respons JSON
+            //return Ok(data);
+        }
+        catch (Exception ex)
+        {
+            // Tangani kesalahan jika ada
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

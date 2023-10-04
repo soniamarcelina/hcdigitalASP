@@ -608,7 +608,7 @@
       });
 
       //Load Responsibility Table
-      const resptable = JSON.parse('');
+      @* const resptable = JSON.parse('');
       if(resptable.length > 0){
         resptable.forEach((element, index) => {
             var i = 0
@@ -631,11 +631,11 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
 
       //Load Education Table
-      const edutable = JSON.parse('');
+      @* const edutable = JSON.parse('');
       if(edutable.length > 0){
         edutable.forEach((element, index) => {
             var i = 0
@@ -657,10 +657,10 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
       //Load Competency Table
-      const comptable = JSON.parse('<?php echo $FormData['Competency']?>');
+      @* const comptable = JSON.parse('');
       if(comptable.length > 0){
         comptable.forEach((element, index) => {
             var i = 0
@@ -683,10 +683,10 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
       //Load Experience Table
-      const exptable = JSON.parse('<?php echo $FormData['Experience']?>');
+      @* const exptable = JSON.parse('');
       if(exptable.length > 0){
         exptable.forEach((element, index) => {
             var i = 0
@@ -710,10 +710,10 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      }); *@
 
       //Load Skill Table
-      const skilltable = JSON.parse('<?php echo $FormData['Skill']?>');
+      @* const skilltable = JSON.parse('');
       if(skilltable.length > 0){
         skilltable.forEach((element, index) => {
             var i = 0
@@ -737,16 +737,17 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });
+      });*@
 
-    });
+    }); 
 
-   var listRole = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Role>>(listRoles);
+   @* var listRole = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Role>>(listRoles);
     string tempKey = "";
     string OCF_id = Request["OCF_id"]; 
     if (OCF_id != "0") {
         tempKey = tempKey; 
-    }
+    } *@
+
     $(".saveDraftBtn").click(function() {
         var responsibilityTable = $('#respTable').DataTable();
         var Responsibility = responsibilityTable.data().toArray(); 
@@ -1025,7 +1026,7 @@
     
 </script>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
     function selectCompetency(){
         var dynamicTable = $('#competencyTable').DataTable();
         var lastRow = dynamicTable.row().count();
@@ -1100,7 +1101,7 @@
                         tableHtml += "<td>" + row.iD_Position + "</td>";
                         tableHtml += "<td>" + row.position + "</td>";
                         tableHtml += "<td>" + row.name + "</td>";
-                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.ID_Position + "'>Select</a></td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.iD_Position + "'>Select</a></td>";
                         tableHtml += "</tr>";
                     });
                     tableHtml += "</tbody></table>";
@@ -1124,7 +1125,7 @@
 
                     $('#positionTable').on('click', '.select-button', function() {
                              var index;
-                             var id = $(this).data('ID_Position');
+                             var id = $(this).data('iD_Position');
                              for (var key in data) {
                                 if (data[key].ID_Position == id) {
                                  $('[name="empName"]').val(data[key].name);
@@ -1134,13 +1135,15 @@
                                  $('[name="empDept"]').val(data[key].departemen);
                                  $('[name="empSec"]').val(data[key].section);
                                  $('[name="empSubs"]').val(data[key].company_Name);
+                                 $('[name="costCenter"]').val(data[key].cost_Center_Posisi);
+                                 $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
                                  
                                  var DirectID = data[key].ID_Position_Atasan;
                                     for (var key2 in data) {
                                         if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
 
-                                            $('[name="DirID"]').val(data[key2].iD_Position_Atasan);
-                                            $('[name="DirPos"]').val(data[key2].position_Atasan);
+                                            $('[name="DirID"]').val(data[key2].iD_Position);
+                                            $('[name="DirPos"]').val(data[key2].position);
                                             $('[name="DirName"]').val(data[key2].name);
                                             $('[name="DirDiv"]').val(data[key2].divisi);
                                             $('[name="DirDept"]').val(data[key2].departemen);
@@ -1148,7 +1151,7 @@
                                             $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
                                             
                                         }
-                                    } 
+                                    }  
                                     console.log(data)
                                  Swal.close()
                                  break;
@@ -1200,12 +1203,12 @@
 
                       $('#posisiTable').on('click', '.select-button', function() {
                              var index;
-                             var id = $(this).data('ID_Position');
+                             var id = $(this).data('iD_Position');
                              for (var key in data) {
                                 if (data[key].ID_Position == id) {
 
-                                    $('[name="DirID"]').val(data[key].iD_Position_Atasan);
-                                    $('[name="DirPos"]').val(data[key].position_Atasan);
+                                    $('[name="DirID"]').val(data[key].iD_Position);
+                                    $('[name="DirPos"]').val(data[key].position);
                                     $('[name="DirName"]').val(data[key].name);
                                     $('[name="DirDiv"]').val(data[key].divisi);
                                     $('[name="DirDept"]').val(data[key].departemen);

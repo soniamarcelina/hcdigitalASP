@@ -70,10 +70,10 @@
             }
             
             $.ajax({
-                url: "<?php echo base_url()?>TAD/employeeTKJP/searchData",
-                type: "GET",
+                url: '/TKJP/SearchData',
+                type: 'GET',
                 data: data,
-                dataType: "json",
+                dataType: 'json',
                 success: function(data) {
                     var no = 1
                     var table = $('#dataTable').DataTable({
@@ -298,10 +298,10 @@
                 });
 
                 },
-                error: function(xhr, status, error) {
+                @* error: function(xhr, status, error) {
                     console.log(error);
-                }
-            });
+                }  *@
+            }); 
         });
     });
 

@@ -13,22 +13,24 @@ public class AOController : Controller
     {
         _context = context;
     }
+    
     public IActionResult Index()
     {
         var Aorder = _context.assignmentorder?.ToList() ?? new List<AO>();
         return View(Aorder);
     }
 
+    [Route("AO/Interview")]
     public IActionResult Interview()
     {
         return View();
     }
 
-//    [Route("AO/Offering")]
-//     public IActionResult Offering()
-//     {
-//         return View();
-//     }
+    [Route("AO/Offering")]
+    public IActionResult Offering()
+    {
+        return View();
+    }
 
     public IActionResult Approval()
     {

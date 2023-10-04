@@ -90,6 +90,18 @@ public class TKJPController : Controller
         return View();
     }
 
+    public ActionResult SearchData(string searchName, int searchID)
+    {
+        // Panggil metode GetFilter dari DbContext untuk melakukan pencarian
+        var query = _context.GetFilter(searchName, searchID);
+
+        // Ambil hasil pencarian
+        var result = query.ToList();
+
+        // Kembalikan hasil ke tampilan
+        return View("Search", result);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
