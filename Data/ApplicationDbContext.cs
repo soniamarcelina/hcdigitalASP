@@ -18,8 +18,6 @@ namespace hcdigital.Data
     
         }
 
-
-
         // Definisikan setiap tabel yang ada dalam database Anda di sini sebagai DbSet.
         public DbSet<Grade>? grade { get; set; }
         public DbSet<TKJP>? tademployee { get; set; }
@@ -67,7 +65,7 @@ namespace hcdigital.Data
             modelBuilder.Entity<Contractor>()
                 .HasKey(c => c.contractNo);
             modelBuilder.Entity<Position>()
-            .HasKey(p => p.Id_Position);
+            .HasKey(p => p.id_position);
             modelBuilder.Entity<DirectPos>()
             .HasKey(d => d.ID_Position);
             modelBuilder.Entity<AO>()

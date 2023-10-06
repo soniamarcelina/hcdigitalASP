@@ -233,7 +233,6 @@
 
 <script type="text/javascript">
     
-
     function getCandidate(){
         $.ajax({
             url: "<?php echo base_url()?>TAD/MRF/getCandidate",
@@ -295,10 +294,10 @@
                                         'status' : 'Candidate',
                                         'personnel_id' : data[key].Nopek
                                     }
-                                    @* $.ajax({
-                                            url: `/MRF/InsertCandidate/<?= $rows->id_mrf ?>`,
-                                            type: "POST",
-                                            dataType: "json",
+                                    $.ajax({
+                                            url: '/MRF/InsertCandidate/',
+                                            type: 'POST',
+                                            dataType: 'json',
                                             data: cData,
                                             success: function(data) {
                                                 n = JSON.stringify(data)
@@ -311,7 +310,7 @@
                                                 });
                                                 
                                             }
-                                        }); *@
+                                        });
                                  location.reload();
                                  break;
                                }

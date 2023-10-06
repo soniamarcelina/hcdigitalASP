@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace hcdigital.Models
 {
+    [Table("tadposition")]
     public class Position
     {
-        public int? Id_Position {get; set;}
+        public int? id_position {get; set;}
         public int? ID_AO {get; set;}
         public string? PosTitle {get; set;}
         public int? DirectPos_ID {get; set;}

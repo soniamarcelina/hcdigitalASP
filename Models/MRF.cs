@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace hcdigital.Models
 {
@@ -12,6 +14,8 @@ namespace hcdigital.Models
         public int yID {get; set;}
         public string? status {get; set;}
         public string? mrf_type {get; set;}
+
+        [ForeignKey("id_position")]
         public int id_position {get; set;}
         public string? workTerm {get; set;}
         public string? ABI_ABO {get; set;}
@@ -22,6 +26,7 @@ namespace hcdigital.Models
         public int RequestorID {get; set;}
         public int created_by {get; set;}
         public string? tempKey {get; set;}
-        //public Position? Position { get; set; }
+        public Position? Position { get; set; }
+    
     }
 }

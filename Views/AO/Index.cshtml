@@ -133,10 +133,21 @@
       });
     
 </script>
+
 <script type="text/javascript">
    
-    function showApprove() {
-        
+    function showApprove(id) {
+         $.ajax({
+                url: '/AO/GetAssignmentById/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                          console.log(data);
+
+                      $("#rvAO").text(data.data.aO_No);
+                       $("#rvCrNO").text(data.data.contractor_id);
+                       $("#rvMRF").text(data.data.mrf_id);
+
                      Swal.fire({
                        title: 'Assignment Order',
                        showConfirmButton: true,
@@ -164,7 +175,7 @@
                     '<div class="col-md-12 col-xl-12 row">'+
                        '<div class="col-md-5 col-xl-4">Contract No./Period </div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-6 col-xl-7" id="rvCrNO"></div>`+
+                        '<div class="col-md-6 col-xl-7" id="rvCrNO">' + data.data.contractor_id + '</div>' + 
                       '</div>'+
                       '<!-- Row 3 -->'+
                       '<div class="col-md-12 col-xl-12 row">'+
@@ -177,14 +188,14 @@
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-5 col-xl-4">Assignment Order No</div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-6 col-xl-7" id="rvAO"></div>`+
+                        '<div class="col-md-6 col-xl-7" id="rvAO">'+ data.data.aO_No + '</div>'+
                       '</div>'+
                       '<div class="col-xl-6"></div>'+
                       '<!-- Row 4 -->'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-5 col-xl-4">MRF No</div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-6 col-xl-7" id="rvMRF"></div>`+
+                        '<div class="col-md-6 col-xl-7" id="rvMRF">' + data.data.mrf_id + '</div>'+
                       '</div>'+
                       '<div class="col-xl-6 mb-2"></div>'+
                       '<!-- Separator -->'+
@@ -342,9 +353,11 @@
                     '</div>'+
                     '</div>',
                         width : 1200,
-                        
-                     })
-                }
+                      })
+              }
+
+            });
+    }
                 
 </script>
 

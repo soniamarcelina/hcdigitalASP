@@ -23,23 +23,36 @@ public class MRFController : Controller
         return View();
     }
 
+
      [HttpGet("Index")]
     public IActionResult Index()
     {
-        var manpower = _context.mrf?.ToList() ?? new List<MRF>();
-        return View(manpower);
-    //    var mrfData = _context.mrf?.Include(m => m.Position).ToList();
-    //     return View(mrfData);
-        //     var mrfPositionData = (from mrf in _context.mrf
-        //                   join tadposition in _context.tadposition on mrf.id_position equals tadposition.Id_Position
-        //                   where mrf != null
-        //                   select new MRF
-        //                     {
-        //                         Position = tadposition
-                               
-        //                     }).ToList();
+        // var manpower = _context.mrf?.ToList() ?? new List<MRF>();
+        // return View(manpower);
+        if (_context.mrf != null && _context.tadposition != null)
+        {
+        var result = _context.mrf
+            .Join(
+                _context.tadposition,
+                m => m.id_position,
+                p => p.id_position,
+                (m, p) => new { Mrf = m, Position = p }
+            )
+            .Select(mp => new MRF
+            {
+                id_mrf = mp.Mrf.id_mrf,
+                id_position = mp.Mrf.id_position,
+                Position = mp.Position
+            })
+            .ToList();
 
-        // return View(mrfPositionData);
+        return View(result);
+
+        } else
+        { 
+            return View(new List<MRF>()); 
+        }
+
     }
 
      [HttpGet("Approval")]
