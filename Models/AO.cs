@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace hcdigital.Models
 {
+    [Table("assignmentorder")]
     public class AO
     {
        public int id {get; set;}
@@ -22,6 +24,8 @@ namespace hcdigital.Models
        public string? point_of_hire {get; set;}
        public int created_by {get; set;}
        public string? tempKey {get; set;}
+        //public Contractor? Contractor { get; set; }
+        //public TKJP? TKJP { get; set; }
 
     }
 }

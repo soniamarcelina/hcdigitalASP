@@ -10,9 +10,11 @@ namespace hcdigital.Models
     public class Position
     {
         public int? id_position {get; set;}
+        [ForeignKey("ID_AO")]
         public int? ID_AO {get; set;}
         public string? PosTitle {get; set;}
-        public int? DirectPos_ID {get; set;}
+        [ForeignKey("DirectPos_ID")]
+        public string? DirectPos_ID {get; set;}
         public string? Direktorat{get; set;}
         public string? Division{get; set;}
         public string? Sub_division{get; set;}
@@ -34,8 +36,9 @@ namespace hcdigital.Models
         public string? Status{get; set;}
         public string? Ocf_id{get; set;}
 
-        //public DirectPos? masteremployee { get; set; }
-        // public ICollection<MRF>? mrf { get; set; }
+        public DirectPos? DirectPos { get; set; }
+        public AO? Assignment { get; set; }
+        public TKJP? Employee {get; set;}
         
       
     }

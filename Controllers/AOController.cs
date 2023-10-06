@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using hcdigital.Models;
 using hcdigital.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace hcdigital.Controllers;
 [Route("AO")]
@@ -21,8 +22,30 @@ public class AOController : Controller
     {
         var Aorder = _context.assignmentorder?.ToList() ?? new List<AO>();
         return View(Aorder);
-    }
+        // if (_context.assignmentorder != null && _context.contractor != null )
+        // {
+        // var result = _context.assignmentorder
+        //     .Join(
+        //         _context.contractor,
+        //         a => a.contractor_id,
+        //         c => c.contractNo,
+        //         (AO a, Contractor c) => new { Assignment = a, Contractor = c }
+        //     )
+        //      .Select(pd => new AO {
+        //         Contractor = pd.Contractor
+        //      })
+           
+        //     .ToList();
 
+        // return View(result);
+
+        // } else
+        // { 
+        //     return View(new List<AO>()); 
+        // }
+        
+    }
+     
     [HttpGet("Interview")]
     public IActionResult Interview()
     {

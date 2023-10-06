@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace hcdigital.Models
 {
+    [Table("masteremployee")]
     public class DirectPos
     {
         public string? ID_Position {get; set;}

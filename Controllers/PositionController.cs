@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using hcdigital.Models;
 using hcdigital.Data;
+using System.Linq;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -21,31 +23,60 @@ public class PositionController : Controller
     [HttpGet("Index")]
     public IActionResult Index()
     {
-        var position = _context.tadposition?.ToList() ?? new List<Position>();
-        return View(position);
+        if (_context.tadposition != null && _context.masteremployee != null && _context.assignmentorder != null)
+        {
+        var result = _context.tadposition
+            .Join(
+                _context.masteremployee,
+                p => p.DirectPos_ID,
+                d => d.ID_Position,
+                (Position p, DirectPos d) => new { DirectPos = d, Position = p }
+            )
+            .Join(
+                _context.assignmentorder,
+                dp => dp.Position.ID_AO,
+                assignmentorder => assignmentorder.id,
+                (pd, assignmentorder) => new {pd.Position, pd.DirectPos, Assignment = assignmentorder}
+            )
+            .Join(
+                _context.tademployee,
+                dpa => dpa.Assignment.id_personnel,
+                tademployee => tademployee.Nopek,
+                (pd, assignmentorder, tademployee) => new {pd.Position, pd.DirectPos, pd.Assignment, Employee = tademployee}
+            )
+            .Select(pd => new Position
+            {
+                id_position = pd.Position.id_position,
+                ID_AO = pd.Position.ID_AO,
+                PosTitle = pd.Position.PosTitle,
+                Direktorat = pd.Position.Direktorat,
+                Division = pd.Position.Division,
+                Sub_division = pd.Position.Sub_division,
+                Department = pd.Position.Department,
+                Section = pd.Position.Section,
+                Company_ID = pd.Position.Company_ID,
+                PersArea_ID = pd.Position.PersArea_ID,
+                PersSubArea_ID = pd.Position.PersSubArea_ID,
+                CostType = pd.Position.CostType,
+                CostCenter = pd.Position.CostCenter,
+                Work_Schedule = pd.Position.Work_Schedule,
+                Grade = pd.Position.Grade,
+                DirectPos_ID = pd.Position.DirectPos_ID,
+                DirectPos = pd.DirectPos,
+                Assignment = pd.Assignment,
+                Employee = pd.Employee
+                
+            })
+            .ToList();
 
-        // var position = _context.tadposition?.Include(i => i.masteremployee).ToList();
-        // return View(position);
+        return View(result);
 
-        // var query = from pos in _context.tadposition
-        //     join directPos in _context.masteremployee
-        //     on pos.ID_Position equals directPos.ID_Position
-        //     where pos != null && directPos != null
-        //     select new { pos, directPos };
+        } else
+        { 
+            return View(new List<Position>()); 
+        }
 
-        // var combinedData = query.ToList();
-
-        // return View(combinedData);
-
-        // var query = from directPos in _context.masteremployee
-        //     from pos in _context.tadposition.Where(p => p.ID_Position == directPos.ID_Position).DefaultIfEmpty()
-        //     select new { directPos, pos };
-
-        //     var combinedData = query.ToList();
-
-        //     return View(combinedData);
-        
-     }
+    }
 
     [HttpGet("Search")]
     public IActionResult Search()
