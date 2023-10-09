@@ -39,7 +39,6 @@ namespace hcdigital.Models
         public DirectPos? DirectPos { get; set; }
         public AO? Assignment { get; set; }
         public TKJP? Employee {get; set;}
-        
       
     }
 }

@@ -1125,9 +1125,9 @@
 
                     $('#positionTable').on('click', '.select-button', function() {
                              var index;
-                             var id = $(this).data('iD_Position');
+                             var id = $(this).data('id');
                              for (var key in data) {
-                                if (data[key].ID_Position == id) {
+                                if (data[key].iD_Position == id) {
                                  $('[name="empName"]').val(data[key].name);
                                  $('[name="empID"]').val(data[key].person_Id);
                                  $('[name="empPos"]').val(data[key].position);
@@ -1138,9 +1138,9 @@
                                  $('[name="costCenter"]').val(data[key].cost_Center_Posisi);
                                  $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
                                  
-                                 var DirectID = data[key].ID_Position_Atasan;
+                                 var DirectID = data[key].iD_Position_Atasan;
                                     for (var key2 in data) {
-                                        if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
+                                        if (data[key].iD_Position_Atasan == data[key2].iD_Position) {
 
                                             $('[name="DirID"]').val(data[key2].iD_Position);
                                             $('[name="DirPos"]').val(data[key2].position);
@@ -1203,9 +1203,9 @@
 
                       $('#posisiTable').on('click', '.select-button', function() {
                              var index;
-                             var id = $(this).data('iD_Position');
+                             var id = $(this).data('id');
                              for (var key in data) {
-                                if (data[key].ID_Position == id) {
+                                if (data[key].iD_Position == id) {
 
                                     $('[name="DirID"]').val(data[key].iD_Position);
                                     $('[name="DirPos"]').val(data[key].position);

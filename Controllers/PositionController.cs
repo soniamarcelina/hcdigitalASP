@@ -23,7 +23,7 @@ public class PositionController : Controller
     [HttpGet("Index")]
     public IActionResult Index()
     {
-        if (_context.tadposition != null && _context.masteremployee != null && _context.assignmentorder != null)
+        if (_context.tadposition != null && _context.masteremployee != null && _context.assignmentorder != null && _context.tademployee != null )
         {
         var result = _context.tadposition
             .Join(
@@ -37,12 +37,11 @@ public class PositionController : Controller
                 dp => dp.Position.ID_AO,
                 assignmentorder => assignmentorder.id,
                 (pd, assignmentorder) => new {pd.Position, pd.DirectPos, Assignment = assignmentorder}
-            )
-            .Join(
-                _context.tademployee,
-                dpa => dpa.Assignment.id_personnel,
+            ).Join(
+                _context.tademployee, 
+                ta => ta.Assignment.id_personnel,
                 tademployee => tademployee.Nopek,
-                (pd, assignmentorder, tademployee) => new {pd.Position, pd.DirectPos, pd.Assignment, Employee = tademployee}
+                (pd, tademployee) => new {pd.Position, pd.DirectPos, pd.Assignment, Employee = tademployee}
             )
             .Select(pd => new Position
             {
@@ -64,8 +63,8 @@ public class PositionController : Controller
                 DirectPos_ID = pd.Position.DirectPos_ID,
                 DirectPos = pd.DirectPos,
                 Assignment = pd.Assignment,
-                Employee = pd.Employee
-                
+                Employee = pd.Employee,
+            
             })
             .ToList();
 

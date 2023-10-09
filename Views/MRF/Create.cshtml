@@ -518,9 +518,9 @@ function selectList(input) {
 
                     $('#positionTable').on('click', '.select-button', function() {
                              var index;
-                             var id = $(this).data('ID_Position');
+                             var id = $(this).data('id');
                              for (var key in data) {
-                                if (data[key].ID_Position == id) {
+                                if (data[key].iD_Position == id) {
                                  $('[name="empName"]').val(data[key].name);
                                  $('[name="empID"]').val(data[key].person_Id);
                                  $('[name="empPos"]').val(data[key].position);
@@ -529,9 +529,9 @@ function selectList(input) {
                                  $('[name="empSec"]').val(data[key].section);
                                  $('[name="empSubs"]').val(data[key].company_Name);
                                  
-                                 var DirectID = data[key].ID_Position_Atasan;
+                                 var DirectID = data[key].iD_Position_Atasan;
                                     for (var key2 in data) {
-                                        if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
+                                        if (data[key].iD_Position_Atasan == data[key2].iD_Position) {
 
                                             $('[name="DirID"]').val(data[key2].iD_Position);
                                             $('[name="DirPos"]').val(data[key2].position);
@@ -556,39 +556,12 @@ function selectList(input) {
         });
     }
 
-    @* function selectPosition(){
-        var dynamicTable = $('#posTable').DataTable();
-        var lastRow = dynamicTable.row().count();
-
-        let tableHtml = "<table id='posisiTable' class='table table-sm table-bordered small valign-middle nowrap'>";
-            tableHtml += "<thead><tr><th style='width:10%'>ID Position</th><th style='width:20%' >Position Title</th><th>Direct Supervisor</th><th>Direktorat</th><th>Division</th><th>Pers Area</th><th>Action</th></tr></thead>";
-            tableHtml += "<tbody>";
-            tableHtml += `<tr><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="#" class="btn btn-info select-button" data-id="">Select</a></td></tr>`;
-            tableHtml += "</tbody></table>";
-                     Swal.fire({
-                       title: 'Position List',
-                       html: tableHtml,
-                       width : 1200,
-                       showCloseButton: true,
-                     })
-
-                     $('#posisiTable').DataTable({
-                       ordering : true,
-                       autoWidth : false,
-                       responsive : true,
-                       select: {
-                             style: 'single'
-                       },
-                     });
-                     
-    } *@
-
      function selectPosition(input){
         var dynamicTable = $('#posTable').DataTable();
         var lastRow = dynamicTable.row().count();
 
         $.ajax({
-                url: '/MRF/GetPosition',
+                url: '/MRF/GetTADPosition',
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -597,13 +570,13 @@ function selectList(input) {
                      tableHtml += "<tbody>";
                      data.forEach(function(row) {
                         tableHtml += "<tr>";
-                        tableHtml += "<td>" + row.id_Position + "</td>";
+                        tableHtml += "<td>" + row.id_position + "</td>";
                         tableHtml += "<td>" + row.posTitle + "</td>";
-                        tableHtml += "<td>" + row.directPos_ID + "</td>";
+                        tableHtml += "<td>" + row.directPos.position + "</td>";
                         tableHtml += "<td>" + row.direktorat + "</td>";
                         tableHtml += "<td>" + row.division + "</td>";
                         tableHtml += "<td>" + row.persArea_ID + "</td>";
-                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id_Position + "'>Select</a></td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id_position + "'>Select</a></td>";
                         tableHtml += "</tr>";
                         });
                      tableHtml += "</tbody></table>";
@@ -629,29 +602,24 @@ function selectList(input) {
                      $('#posisiTable').on('click', '.select-button', function() {
                              var index;
                              var id = $(this).data('id');
-                             
-                             var index;
-                             var id = $(this).data('id');
                              for (var key in data) {
-                                if (data[key].Id_Position == id) {
+                                if (data[key].id_position == id) {
                                     
-                                     $('[name="posTitle"]').val(data[key].PosTitle);
-                                     $('[name="posID"]').val(data[key].Id_Position);
+                                     $('[name="posTitle"]').val(data[key].posTitle);
+                                     $('[name="posID"]').val(data[key].id_position);
 
-                                     if ($('[name="type"]').val() == "Extension" || $('[name="type"]').val() == "Replacement"){
+                                     if ($('[name="type"]').val() == "Extension" || $('[name="type"]').val() == "Replacement") {
                                         
                                         if (data[key].prevAO != null) {
-                                            
-                                        
-                                            dob = new Date(data[key].prevAO.Tgl_Lahir);
+                                            dob = new Date(data[key].prevAO.tgl_Lahir);
                                             var today = new Date();
                                             var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
                                             
-                                            $('[name="prevTAD"]').val(data[key].prevAO.Nama);
+                                            $('[name="prevTAD"]').val(data[key].prevAO.nama);
                                             $('[name="prevAge"]').val(age+' Years Old');
                                             $('[name="prevMRF"]').val(data[key].prevAO.mrf_code);
                                             $('[name="prevPeriod"]').val(data[key].prevAO.start_date);
-                                        }else{
+                                        } else {
                                             alert('This position not available for extend');
                                             $('[name="posTitle"]').val('');
                                             $('[name="posID"]').val('');
@@ -667,34 +635,37 @@ function selectList(input) {
                                             $('[name="type"]').val('New')
                                         }                                          
                                      }
-                                     
-                                     $('[name="DirName"]').val(data[key].SPV.Name);
-                                     $('[name="DirPos"]').val(data[key].SPV.Position);
-                                     $('[name="Division"]').val(data[key].Division);
-                                     $('[name="Department"]').val(data[key].Department);
-                                     $('[name="workSchedule"]').val(data[key].Work_Schedule);
-                                     $('[name="workLoc"]').val(data[key].PersArea_ID);
-                                     $('[name="costCenter"]').val(data[key].CostCenter);
+                                     $('[name="DirName"]').val(data[key].directPos.name);
+                                     $('[name="DirPos"]').val(data[key].directPos.position);
+                                     $('[name="Division"]').val(data[key].division);
+                                     $('[name="Department"]').val(data[key].department);
+                                     $('[name="workSchedule"]').val(data[key].work_Schedule);
+                                     $('[name="workLoc"]').val(data[key].persArea_ID);
+                                     $('[name="costCenter"]').val(data[key].costCenter);
                                         
-
                                 }
                                 Swal.close();
-                             }
+                             } 
 
-                         });
+                         }); 
 
                 }
         });
     }
 
+    function getQueryParameter(name) {
+    // Fungsi ini untuk mengambil parameter query string berdasarkan namanya.
+    var urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
     
 
     $(".saveDraftBtn").click(function() {
         var tempKey = '';
-        var MRF_id = '<%= MRF_id %>';
-        
+        var MRF_id = getQueryParameter("id_mrf"); // Fungsi yang mengambil parameter query string.
+
         if (MRF_id !== '0') {
-            tempKey = '<%= tempKey %>';
+        tempKey = getQueryParameter("tempKey");
         }
 
         var data = {
@@ -711,10 +682,10 @@ function selectList(input) {
             RequestorID: $('[name="empID"]').val(),
             created_by: '<%= this.Session["id"] %>',
             tempKey: tempKey
-        };
+        }; 
 
         $.ajax({
-            url: '<%= ResolveUrl("~/MRF/insert") %>',
+            url: 'MRF/Insert',
             type: 'POST',
             dataType: 'json',
             data: data,
@@ -728,7 +699,7 @@ function selectList(input) {
                         html: o.msg,
                         showCloseButton: true
                     });
-                    window.location.href = '<%= ResolveUrl("~/MRF/create/") %>' + tempKey;
+                    window.location.href = 'MRF/Create' + tempKey;
                 } else {
                     Swal.fire({
                         title: 'Update Status',
@@ -809,14 +780,14 @@ function selectList(input) {
                 'mrf_code' : $('[name="MRF_No"]').val(),
                 'status' : 'Draft',
                 'mrf_type' : $('[name="type"]').val(),
-                'Id_position' : $('[name="posID"]').val(),
+                'id_position' : $('[name="posID"]').val(),
                 'workTerm' : $('[name="workTerm"]').val(),
-                'ABI_ABO' : $('[name="ABO_ABI"]').val(),
+                'aBI_ABO' : $('[name="ABO_ABI"]').val(),
                 'prev_mrf' : $('[name="prevMRF"]').val(),
                 'justification' : $('[name="Justification"]').val(),
                 'start_date' : $('[name="start"]').val(),
                 'end_date' : $('[name="end"]').val(),
-                'RequestorID' : $('[name="empID"]').val(),
+                'requestorID' : $('[name="empID"]').val(),
                 'created_by' : '1',
             }
             $('#rvNO').text($('[name="MRF_No"]').val())
@@ -826,14 +797,14 @@ function selectList(input) {
             
 
             $('#rvTitle').text($('[name="posTitle"]').val())
-            $('#RvCost').text($('[name="ABO_ABI"]').val()+ ' - ' + $('[name="workTerm"]').val())
+            $('#RvCost').text($('[name="aBO_ABI"]').val()+ ' - ' + $('[name="workTerm"]').val())
 
-            $('#rvDiv').text($('[name="Division"]').val())
-            $('#rvDept').text($('[name="Dept"]').val())
-            $('#rvDirPos').text($('[name="DirPos"]').val())
-            $('#rvDirDept').text($('[name="Division"]').val())
-            $('#rvDirDiv').text($('[name="Dept"]').val())
-            $('#rvJus').text($('[name="Justification"]').val())
+            $('#rvDiv').text($('[name="division"]').val())
+            $('#rvDept').text($('[name="dept"]').val())
+            $('#rvDirPos').text($('[name="dirPos"]').val())
+            $('#rvDirDept').text($('[name="division"]').val())
+            $('#rvDirDiv').text($('[name="dept"]').val())
+            $('#rvJus').text($('[name="justification"]').val())
 
             $('#rvType').text($('[name="type"]').val())
             $('#rvPrevTad').text($('[name="prevTAD"]').val())
@@ -843,7 +814,7 @@ function selectList(input) {
 
             $('#rvWL').text($('[name="workLoc"]').val())
             $('#rvWS').text($('[name="workSchedule"]').val())
-            $('#rvBudget').text($('[name="ABO_ABI"]').val()+' - '+$('[name="workTerm"]').val())
+            $('#rvBudget').text($('[name="aBO_ABI"]').val()+' - '+$('[name="workTerm"]').val())
             $('#rvCost').text($('[name="costCenter"]').val())
             
             function differenceInMonths(date1, date2) {

@@ -24,8 +24,6 @@ namespace hcdigital.Models
        public string? point_of_hire {get; set;}
        public int created_by {get; set;}
        public string? tempKey {get; set;}
-        //public Contractor? Contractor { get; set; }
-        //public TKJP? TKJP { get; set; }
-
+       
     }
 }
