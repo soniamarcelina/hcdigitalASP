@@ -138,15 +138,22 @@
    
     function showApprove(id) {
          $.ajax({
-                url: '/AO/GetAssignmentById/' + id,
+                url: '/AO/GetAssignments/' + id,
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
                           console.log(data);
+                      $("#rvAO").text(data.data.assignment.aO_No);
+                      $("#rvCrNO").text(data.data.contractor.contractNo);
+                      $("#rvCrName").text(data.data.contractor.name);
+                      $("#rvCrComp").text(data.data.contractor.company);
+                     //$("#rvMRF").text(data.data.mrf.mrf_code);
+                      $("#rvTitle").text(data.data.contractor.title);
+                     
+                      $("#rvStart").text(data.data.assignment.contract_start);
+                      $("#rvEnd").text(data.data.assignment.contract_end);
+                      $("#rvPOH").text(data.data.assignment.point_of_hire);
 
-                      $("#rvAO").text(data.data.aO_No);
-                       $("#rvCrNO").text(data.data.contractor_id);
-                       $("#rvMRF").text(data.data.mrf_id);
 
                      Swal.fire({
                        title: 'Assignment Order',
@@ -175,32 +182,32 @@
                     '<div class="col-md-12 col-xl-12 row">'+
                        '<div class="col-md-5 col-xl-4">Contract No./Period </div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        '<div class="col-md-6 col-xl-7" id="rvCrNO">' + data.data.contractor_id + '</div>' + 
+                        '<div class="col-md-6 col-xl-7" id="rvCrNO">' + data.data.contractor.contractNo + '</div>' + 
                       '</div>'+
                       '<!-- Row 3 -->'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-5 col-xl-4">Contractor</div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-6 col-xl-7" id="rvCrName"></div>`+
+                        '<div class="col-md-6 col-xl-7" id="rvCrName">' + data.data.contractor.name + '</div>'+
                       '</div>'+
                       '<div class="col-xl-6"></div>'+
                       '<!-- Row 4 -->'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-5 col-xl-4">Assignment Order No</div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        '<div class="col-md-6 col-xl-7" id="rvAO">'+ data.data.aO_No + '</div>'+
+                        '<div class="col-md-6 col-xl-7" id="rvAO">'+ data.data.assignment.aO_No + '</div>'+
                       '</div>'+
                       '<div class="col-xl-6"></div>'+
                       '<!-- Row 4 -->'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-5 col-xl-4">MRF No</div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        '<div class="col-md-6 col-xl-7" id="rvMRF">' + data.data.mrf_id + '</div>'+
+                        '<div class="col-md-6 col-xl-7" id="rvMRF"></div>'+
                       '</div>'+
                       '<div class="col-xl-6 mb-2"></div>'+
                       '<!-- Separator -->'+
                       '<div class="col-md-12 col-xl-12 mt-4 mb-2">'+
-                        `<h6>In accordance with the terms and conditions on Contract No. <b id="rvcrNo"></b> between <b id="rvcrComp"></b>, ("COMPANY") and <b id="rvcrName"></b> ("CONTRACTOR"), this Assignment Order authorizes CONTRACTOR to supply CONTRACTOR'S Personnel to perform the Work as describe fully in Exhibit B of the Contract: </h6>`+
+                        '<h6>In accordance with the terms and conditions on Contract No. <b id="rvCrNO">'+ data.data.contractor.contractNo + '</b> between <b id="rvCrComp">'+data.data.contractor.company+'</b>, ("COMPANY") and <b id="rvcrName">'+ data.data.contractor.name +'</b> ("CONTRACTOR"), this Assignment Order authorizes CONTRACTOR to supply CONTRACTOR`S Personnel to perform the Work as describe fully in Exhibit B of the Contract: </h6>'+
                       '</div>'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-12 col-xl-12">'+
@@ -215,13 +222,13 @@
                               '<th>Completion Date of Services</th>'+
                             '</tr>'+
                             '<tr>'+
-                              `<td id="rvTitle"></td>`+
-                              `<td id="rvWS"></td>`+
-                              `<td id="rvPersonnel"></td>`+
-                              `<td id="rvPOH"></td>`+
-                              `<td id="rvPeriod"></td>`+
-                              `<td id="rvStart"></td>`+
-                              `<td id="rvEnd"></td>`+
+                              '<td id="rvTitle">'+ data.data.contractor.title +'</td>'+
+                              '<td id="rvWS"></td>'+
+                              '<td id="rvPersonnel"></td>'+
+                              '<td id="rvPOH">'+ data.data.assignment.point_of_hire+'</td>'+
+                              '<td id="rvPeriod"></td>'+
+                              '<td id="rvStart">'+ data.data.assignment.contract_start+'</td>'+
+                              '<td id="rvEnd">'+data.data.assignment.contract_end+'</td>'+
                             '</tr>'+
                           '</table>'+
                         '</div>'+
@@ -234,17 +241,17 @@
                       '<div class="col-md-12 col-xl-12 row">'+
                         `<div class="col-md-6 col-xl-3">Company's Operation Area</div>`+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-5 col-xl-8" id="rvPAPSA"></div>`+
+                        '<div class="col-md-5 col-xl-8" id="rvPAPSA"></div>'+
                       '</div>'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         `<div class="col-md-6 col-xl-3">Company's Supervisor</div>`+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-5 col-xl-8" id="rvSPV"></div>`+
+                        '<div class="col-md-5 col-xl-8" id="rvSPV"></div>'+
                       '</div>'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-6 col-xl-3">Cost Center</div>'+
                         '<div class="col-md-1 col-xl-1">:</div>'+
-                        `<div class="col-md-5 col-xl-8" id="rvCC"></div>`+
+                        '<div class="col-md-5 col-xl-8" id="rvCC"></div>'+
                       '</div>'+
                       '<div class="col-md-12 col-xl-12 row">'+
                         '<div class="col-md-6 col-xl-3">Personnel Classified/Category</div>'+

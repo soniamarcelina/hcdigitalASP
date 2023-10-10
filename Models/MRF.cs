@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace hcdigital.Models
 {
+    [Table("mrf")]
     public class MRF
     {
         public int id_mrf {get; set;}
@@ -26,7 +27,8 @@ namespace hcdigital.Models
         public int RequestorID {get; set;}
         public int created_by {get; set;}
         public string? tempKey {get; set;}
+        public DateTime? created_at {get; set;}
         public Position? Position { get; set; }
-    
+        //public DirectPos? DirectPos {get; set;}
     }
 }

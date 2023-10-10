@@ -43,12 +43,28 @@ public class AOController : Controller
         return View();
     }
 
-    [HttpGet("GetAssignmentById/{id}")]
-    public JsonResult GetAssignmentById(int id)
+[HttpGet("GetAssignments/{id}")]
+public IActionResult GetAssignments(int id)
+{
+    try
     {
-        try
+        if (_context.assignmentorder != null && _context.contractor != null && _context.mrf != null)
         {
-            var Aorder = _context.assignmentorder?.SingleOrDefault(a => a.id == id);
+            var Aorder = _context.assignmentorder
+                .Where(a => a.id == id)
+                .Join(
+                    _context.contractor,
+                    a => a.contractor_id,
+                    c => c.contractNo,
+                    (AO a, Contractor c) => new { Assignment = a, Contractor = c }
+                )
+                // .Join(
+                //     _context.mrf,
+                //     m => m.Assignment.mrf_id,
+                //     MRF =>  MRF.id_mrf,
+                //     (ac, Mrf ) => new {ac.Assignment, ac.Contractor, mrf = Mrf}
+                // )
+                .SingleOrDefault();
 
             if (Aorder != null)
             {
@@ -59,11 +75,15 @@ public class AOController : Controller
                 return Json(new { success = false, message = "Data tidak ditemukan" });
             }
         }
-        catch (Exception ex)
-        {
-            return Json(new { success = false, message = "Terjadi kesalahan: " + ex.Message });
-        }
+
+        return Json(new { success = false, message = "Data tidak ditemukan" });
     }
+    catch (Exception ex)
+    {
+        return Json(new { success = false, message = "Terjadi kesalahan: " + ex.Message });
+    }
+}
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
