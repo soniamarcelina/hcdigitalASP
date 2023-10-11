@@ -28,6 +28,12 @@ public class OCFController : Controller
         return View(ocf);
     }
 
+    
+     public IActionResult RequestOrg()
+    {
+        return View();
+    }
+
     [HttpGet("Approval")]
     public IActionResult Approval()
     {

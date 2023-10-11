@@ -26,44 +26,46 @@ public class MRFController : Controller
      [HttpGet("Index")]
     public IActionResult Index()
     {
-        if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null)
-        {
-        var result = _context.mrf
-            .Join(
-                _context.tadposition,
-                m => m.id_position,
-                p => p.id_position,
-                (m, p) => new { Mrf = m, Position = p }
-            )
+        var result = _context.mrf?.ToList() ?? new List<MRF>();
+        return View(result);
+        // if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null)
+        // {
+        // var result = _context.mrf
+        //     .Join(
+        //         _context.tadposition,
+        //         m => m.id_position,
+        //         p => p.id_position,
+        //         (m, p) => new { Mrf = m, Position = p }
+        //     )
             // .Join(
             //     _context.masteremployee,
             //     pm => pm.Position.DirectPos_ID,
             //     masteremployee => masteremployee.ID_Position,
             //     (mp, masteremployee) => new {mp.Mrf, mp.Position, DirectPos = masteremployee }
             // )
-            .Select(mp => new MRF
-            {
-                id_mrf = mp.Mrf.id_mrf,
-                status = mp.Mrf.status,
-                mrf_code = mp.Mrf.mrf_code,
-                mrf_type = mp.Mrf.mrf_type,
-                start_date = mp.Mrf.start_date,
-                end_date = mp.Mrf.end_date,
-                tempKey = mp.Mrf.tempKey,
-                created_at = mp.Mrf.created_at,
-                id_position = mp.Mrf.id_position,
-                Position = mp.Position,
-                //DirectPos = mp.DirectPos,
+        //     .Select(mp => new MRF
+        //     {
+        //         id_mrf = mp.Mrf.id_mrf,
+        //         status = mp.Mrf.status,
+        //         mrf_code = mp.Mrf.mrf_code,
+        //         mrf_type = mp.Mrf.mrf_type,
+        //         start_date = mp.Mrf.start_date,
+        //         end_date = mp.Mrf.end_date,
+        //         tempKey = mp.Mrf.tempKey,
+        //         created_at = mp.Mrf.created_at,
+        //         id_position = mp.Mrf.id_position,
+        //         Position = mp.Position,
+        //         //DirectPos = mp.DirectPos,
                 
-            })
-            .ToList();
+        //     })
+        //     .ToList();
 
-        return View(result);
+        // return View(result);
 
-        } else
-        { 
-            return View(new List<MRF>()); 
-        }
+        // } else
+        // { 
+        //     return View(new List<MRF>()); 
+        // }
 
     }
 

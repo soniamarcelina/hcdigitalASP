@@ -89,8 +89,10 @@ namespace hcdigital.Data
             // .HasOne(m => m.Position) // Relasi ke tadposition
             // .WithMany()
             // .HasForeignKey(m => m.id_position);
+            modelBuilder.Entity<Position>().ToTable("tadposition");
             
             
         }
+
     }
 }

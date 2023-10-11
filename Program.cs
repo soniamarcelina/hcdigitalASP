@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using hcdigital.Data;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,7 +13,6 @@ builder.Services.AddScoped<ApplicationDbContext>();
 builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
   options.UseMySql(connString, ServerVersion.AutoDetect(connString)).LogTo(Console.WriteLine)
 );
-
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();

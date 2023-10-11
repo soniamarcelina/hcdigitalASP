@@ -81,13 +81,28 @@
                         <i class="fas fa-fw fa-search"></i>
                         <span>Personnel Search</span></a>
                 </li>
-                 <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        <i class="fas fa-fw fa-bezier-curve"></i>
+                        <span>Manpower Plann</span>
+                    </a>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">MPP Menu:</h6>
+                             <a class="collapse-item" asp-area="" asp-controller="MPP" asp-action="Index">Organization</a>
+                            <a class="collapse-item" asp-area="" asp-controller="MPP" asp-action="Existing">Existing</a>
+                            <a class="collapse-item" asp-area="" asp-controller="OCF" asp-action="Create">Create</a>
+                        </div>
+                    </div>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseOne">
                         <i class="fas fa-fw fa-bezier-curve"></i>
                         <span>Organization Change</span>
                     </a>
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">OCF Menu:</h6>
                             <a class="collapse-item" asp-area="" asp-controller="OCF" asp-action="Index">My Request</a>
@@ -97,12 +112,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                         aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-portrait"></i>
                         <span>Manpower Requisite</span>
                     </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">MRF Menu:</h6>
                             <a class="collapse-item" asp-area="" asp-controller="MRF" asp-action="Index">My Request</a>
