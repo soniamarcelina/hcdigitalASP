@@ -1,3 +1,4 @@
+@model List<string>;
  @{
     ViewData["Title"] = "Existing";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
@@ -10,7 +11,7 @@
         		</div>
                 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Organization Existing</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">@ViewBag.Department</h6>
                         </div>
                         <div class="card-body">
                             <div class="py-2">
@@ -21,34 +22,22 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Division</th>
-                                            <th>Department</th>
-                                            <th>PosTitle</th>
-                                            <th>Existing</th>
-                                            <th>Request</th>
-                                            <th>Evaluasi</th>
-                                            <th>Start Date</th>
+                                            <th>Position</th>
+                                            <th>Status</th>
                                             <th>Action</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach (var count in Model)
-                                      {
-                                        <tr>
-                                            <td></td>
-                                            <td>@count.Division</td>
-                                            <td>@count.Department</td>
-                                            <td>@count.PosTitle</td>
-                                            <td>@count.Count</td>
+                                     <tr>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                              <td class="text-center">
-                                               
+                                               <a class="btn btn-info btn-sm" href="#">View</a>
                                             </td>
                                         </tr>
-                                      }                    
+                                                     
                                     </tbody>
                                 </table>
                                 </div>
@@ -85,10 +74,6 @@
             { "targets": 2, visible: true}, //postitle
             { "targets": 3, visible: true}, //noperson
             { "targets": 4, visible: true}, //id_ao
-            { "targets": 5, visible: true}, //personame
-            { "targets": 6 ,visible: false}, //dirId
-            { "targets": 7 ,visible:false}, //dirName
-            { "targets": 8, visible: true}, //direc
             
           ],
         select: {

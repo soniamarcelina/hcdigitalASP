@@ -1,5 +1,5 @@
  @{
-    ViewData["Title"] = "Org Request";
+    ViewData["Title"] = "Existing";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
 }
 
@@ -10,8 +10,20 @@
         		</div>
                 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Organization Request</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Organization Existing</h6>
                         </div>
+                         <div class="card-body">
+                            <div class="dropdown mb-4 px-2">
+                                <button class="btn btn-primary dropdown-toggle text-sm" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Super Actions
+                                </button>
+                                <div class="dropdown-menu animated--fade-in"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" id="viewExist">Existing</a>
+                                </div>
+                            </div>
                         <div class="card-body">
                             <div class="py-2">
                             </div>
@@ -21,34 +33,28 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Position</th>
-                                            <th>Position Name</th>
                                             <th>Division</th>
-                                            
-                                            <th>Departement</th>
-                                            
+                                            <th>Department</th>
+                                            <th>Existing</th>
+                                            <th>Request</th>
                                             <th>Action</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach(var group in Model) 
+                                      @foreach (var Department in Model)
                                       {
                                         <tr>
                                             <td></td>
-                                            <td>@group.Division</td>
-                                            @foreach (var item in group.Items)
-                                            {
+                                            <td>@Department.Division</td>
+                                            <td>@Department.Department</td>
+                                            <td>@Department.Count</td>
                                             <td></td>
-                                            <td>@item.Department</td>
-                                            <td>@item.PosTitle</td>
-                                            }
                                              <td class="text-center">
-                                                <a class="btn btn-danger btn-sm" href="#">Delimit</a>
-                                                <a class="btn btn-success btn-sm" href="#">Keep</a>
+                                               <a class="btn btn-info" asp-controller="MPP" asp-action="Existing" asp-route-Department="@Department.Department">View</a>
                                             </td>
                                         </tr>
-                                      }                
+                                      }                    
                                     </tbody>
                                 </table>
                                 </div>
@@ -85,12 +91,6 @@
             { "targets": 2, visible: true}, //postitle
             { "targets": 3, visible: true}, //noperson
             { "targets": 4, visible: true}, //id_ao
-            { "targets": 5, visible: true}, //personame
-            { "targets": 6 ,visible: false}, //dirId
-            { "targets": 7 ,visible:false}, //dirName
-            { "targets": 8, visible: true}, //direc
-            { "targets": 9, visible: true}, //divisi
-            { "targets": 10 ,visible:false}, //sub
             
           ],
         select: {
@@ -183,6 +183,16 @@
         ],
         dom: 'Bfrtip',
     });
+
+     $('#viewExist').click( function () {
+            var rows = positiontable.rows( { selected: true } ).data().toArray();
+            console.log( rows ); // array of selected rows (each row is an array of data)
+            var ids = rows.map(function(x) {
+              return x[2];
+            });
+            
+            window.location.href = '/MPP/Existing/'+ids[0]
+        });
       });
     
 </script>        
