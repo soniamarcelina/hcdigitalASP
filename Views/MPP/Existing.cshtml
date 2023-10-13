@@ -1,4 +1,4 @@
-@model List<string>;
+
  @{
     ViewData["Title"] = "Existing";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
@@ -11,10 +11,17 @@
         		</div>
                 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">@ViewBag.Department</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Division - Department</h6>
                         </div>
                         <div class="card-body">
                             <div class="py-2">
+                               <div class="p-2">
+                                    <a asp-controller="OCF" asp-action="Create">
+                                        <button  class="btn btn-success">
+                                            Add New <i class="fa fa-plus"></i>
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                             <div class="table-responsive px-2">
                                 <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -22,6 +29,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Department</th>
                                             <th>Position</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -29,15 +37,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                      @foreach (var pos in Model)
+                                      {
                                      <tr>
                                             <td></td>
-                                            <td></td>
+                                            <td>@pos.Department</td>
+                                            <td>@pos.PosTitle</td>
                                             <td></td>
                                              <td class="text-center">
-                                               <a class="btn btn-info btn-sm" href="#">View</a>
+                                               <a class="btn btn-success btn-sm" href="#">Keep</a>
+                                               <a class="btn btn-danger btn-sm" href="#">Delimit</a>
+                                               <a class="btn btn-warning btn-sm" href="#">Change</a>
                                             </td>
-                                        </tr>
-                                                     
+                                        </tr>  
+                                      }
                                     </tbody>
                                 </table>
                                 </div>
@@ -86,83 +99,6 @@
                 collectionTitle: 'Column visibility control'
             },
             'excel',
-            {
-                extend: 'collection',
-                text: 'Actions',
-                buttons: [
-                    {
-                        text: 'Add',
-                        action: function ( e, dt, node, config ) {
-                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
-                            var rows = positiontable.rows( { selected: true } ).data().toArray();
-                            //console.log( rows ); // array of selected rows (each row is an array of data)
-                            var ids = rows.map(function(x) {
-                                return x[1];
-                            });
-                            Swal.fire({
-                              title: 'Do you want to Add Data?',
-                              showCancelButton: true,
-                            }).then((result) => {
-                              /* Read more about isConfirmed, isDenied below */
-                              if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>TAD/TADPosition/add/'+ids
-                              } else if (result.isDenied) {
-                                Swal.close()
-                              }
-                            })
-                        }
-                    },
-                    {
-                        text: 'Edit',
-                        action: function ( e, dt, node, config ) {
-                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
-                            var rows = positiontable.rows( { selected: true } ).data().toArray();
-                            //console.log( rows ); // array of selected rows (each row is an array of data)
-                            var ids = rows.map(function(x) {
-                                return x[1];
-                            });
-                            Swal.fire({
-                              title: 'Do you want to edit?',
-                              showCancelButton: true,
-                            }).then((result) => {
-                              /* Read more about isConfirmed, isDenied below */
-                              if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>TAD/TADPosition/edit/'+ids
-                              } else if (result.isDenied) {
-                                Swal.close()
-                              }
-                            })
-                        }
-                    },
-                    
-                    {
-                        text: 'Delete',
-                        action: function ( e, dt, node, config ) {
-                            //dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
-                            var rows = positiontable.rows( { selected: true } ).data().toArray();
-                            //console.log( rows ); // array of selected rows (each row is an array of data)
-                            var ids = rows.map(function(x) {
-                                return x[1];
-                            });
-                            Swal.fire({
-                              title: 'Do you want to delete?',
-                              showDenyButton: true,
-                              showCancelButton: true,
-                              confirmButtonText: 'Yes, Delete',
-                              denyButtonText: `No`,
-                            }).then((result) => {
-                              /* Read more about isConfirmed, isDenied below */
-                              if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>TAD/TADPosition/delete/'+ids
-                              } else if (result.isDenied) {
-                                Swal.close()
-                              }
-                            })
-                        }
-                    },
-
-                ]
-            }
         ],
         dom: 'Bfrtip',
     });

@@ -39,12 +39,19 @@ public class MPPController : Controller
     {
         var positions = _context.tadposition?
             .Where(m => m.Department == Department)
-            .Select(m => m.PosTitle) 
             .ToList();
 
-            ViewBag.Department = Department; // Kirim nama departemen ke tampilan
-
         return View(positions);
+        // var positions = _context.tadposition?
+        //     .GroupBy(m => new {m.Department, m.PosTitle})
+        //     .Select(group => new
+        //     {
+        //         Department = group.Key.Department,
+        //         PosTitle = group.Key.PosTitle
+        //     })
+        //     .ToList();
+
+        // return View(positions);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
