@@ -1,0 +1,896 @@
+@{
+    ViewData["Title"] = "Create Assignment Order";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+<div class="card-body">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Create Assignment Order</h6>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="post">
+                          <div class="container px-0">
+                            <ul class="nav nav-tabs">
+                              <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tab1">1. MRF</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab2">2. Personil</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab3">3. PJP</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab4" id="link-tab4">4. Review</a>
+                              </li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane fade show active" id="tab1">
+                                <div class="row">
+                                    <!-- Position Section -->
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Position Detail</h6>
+                                            </div>
+                                           
+                                            <div class="card-body">
+                                                <input type="text" class="form-control form-control-bot-border required" name="MRF_No" placeholder="Select Position By MRF" onclick="selectMRF(this)" required>
+                                                <input type="text" class="form-control form-control-bot-border" name="mrf_id" hidden>
+                                                <label>MRF Type</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="mrf_type" readonly>
+                                                <label>Position TAD</label>     
+                                                <input type="text" class="form-control form-control-bot-border" name="posTitle" readonly>
+                                                <label>Division</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="posDiv"  readonly>
+                                                <label>Sub Division</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="posSub" readonly>
+                                                <label>Department</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="posDept" readonly>
+                                                <label>Section</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="posSec"  readonly>
+                                                <label>Direct Supervisor Name</label>                                 
+                                                <input type="text" class="form-control form-control-bot-border" name="DirName" readonly>
+                                                <label>Direct Supervisor Title</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="DirPos" readonly>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                              <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">MRF Info</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>Previous MRF</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="prev_mrf" readonly>
+                                                <label>Previous/Current Period</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="prev_mrf" readonly>
+                                                 <label>Work Location</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="workLoc" readonly>
+                                                <label>Working Schedule</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="workSch" readonly>
+                                                <label>Work Term</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="workTerm" readonly>
+                                                <label>ABO/ABI</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="abi_abo" readonly>
+                                                <label>Cost Center</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="costCenter" readonly>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+                             
+                                 <!-- Personel Section -->
+                              <div class="tab-pane fade" id="tab2">
+                              <div class="row">
+                              <div class="col-md-12 col-xl-12">
+                                 <div class="card my-3">
+                                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Contract Detail</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row justify-content-md-right text-sm-left" style="margin: 10px;">
+                                            <div class="col-md-6">
+                                              <label>Input Salary</label>
+                                              <input type="text" class="form-control required"  data-type="currency" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" name="salary" value="" required>                   
+                                            </div>
+                                        <div class="row col-md-6">
+                                            <div class="col-md-6">
+                                                <label>Start Date</label>
+                                                <input type="date" class="form-control required" name="start" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>End Date</label>
+                                                <input type="date" class="form-control required" name="end" required>
+                                            </div>
+                                            </div>
+                                        </div>
+                                     </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Personil Data</h6>
+                                            </div>
+                                            <div class="card-body">                               
+                                                <label>Nopek</label>                                 
+                                                <input type="text" class="form-control form-control-bot-border required" name="nopek" placeholder="Select Personnel" onclick="selectPersonnel(this)" required>
+                                                <label>Name</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="name" readonly>
+                                                <label>Status</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="status" readonly>
+                                                <label>Agama</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="agama" readonly>
+                                                <label>Jenis Kelamin</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="gender" readonly>
+                                                <label>Email/Phone</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="email" readonly>
+                                                
+                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary"></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>Tingkat Pendidikan</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="lastEdu" readonly>
+                                                <label>Jurusan Pendidikan Terakhir</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="lastMajor" readonly>
+                                                <label>Pengalaman Kerja Pertama</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="firstExp" readonly>
+                                                <label>Tahun Pertama di Pertamina</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="firstWork" readonly>
+                                                <label>Nama Perusahaan Sebelum SHU</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="prevComp" readonly>
+                                            </div>
+                                                
+                                        </div>
+                                        <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+            
+                            <!-- PJP -->
+                              <div class="tab-pane fade" id="tab3">
+                                <div class="row">
+                                    <!-- Contractor -->
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Contractor Data</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>No. Contract</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="contrID" placeholder="Select Contractor" onclick="selectContractor(this)" required>
+                                                <label>Name</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="contrName" readonly>
+                                                <label>Zona</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="contrZona" readonly>
+                                                <label>Company</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="contrComp"  readonly>
+                                                <label>WorkLoc</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="contrLoc" readonly>
+                                                <label>Headcount</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="contrHead" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-xl-12">
+                                        <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
+                                    </div>
+                                </div>
+                              </div>
+                              <!-- Role Profile section -->
+                              
+                        <!--Review Section -->
+                              <div class="tab-pane fade" id="tab4">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-body row mt-4">
+                                                <div class="col-md-12 col-xl-12 text-center mb-4">
+                                                    <h5 class="font-weight-bold">ASSIGNMENT ORDER</h5>
+                                                    <div class="col-md-12 col-xl-12">
+                                                    <label class="float-right font-weight-bold" style="border: 3px solid black">  CONFIDENTIAL  </label>
+                                                </div>
+                                                    <hr>
+                                                </div>
+
+                                                 <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-3">Date </div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8"></div>
+                                                </div> 
+                                        
+                                                <!-- Row 2 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-3">Contract No./Period </div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8" id="rvNO"></div>
+                                                </div>
+                                                <!-- Row 3 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-3">Contractor</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8" id="rvSubs"></div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <!-- Row 4 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-3">Assignment Order No</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8" id="rvCreator"></div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+                                                <!-- Row 4 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-3">MRF No</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8" id="rvCrPos"></div>
+                                                </div>
+                                                <div class="col-xl-6 mb-2"> 
+                                                </div>
+                                                
+                                                <!-- Separator -->
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h6>In accordance with the terms and conditions on Contract No. <b>4770004275</b> between <b>PT. PHE WMO</b>, ("COMPANY")
+                                                    and <b>PT. Istech Resources Asia</b> ("CONTRACTOR"), this Assignment Order authorizes CONTRACTOR to supply CONTRACTOR'S 
+                                                    Personnel to perform the Work as describe fully in Exhibit B of the Contract:</h6>
+                                                </div>
+
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12">
+                                                    <table class="table table-sm table-bordered" style="width:100%" style="text-align: center">
+                                                            <tr>
+                                                                <th>Title</th>
+                                                                <th>Schedule of Service</th>
+                                                                <th>Name</th>
+                                                                <th>Point Of Hire</th>
+                                                                <th>Period</th>
+                                                                <th>Start Date for Services</th>
+                                                                <th>Completion Date of Services</th>
+                                                                <th>Remarks</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Associate Operations Contractor Performance Analyst</td>
+                                                                <td>5:2</td>
+                                                                <td>R.A Farah Wiratanuningrat</td>
+                                                                <td>Jakarta</td>
+                                                                <td>12 Months</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h6>In no case shall CONTRACTOR be compensated for any costs incurred after the Completion date, unless as is otherwise 
+                                                    stated in the Contract and / or in this Assignment Order.</h6>
+                                                    <hr>
+                                                </div>
+                                                
+                                                <!-- Separator -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-6 col-xl-3">COMPANY'S Operation Area</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8">Jakarta Office and Other Operational Area</div>
+                                                </div>
+                                                <!-- Row 3 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-6 col-xl-3">COMPANY Supervisor</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8">Manager Operation & Surface Facility</div>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-6 col-xl-3">Cost Center</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8">7002GZ0CA1 - Operation & Surface Facility-Operation&Surface Facility</div>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-6 col-xl-3">Personnel Classified/Category</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-8">Non Staff</div>
+                                                </div>
+                                                <div class="col-xl-6"></div>
+
+                                                <!-- Separator -->
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <!-- <h6>Information Budget</h6> -->
+                                                    <hr>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12">
+                                                    <table class="table table-sm table-bordered" style="width:100%" style="text-align: center">
+                                                            <tr>
+                                                                <th rowspan="2">Currency</th>
+                                                                <th>Billing Rate</th>
+                                                                <th rowspan="2">Gross Rate</th>
+                                                                <th>Service Fee</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Gross Salary + BPJSTK 5.74% + Service Fee</td>
+                                                                <td>{Gross Salary + (BPJSTK 5.74%)} x 3.75%</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>IDR/Month</td>
+                                                                <td>15015714,439999999</td>
+                                                                <td>14060000</td>
+                                                                <td>148670,44</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h6>Any question regarding commercial terms or Contract conditions should be referred to <b>Jundan Nubarik</b> (Manager HCBP). <br>
+                                                    All invoices related to Service Provider under this Assignment Order must show the number on Contract and the 
+                                                    Assignment Order as listed above, and shall be submitted in accordance with the terms of Contract. <br>
+                                                    COMPANY has accepted the above listed personnel as the CONTRACTOR'S Personnel to perform the Work hereunder. </h6>
+                                                    <hr>
+                                                </div>
+                    
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h6><b>This Assignment Order (AO) shall no longer be valid when either it has been completed on the date of service or a new
+                                                        AO under the same personnel name has been issued</b></h6>
+                                                    <hr>
+                                                </div>
+                                                <br>
+
+                                                <!--  -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                <div class="col-md-6 col-xl-6">
+                                                <table style="width:120% text-align=center;">
+                                                    <tr>
+                                                        <td style="width:10%">Date</td>
+                                                        <td style="width:10%">:</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">On Behalf of COMPANY</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3"><br><br><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:10%">By</td>
+                                                        <td style="width:10%">:</td>
+                                                        <td>Cut Milani Silvina</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:10%">Title</td>
+                                                        <td style="width:10%">:</td>
+                                                        <td>PJS. Manager HCBP</td>
+                                                    </tr>
+                                                    </table>
+                                                    </div>
+                                                    <div class="col-md-6 col-xl-6">
+                                                    <table style="width:100%">
+                                                    <tr>
+                                                        <td style="width:10%" >Date</td>
+                                                        <td style="width:10%">:</td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">On Behalf of CONTRACTOR</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3"><br><br><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:10%">By</td>
+                                                        <td style="width:10%">:</td>
+                                                        <td>F. Alfa P.L. Toruan</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:10%">Title</td>
+                                                        <td style="width:10%">:</td>
+                                                        <td>PRESIDEN DIREKTUR</td>
+                                                    </tr>
+                                                    </table>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                                <div class="col-xl-12 text-center">
+                                                    <a href="#" class="btn btn-primary"> Back </a>
+                                                    <a href="#Submit" class="btn btn-success submitBtn"> SUBMIT </a>
+                                                </div>
+                                    </div>
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
+
+                        </form>
+                    </div>
+                </div>
+        </div>
+<script type="text/javascript">
+    function perfReview(){
+        Swal.fire({
+          title: 'Performance Review',
+          html: 'MRF No : xxx',
+          width : 1200,
+          showCloseButton: true,
+        })
+    }
+
+function selectMRF(input){
+    $.ajax({
+        url: '/AO/GetMRF',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            let tableHtml = "<table class='table table-sm table-bordered small nowrap' id='mrfTable'>";
+             tableHtml += "<thead><tr><th>No. MRF</th><th>Position Title</th><th>Fungsi</th><th>Department</th><th>Prev MRF</th><th>MRF Start - End</th><th>Action</th></tr></thead>";
+             tableHtml += "<tbody>";
+             data.forEach(function(row) {
+                    tableHtml += "<tr>";
+                    tableHtml += "<td>" + row.mrf_code + "</td>";
+                    tableHtml += "<td>" + row.Position.posTitle + "</td>";
+                    tableHtml += "<td>" + row.division + "</td>";
+                    tableHtml += "<td>" + row.department + "</td>";
+                    tableHtml += "<td>" + row.prev_mrf + "</td>";
+                    tableHtml += "<td>" + row.start_date + " - "+ row.end_date + "</td>";
+                    tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id_mrf + "'>Select</a></td>";
+                    tableHtml += "</tr>";
+             });
+             tableHtml += "</tbody></table>";
+             Swal.fire({
+               title: 'Select Position By MRF',
+               html: tableHtml,
+               width : 1200,
+               showCloseButton: true,
+             })
+
+             $('#mrfTable').DataTable({
+               ordering : true,
+               autoWidth : false,
+               select: {
+                     style: 'single'
+               },
+             });
+
+             var currentDate = new Date(); // Current date
+             var currentYear = currentDate.getFullYear(); // Get the current year
+
+             $('#mrfTable').on('click', '.select-button', function() {
+                     var index;
+                     var id = $(this).data('id');
+                     for (var key in data) {
+                        if (data[key].id_mrf == id) {
+                                 $('[name="MRF_No"]').val(data[key].mrf_code);
+                                 $('[name="mrf_type"]').val(data[key].mrf_type);
+                                 $('[name="posID"]').val(data[key].id_position);
+                                 $('[name="posTitle"]').val(data[key].posTitle);
+                                 $('[name="DirName"]').val(data[key].name);
+                                 $('[name="DirPos"]').val(data[key].position);
+                                 $('[name="posDiv"]').val(data[key].division);
+                                 $('[name="posSub"]').val(data[key].sub_division);
+                                 $('[name="posDept"]').val(data[key].department);
+                                 $('[name="posSec"]').val(data[key].section);
+                                 $('[name="costCenter"]').val(data[key].costCenter);
+                                 $('[name="abi_abo"]').val(data[key].aBI_ABO);
+                                 $('[name="prev_mrf"]').val(data[key].prev_mrf);
+                                 $('[name="workTerm"]').val(data[key].workTerm);
+                                 $('[name="workSch"]').val(data[key].workSch);
+                                 $('[name="workLoc"]').val(data[key].workLoc);
+                                 $('[name="Justification"]').val(data[key].justification);
+                            console.log(data[key]);
+                         Swal.close()
+                         break;
+                       }
+                     }
+
+                 });
+        }
+});
+}
+
+    function selectPersonnel(input){
+        var dynamicTable = $('#posTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+
+        $.ajax({
+                url: '/AO/GetTKJP',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    let tableHtml = "<table id='posisiTable' class='table table-sm table-bordered small valign-middle nowrap'>";
+                     tableHtml += "<thead><tr><th>Nopek</th><th>Nama</th><th>Status</th><th>Action</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.nopek + "</td>";
+                        tableHtml += "<td>" + row.nama + "</td>";
+                        tableHtml += "<td>" + row.status + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.nopek + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                     });
+                     tableHtml += "</tbody></table>";
+                     Swal.fire({
+                       title: 'Personil List',
+                       html: tableHtml,
+                       width : 1200,
+                       showCloseButton: true,
+                     })
+
+                     $('#posisiTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       responsive : true,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+
+                     var currentDate = new Date(); // Current date
+                     var currentYear = currentDate.getFullYear(); // Get the current year
+
+                     $('#posisiTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('id');
+                             console.log(id)
+                             var index;
+                             var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].nopek == id) {
+                                     $('[name="nopek"]').val(data[key].nopek);
+                                     $('[name="name"]').val(data[key].nama);
+                                     $('[name="status"]').val(data[key].status);
+                                     $('[name="agama"]').val(data[key].agama);
+                                     $('[name="gender"]').val(data[key].jenis_Kelamin);
+                                     $('[name="email"]').val(data[key].email_pertamina);
+                                     $('[name="lastMajor"]').val(data[key].jurusan_Pendidikan_Terakhir);
+                                     $('[name="lastEdu"]').val(data[key].tingkat_Pendidikan);
+                                     $('[name="firstExp"]').val(data[key].pengalaman_Kerja_Pertama);
+                                     $('[name="firstWork"]').val(data[key].bergabung_Pertama_kali_di_Pertamina);
+                                     $('[name="prevComp"]').val(data[key].nama_Perusahaan_Sebelum_SHU);
+                                }
+                                Swal.close();
+                             }
+
+                         });
+
+                }
+        });
+    }
+    
+    function selectContractor(input){
+        $.ajax({
+                    url: '/AO/GetContractor',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        let tableHtml = "<table class='table table-sm table-bordered small' id='contractorTable'>";
+                         tableHtml += "<thead><tr><th>Nomor</th><th>Name</th><th style='width:20%'>Title</th><th>Zona</th><th>Company</th><th style='width:15%'>Work Location</th><th>Headcount</th><th>Action</th></tr></thead>";
+                         tableHtml += "<tbody>";
+                         data.forEach(function(row) {
+                            tableHtml += "<tr>";
+                            tableHtml += "<td>" + row.contractNo + "</td>";
+                            tableHtml += "<td>" + row.name + "</td>";
+                            tableHtml += "<td>" + row.title + "</td>";
+                            tableHtml += "<td>" + row.zona + "</td>";
+                            tableHtml += "<td>" + row.company + "</td>";
+                            tableHtml += "<td>" + row.workLoc + "</td>";
+                            tableHtml += "<td>" + row.headcount + "</td>";
+                            tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.contractNo + "'>Select</a></td>";
+                            tableHtml += "</tr>";
+                            });
+                         tableHtml += "</tbody></table>";
+                         Swal.fire({
+                           title: 'Select Contractor',
+                           html: tableHtml,
+                           width : 1200,
+                           showCloseButton: true,
+                         })
+
+                         $('#contractorTable').DataTable({
+                           ordering : true,
+                           autoWidth : false,
+                           select: {
+                                 style: 'single'
+                           },
+                         });
+
+                         var currentDate = new Date(); // Current date
+                         var currentYear = currentDate.getFullYear(); // Get the current year
+
+                         $('#contractorTable').on('click', '.select-button', function() {
+                                 var index;
+                                 var id = $(this).data('id');
+                                 for (var key in data) {
+                                    if (data[key].contractNo == id) {
+                                    $('[name="contrID"]').val(data[key].contractNo);
+                                    $('[name="contrName"]').val(data[key].name);
+                                    $('[name="contrZona"]').val(data[key].zona);
+                                    $('[name="contrComp"]').val(data[key].company);
+                                    $('[name="contrLoc"]').val(data[key].workLoc);
+                                    $('[name="contrHead"]').val(data[key].headcount);
+                             
+                                     
+                                     Swal.close()
+                                     break;
+                                   }
+                                 }
+
+                             });
+                    }
+            });
+    }
+
+    $(".saveDraftBtn").click(function() {
+        var tempKey =''
+        var MRF_id = '<?php echo $MRF_id ?>'
+        if (MRF_id != '0') {
+            tempKey = '<?php echo $tempKey; ?>'
+        }
+        var data = {
+            'mrf_code' : $('[name="MRF_No"]').val(),
+            'status' : 'Draft',
+            'mrf_type' : $('[name="type"]').val(),
+            'Id_position' : $('[name="posID"]').val(),
+            'workTerm' : $('[name="workTerm"]').val(),
+            'ABI_ABO' : $('[name="ABO_ABI"]').val(),
+            'prev_mrf' : $('[name="prevMRF"]').val(),
+            'justification' : $('[name="Justification"]').val(),
+            'start_date' : $('[name="start"]').val(),
+            'end_date' : $('[name="end"]').val(),
+            'RequestorID' : $('[name="empID"]').val(),
+            'created_by' : '1',
+            'tempKey' : tempKey,
+        }
+        //alert(JSON.stringify(data));
+        $.ajax({
+                url: "<?php echo base_url()?>AO/insert",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+                    n = JSON.stringify(data)
+                    o = JSON.parse(n)
+                    var tempKey =o.data.tempKey;
+                    if (o.status == 2) {
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                        window.location.href = '<?php echo base_url()?>/MRF/create/'+tempKey; 
+                    }else{
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                           
+                    }
+                    
+                }
+            });
+    });
+
+    $(".submitBtn").click(function() {
+        var tempKey =''
+        var MRF_id = '<?php echo $MRF_id ?>'
+        if (MRF_id != '0') {
+            tempKey = '<?php echo $tempKey; ?>'
+        }
+        if (checkInputs()) {
+            var data = {
+            'AO_No' : $('[name="MRF_No"]').val(),
+            'status' : 'Submit',
+            'contractor_id' : $('[name="contractor_id"]').val(),
+            'mrf_id' : $('[name="mrf_id"]').val(),
+            'id_personnel' : $('[name="persId"]').val(),
+            'personnel_salary' : $('[name="persSalary"]').val(),
+            'personnel_category' : $('[name="persCat"]').val(),
+            'contract_start' : $('[name="start"]').val(),
+            'contract_end' : $('[name="end"]').val(),
+            'created_by' : '1',
+            'tempKey' : tempKey,
+        }
+        //alert(JSON.stringify(data));
+        $.ajax({
+                url: "<?php echo base_url()?>AO/submit",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function(data) {
+                    n = JSON.stringify(data)
+                    o = JSON.parse(n)
+                    var tempKey =o.data.tempKey;
+                    if (o.status == 2) {
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                    }else{
+                        Swal.fire({
+                          title: 'Update Status',
+                          html: o.msg,
+                          showCloseButton: true,
+                        });
+                        window.location.href = '<?php echo base_url()?>/AO'; 
+                    }
+                    
+                }
+            });
+        }else{
+           Swal.fire({
+             title: 'Submit Error',
+             html: 'Some Data Requireed Before Submit OCF',
+             showCloseButton: true,
+           }); 
+        }
+    });
+
+    //Check Review
+    $("#link-tab4").click(function() {
+        if (checkInputs()) {
+            console.log('test')
+            var data = {
+                'mrf_code' : $('[name="MRF_No"]').val(),
+                'status' : 'Draft',
+                'mrf_type' : $('[name="type"]').val(),
+                'Id_position' : $('[name="posID"]').val(),
+                'workTerm' : $('[name="workTerm"]').val(),
+                'ABI_ABO' : $('[name="ABO_ABI"]').val(),
+                'prev_mrf' : $('[name="prevMRF"]').val(),
+                'justification' : $('[name="Justification"]').val(),
+                'start_date' : $('[name="start"]').val(),
+                'end_date' : $('[name="end"]').val(),
+                'RequestorID' : $('[name="empID"]').val(),
+                'created_by' : '1',
+            }
+            $('#rvNO').text($('[name="MRF_No"]').val())
+            $('#rvSubs').text($('[name="empSubs"]').val())
+            $('#rvCreator').text($('[name="empName"]').val())
+            $('#rvCrPos').text($('[name="empPos"]').val())
+            
+
+            $('#rvTitle').text($('[name="posTitle"]').val())
+            $('#RvCost').text($('[name="ABO_ABI"]').val()+ ' - ' + $('[name="workTerm"]').val())
+
+            $('#rvDiv').text($('[name="Division"]').val())
+            $('#rvDept').text($('[name="Dept"]').val())
+            $('#rvDirPos').text($('[name="DirPos"]').val())
+            $('#rvDirDept').text($('[name="Division"]').val())
+            $('#rvDirDiv').text($('[name="Dept"]').val())
+            $('#rvJus').text($('[name="Justification"]').val())
+
+            $('#rvType').text($('[name="type"]').val())
+            $('#rvPrevTad').text($('[name="prevTAD"]').val())
+            $('#rvPrevMrf').text($('[name="prevMRF"]').val())
+            $('#rvStart').text($('[name="start"]').val())
+            $('#rvEnd').text($('[name="end"]').val())
+
+            $('#rvWL').text($('[name="workLoc"]').val())
+            $('#rvWS').text($('[name="workSchedule"]').val())
+            $('#rvBudget').text($('[name="ABO_ABI"]').val()+' - '+$('[name="workTerm"]').val())
+            $('#rvCost').text($('[name="costCenter"]').val())
+            
+            function differenceInMonths(date1, date2) {
+              const monthDiff = date1.getMonth() - date2.getMonth();
+              const yearDiff = date1.getYear() - date2.getYear();
+
+              return monthDiff + yearDiff * 12;
+            }
+
+            // June 5, 2022
+            const date1 = new Date($('[name="end"]').val());
+
+            // March 17, 2021
+            const date2 = new Date($('[name="start"]').val());
+
+            const difference = differenceInMonths(date1, date2);
+
+           $('#rvDur').text(difference+ ' Months')
+
+        }else{
+            
+            alert('Some Required Fields are not filled!');
+        }
+    });
+
+</script>
+<script type="text/javascript">
+    $("input[data-type='currency']").on({
+        keyup: function() {
+          formatCurrency($(this));
+        },
+        blur: function() { 
+          formatCurrency($(this), "blur");
+        }
+    });
+
+
+    function formatNumber(n) {
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+
+
+    function formatCurrency(input, blur) {
+      // appends $ to value, validates decimal side
+      // and puts cursor back in right position.
+      
+      // get input value
+      var input_val = input.val();
+      
+      // don't validate empty input
+      if (input_val === "") { return; }
+      
+      // original length
+      var original_len = input_val.length;
+
+      // initial caret position 
+      var caret_pos = input.prop("selectionStart");
+        
+      // check for decimal
+      if (input_val.indexOf(".") >= 0) {
+
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf(".");
+
+        // split number by decimal point
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos);
+
+        // add commas to left side of number
+        left_side = formatNumber(left_side);
+
+        // validate right side
+        right_side = formatNumber(right_side);
+        
+        // On blur make sure 2 numbers after decimal
+        if (blur === "blur") {
+          right_side += "00";
+        }
+        
+        // Limit decimal to only 2 digits
+        right_side = right_side.substring(0, 2);
+
+        // join number by .
+        input_val = "Rp " + left_side + "." + right_side;
+
+      } else {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = formatNumber(input_val);
+        input_val = "Rp " + input_val;
+        
+        // final formatting
+        if (blur === "blur") {
+          input_val += "";
+        }
+      }
+      
+      // send updated string to input
+      input.val(input_val);
+
+      // put caret back in the right position
+      var updated_len = input_val.length;
+      caret_pos = updated_len - original_len + caret_pos;
+      input[0].setSelectionRange(caret_pos, caret_pos);
+    }
+</script>

@@ -9,15 +9,20 @@ namespace hcdigital.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
+        private readonly ILoggerFactory _loggerFactory;
 
-        //grade = new DbSet<Grade>(); // Inisialisasi properti Grades
-        //tkjp = new DbSet<TKJP>();
-    
-        }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ILoggerFactory loggerFactory)
+        : base(options)
+    {
+        _loggerFactory = loggerFactory;
+    }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLoggerFactory(_loggerFactory);
+       
+    }
+       
         // Definisikan setiap tabel yang ada dalam database Anda di sini sebagai DbSet.
         public DbSet<Grade>? grade { get; set; }
         public DbSet<TKJP>? tademployee { get; set; }
@@ -80,19 +85,16 @@ namespace hcdigital.Data
             .HasKey(r => r.id);
             modelBuilder.Entity<Candidate>()
             .HasKey(c => c.id);
-            // modelBuilder.Entity<Position>()
-            // .HasOne(p => p.masteremployee)
-            // .WithMany()
-            // .HasForeignKey(p => p.ID_Position) // Kolom dalam tabel Position
-            // .HasPrincipalKey(d => d.ID_Position); // Kolom dalam tabel DirectPos
-            //  modelBuilder.Entity<MRF>()
-            // .HasOne(m => m.Position) // Relasi ke tadposition
-            // .WithMany()
-            // .HasForeignKey(m => m.id_position);
             modelBuilder.Entity<Position>().ToTable("tadposition");
             
-            
         }
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     // Tambahkan kode berikut untuk mengaktifkan SQL debugging
+        //     optionsBuilder.EnableSensitiveDataLogging();
+        //     optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory.Create(builder => builder.AddConsole()));
+        // }
 
     }
 }

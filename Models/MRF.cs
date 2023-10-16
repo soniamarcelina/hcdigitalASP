@@ -15,7 +15,6 @@ namespace hcdigital.Models
         public int yID {get; set;}
         public string? status {get; set;}
         public string? mrf_type {get; set;}
-
         [ForeignKey("id_position")]
         public int id_position {get; set;}
         public string? workTerm {get; set;}
@@ -28,7 +27,9 @@ namespace hcdigital.Models
         public int created_by {get; set;}
         public string? tempKey {get; set;}
         public DateTime? created_at {get; set;}
-        //public Position? Position { get; set; }
-        //public DirectPos? DirectPos {get; set;}
+        public Position? Position {get; set;}
+        public DirectPos? DirectPos {get; set;}
+        
+        
     }
 }

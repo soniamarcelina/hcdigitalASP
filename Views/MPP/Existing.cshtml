@@ -11,7 +11,7 @@
         		</div>
                 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Division - Department</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"></h6>
                         </div>
                         <div class="card-body">
                             <div class="py-2">
@@ -37,12 +37,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach (var pos in Model)
-                                      {
+                                     @foreach (var ex in Model)
+                                     {
                                      <tr>
                                             <td></td>
-                                            <td>@pos.Department</td>
-                                            <td>@pos.PosTitle</td>
+                                            <td>@ex.Department</td>
+                                            <td>@ex.Postitle</td>
                                             <td></td>
                                              <td class="text-center">
                                                <a class="btn btn-success btn-sm" href="#">Keep</a>
@@ -50,7 +50,7 @@
                                                <a class="btn btn-warning btn-sm" href="#">Change</a>
                                             </td>
                                         </tr>  
-                                      }
+                                     }
                                     </tbody>
                                 </table>
                                 </div>

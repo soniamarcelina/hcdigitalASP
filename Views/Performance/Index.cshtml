@@ -1,0 +1,1285 @@
+@{
+    ViewData["Title"] = "Performance Review";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+ <!-- Card Body -->
+        <div class="card-body">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Performance Review</h6>
+                    </div>
+                    <div class="card-body"> 
+                    <div class="row">
+                    <div class="col-md-12 col-xl-6">
+                        <div class="card my-3">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary"></h6>
+                        </div>
+                        <div class="card-body">
+                            
+                            <label>Employee ID</label>                                 
+                                <input type="text" class="form-control form-control-bot-border" name="empID"  readonly>
+                            <label>Name</label>
+                                <input type="text" class="form-control form-control-bot-border" name="empPos" readonly>
+                            <label>Division</label>control
+                                <input type="text" class="form-control form--bot-border" name="empDiv" readonly>
+                            <label>Department</label>
+                                <input type="text" class="form-control form-control-bot-border" name="empDept" readonly>
+                            <label>Section</label>
+                                <input type="text" class="form-control form-control-bot-border" name="empSec" readonly>
+                        </div>
+                        </div>
+                            </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary"></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <label>Job Title</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="posTitle" readonly>
+                                                <label>Work Location</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="workLoc" readonly>
+                                                <label>Types of Assessment</label> <br>
+                                                <div class="btn-group py-2" data-toggle="buttons">
+                                                  <label class="btn btn-outline-primary">
+                                                    <input type="radio" name="cost_opt" id="cost_opt_cc" autocomplete="off" > Akhir Masa PKWT
+                                                  </label>
+                                                  <label class="btn btn-outline-primary">
+                                                    <input type="radio" name="cost_opt" id="cost_opt_afe" autocomplete="off" > Keperluan Khusus
+                                                  </label>
+                                                </div> <br>
+                                                <label>Start Date Period</label>
+                                                <input type="date" class="form-control form-control-bot-border" name="empSubs" >
+                                                <label>End Date Period</label>
+                                                <input type="date" class="form-control form-control-bot-border" name="empSubs" >
+                                            </div>
+                                        </div>
+                                        <a href="#tab1" class="btn btn-md btn-primary float-center">Save</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                    <div class="card-body">
+                        <form method="post">
+                          <div class="container px-0">
+                            <ul class="nav nav-tabs">
+                              <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tab1">1. Guideline</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab2">2. Assessment</a>
+                              </li>
+                              <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab3">3. Review</a>
+                              </li>
+                            </ul>
+
+                            <div class="tab-content">
+                              <div class="tab-pane fade show active" id="tab1">
+                                <div class="row">
+                                  <!-- Guide Section -->
+                                <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Guideline</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <b>Before the assessment is held, it is understood and mutually agreed about the factors assessed, the weight and the way it is assessed!</b>
+                                                <p>(Sebelum diadakan penilaian, telah dimengerti dan disepakati bersama tentang faktor-faktor yang dinilai, bobot dan cara penilaiannya!)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Rating SEction -->
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Rating</h6>
+                                            </div>
+                                            <div class="card-body">
+                                            <table class="table" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Rating</th>
+                                                                <th>Number</th>
+                                                                <th>Remarks</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>VG</td>
+                                                            <td>450 - 500</td>
+                                                            <td>Luar Biasa (Very Good)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>G</td>
+                                                            <td>350 - 449</td>
+                                                            <td>Melampaui Permintaan (Good)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>A</td>
+                                                            <td>250 - 349</td>
+                                                            <td>Sesuai Permintaan (Rata-Rata)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>M</td>
+                                                            <td>150 - 249</td>
+                                                            <td>Perlu Perbaikan (Marjinal)</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>P</td>
+                                                            <td>100 - 149</td>
+                                                            <td>Tidak Memenuhi Permintaan</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Skala Likert</h6>
+                                            </div>
+                                            <div class="card-body">
+                                            <table class="table" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Skala</th>
+                                                                <th>Keterangan</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>STS</td>
+                                                            <td>Sangat Tidak Setuju</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>TS</td>
+                                                            <td>Tidak Setuju</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>N</td>
+                                                            <td>Netral</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>S</td>
+                                                            <td>Setuju</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>SS</td>
+                                                            <td>Sangat Setuju</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                            </div>
+                                        </div>
+                                        <a href="#tab2"  data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn">Next</a>
+                                    </div>
+                                </div>
+                              </div>
+                              <!-- position section -->
+                              <div class="tab-pane fade" id="tab2">
+                              <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                <h6 class="m-0 font-weight-bold text-primary">Assessment</h6>
+                                            </div>
+                                            <div class="card-body">
+                                            <form method="post" action="<?php echo base_url()."user/insert"; ?>">
+                                                <div class="container px-0">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-toggle="tab" href="#penilaian1">I. Job Knowledge & Technical Skill</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#penilaian2">II. Capacity of Work</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#penilaian3">III. Maturity & Self-Confidence</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#penilaian4">IV. Acceptance of Work Responsibilities</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#penilaian5">V. Team Work & Synergy</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#penilaian6">VI. Diciplinary & Attitude</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#penilaian7">VII. Work Behaviour</a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="penilaian1">
+                                                    <div class="row">
+                                                        <!-- Penilaian 1 -->
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <div class="card my-3">
+                                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                                    <h6 class="m-0 font-weight-bold text-primary">Detail Aspek I</h6>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <b>Job Knowledge & Technical Skill (Pengetahuan dan Keahlian Kerja) termasuk Speed of Comprehension (daya tangkap) dan Problem Solving Skills (kemampuan memecahkan masalah)</b>
+                                                                    <ul>
+                                                                        <li>Memiliki kualifikasi di atas kualifikasi yang diperlukan untuk menjalankan tugas dan pekerjaannya, dapat mengerjakan beberapa pekerjaan lain, serta mampu memberikan keputusan dan mengatasi berbagai masalah yang kompleks pada tingkat korporasi dan/atau lintas fungsional.</li>
+                                                                        <li>Memiliki kualifikasi yang baik melebihi yang diperlukan untuk menjalankan tugas dan pekerjaannya, mulai dapat mengerjakan tugas-tugas lain namun masih sebatas pada wilayah fungsi kerja yang menjadi tanggungjawabnya.</li>
+                                                                        <li>Memiliki keahlian dan pengetahuan yang cukup untuk menjalankan tugas dan pekerjaannya tanpa pengarahan dan bantuan dari atasannya. Menjalankan fungsi dan pekerjaannya dengan hasil yang baik.</li>
+                                                                        <li>Pengetahuan dan keahlian terbatas untuk menjalankan pekerjaan dan tugas dengan kinerja yang minimal. Memerlukan bimbingan dan arahan dari atasan. Mampu bekerja secara optimal dan sangat sedikit kesalahan/kegagalan dalam melaksanakan tugasnya.</li>
+                                                                        <li>Hanya dapat mengerjakan pekerjaan yang mudah dan sederhana; sering mengalami kegagalan atau kesalahan dalam melaksakan tugas dan pekerjaannya.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <h6>Silakan Pilih Salah Satu Penilaian Bapak/Ibu Terhadap TAD:</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xl-1">
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>STS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>1 (Satu)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>TS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>2 (Dua)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>N</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>3 (Tiga)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>S</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>4 (Empat)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>SS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>5 (Lima)</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 col-xl-12">   
+                                                        <a href="#penilaian2" data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn" >Save & Next</a>
+                                                        <a href="#tab1" data-toggle="tab" class="btn btn-md btn-outline-primary " >Back</a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="penilaian2">
+                                                    <div class="row">
+                                                        <!-- Penilaian 2 -->
+                                                    <div class="col-md-12 col-xl-12">
+                                                            <div class="card my-3">
+                                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                                    <h6 class="m-0 font-weight-bold text-primary">Detail Aspek II</h6>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <b>Capacity of work (kapasitas kerja/Kualitas Hasil Kerja) termasuk Management of Time (Manajemen Waktu).</b>
+                                                                    <ul>
+                                                                        <li>Semua pekerjaan diselesaikan dengan lengkap dan lebih dari yang diharapkan sebelum waktu yang ditentukan. Kesalahan tidak ada dan hampir tidak pernah dicapai dengan cara kerja lembur.</li>
+                                                                        <li>Seluruh pekerjaan rutin dan pokok diselesaikan dengan lengkap dan baik tepat waktu sesuai target waktunya, serta kesalahan tidak ada dan hanya sedikit kerja lembur yang dilakukan dalam menyelesaikan target pekerjaannya. (kalaupun ada hanya kurang dari 2 jam sehari)</li>
+                                                                        <li>Kebanyakan pekerjaan rutin dan utamanya dilakukan dengan benar dan tepat waktu hampir tidak ada kesalahan namun waktu yang diperlukan untuk menyelesaikan pekerjaan sangat panjang dan harus melakukan kerja lembur untuk menyelesaikan tugasnya.</li>
+                                                                        <li>Pekerjaan sering banyak kesalahan, kadang-kadang harus diulangi, dan kadang-kadang melewati batas waktu yang ditetapkan. Sangat sering melakukan kerja lembur bahkan hampir dilakukan setiap hari.</li>
+                                                                        <li>Hasil pekerjaan selalu ada kesalahan dan sering harus mengulangi kembali, dan tidak dapat selesai pada waktunya.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <h6>Silakan Pilih Salah Satu Penilaian Bapak/Ibu Terhadap TAD:</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xl-1">
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>STS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>1 (Satu)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>TS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>2 (Dua)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>N</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>3 (Tiga)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>S</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>4 (Empat)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>SS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>5 (Lima)</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 col-xl-12">   
+                                                        <a href="#penilaian3" data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn" >Save & Next</a>
+                                                        <a href="#penilaian2" data-toggle="tab" class="btn btn-md btn-outline-primary " >Back</a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="penilaian3">
+                                                    <div class="row">
+                                                        <!-- Penilaian 3 -->
+                                                    <div class="col-md-12 col-xl-12">
+                                                            <div class="card my-3">
+                                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                                    <h6 class="m-0 font-weight-bold text-primary">Detail Aspek III</h6>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <b>Maturity & Self-Confidence (kematangan & percaya diri) dan Ability to work without close supervision (Kemampuan bekerja tanpa pengawasan).</b>
+                                                                    <ul>
+                                                                        <li>Dapat bekerja sendiri baik pekerjaan rutin maupun khusus serta terlihat sangat yakin dengan kemampuan dirinya dalam menjalankan pekerjaan/tugasnya serta mampu memberikan nasehat dan saran kepada rekan-rekan kerja lainnya.</li>
+                                                                        <li>Dapat bekerja sendiri tapi untuk tugas khusus masih memerlukan pengawasan. Terkesan mulai percaya dengan kemampuan dirinya walaupun sekali-sekali masih melakukan konseling maupun meminta arahan/bimbingan dari atasannya.</li>
+                                                                        <li>Dapat bekerja sendiri dalam mengerjakan tugas rutin.</li>
+                                                                        <li>Dalam tugas rutin masih memerlukan pengawasan atau harus dibantu oleh rekan kerja atau atasannya.</li>
+                                                                        <li>Harus selalu diawasi dan diberikan pengarahan setiap melakukan tugas dan pekerjaannya.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <h6>Silakan Pilih Salah Satu Penilaian Bapak/Ibu Terhadap TAD:</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xl-1">
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>STS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>1 (Satu)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>TS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>2 (Dua)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>N</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>3 (Tiga)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>S</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>4 (Empat)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>SS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>5 (Lima)</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 col-xl-12">   
+                                                        <a href="#penilaian4" data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn" >Save & Next</a>
+                                                        <a href="#penilaian3" data-toggle="tab" class="btn btn-md btn-outline-primary " >Back</a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="penilaian4">
+                                                    <div class="row">
+                                                        <!-- Penilaian 4 -->
+                                                    <div class="col-md-12 col-xl-12">
+                                                            <div class="card my-3">
+                                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                                    <h6 class="m-0 font-weight-bold text-primary">Detail Aspek IV</h6>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <b>Acceptance of work responsibilities (Menerima Tanggung Jawab pekerjaan)</b>
+                                                                    <ul>
+                                                                        <li>Penuh tanggung jawab terhadap penyelesaian tugasnya sendiri maupun departemennya. Sangat peduli dan mendukung keberhasilan kerja departemen/fungsi lain, selalu bersedia memberikan informasi/data yang berguna bagi keberhasilan departemen lain. Selalu terbuka dan memberikan bantuan dan solusi.</li>
+                                                                        <li>Penuh tanggung jawab terhadap tugasnya sendiri dan juga menaruh perhatian terhadap tugas timnya. Serta merta memberikan perhatian dan bantuan jika melihat anggota timnya mengalami kesalahan/kegagalan. Tidak pernah menyalahkan atau melemparkan tanggungjawab kesalahan kepada departemen atau pihak lain.</li>
+                                                                        <li>Tugas yang menjadi tanggung jawabnya sendiri selalu diselesaikan dengan sangat baik. Selalu mengakui dan memperbaiki setiap kesalahan yang mungkin terjadi yang menjadi tanggungjawabnya.</li>
+                                                                        <li>Hanya fokus terhadap kinerja/pekerjaan/departemen yang menjadi tanggung-jawabnya. Sering menyalahkan pihak atau departemen lain yang menjadi penyebab kesalahan pekerjaannya.</li>
+                                                                        <li>Seringkali lalai terhadap pekerjaan yang menjadi tanggung-jawabnya. Tidak mau mengakui kesalahan dan tidak mau bertanggungjawab atas kegagalan yang terjadi.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <h6>Silakan Pilih Salah Satu Penilaian Bapak/Ibu Terhadap TAD:</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xl-1">
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>STS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>1 (Satu)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>TS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>2 (Dua)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>N</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>3 (Tiga)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>S</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>4 (Empat)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>SS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>5 (Lima)</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 col-xl-12">   
+                                                        <a href="#penilaian5" data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn" >Save & Next</a>
+                                                        <a href="#penilaian4" data-toggle="tab" class="btn btn-md btn-outline-primary " >Back</a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="penilaian5">
+                                                    <div class="row">
+                                                        <!-- Penilaian 5 -->
+                                                    <div class="col-md-12 col-xl-12">
+                                                            <div class="card my-3">
+                                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                                    <h6 class="m-0 font-weight-bold text-primary">Detail Aspek V</h6>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <b>Team work & synergy (Kerjasama dan sinerji) termasuk Communication Skill - oral & written (kemampuan komunikasi lisan & tulisan)</b>
+                                                                    <ul>
+                                                                        <li>Mudah diajak kerjasama dan bila diperlukan mudah membantu karyawan lain dan tanpa diminta sering menawarkan bantuan kepada pihak yang membutuhkan. Mampu menyampaikan gagasan secara jelas dan gamblang serta mampu menerima inti permasalahan dari suatu topik pembicaraan.</li>
+                                                                        <li>Mudah diajak kerjasama dan bersedia memberi bantuan kepada kelompok/karyawan lain jika diminta. Mampu berkomunikasi dengan beberapa kalangan yang berbeda tingkatan pengetahuannya. Mampu menyampaikan gagasan secara sistematis secara verbal maupun melalui tulisan.</li>
+                                                                        <li>Memperlihatkan kemauan untuk bekerja sama dengan yang lain walaupun kadang tidak berhasil atau belum sungguh-sungguh. Mengerti dan mampu menerima maupun menyampaikan gagasan secara verbal maupun melalui tulisan.</li>
+                                                                        <li>Kadang-kadang menolak atau keberatan bekerjasama dengan karyawan lain. Masih memiliki keterbatasan dalam menyampaikan pendapat maupun gagasan, masih terkesan belum percaya diri dalam menyampaikan suatu gagasan/pendapat.</li>
+                                                                        <li>Biasanya menolak untuk bekerjasama dengan karyawan lain. Sering memilih-milih karyawan tertentu sebagai anggota tim. Tidak mampu menyampaikan pendapatnya secara baik kepada pihak lain.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <h6>Silakan Pilih Salah Satu Penilaian Bapak/Ibu Terhadap TAD:</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xl-1">
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>STS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>1 (Satu)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>TS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>2 (Dua)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>N</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>3 (Tiga)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>S</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>4 (Empat)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>SS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>5 (Lima)</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 col-xl-12">   
+                                                        <a href="#penilaian6" data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn" >Save & Next</a>
+                                                        <a href="#penilaian5" data-toggle="tab" class="btn btn-md btn-outline-primary " >Back</a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="penilaian6">
+                                                    <div class="row">
+                                                        <!-- Penilaian 6 -->
+                                                    <div class="col-md-12 col-xl-12">
+                                                            <div class="card my-3">
+                                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                                    <h6 class="m-0 font-weight-bold text-primary">Detail Aspek VI</h6>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <b>Disciplinary dan Attitude (disiplin dan sikap perilaku)</b>
+                                                                    <ul>
+                                                                        <li>Selalu datang lebih awal sebelum waktu kerja, selalu menggunakan jam kerja secara maksimal.</li>
+                                                                        <li>Sering datang sebelum waktu kerja, tidak menyia-nyiakan jam kerja, jam kerja dipergunakan secara maksimal untuk menyelesaikan tugas-tugas.</li>
+                                                                        <li>Selalu datang tepat waktu, tidak menyia-nyiakan jam kerja, dan pada umumnya bekerja tepat waktu.</li>
+                                                                        <li>Kadang-kadang datang terlambat, kadang-kadang menyia-nyiakan jam kerja, sekali-sekali meninggalkan tempat kerja tanpa alasan.</li>
+                                                                        <li>Sering datang terlambat dan menyia-nyiakan jam kerja. Sering meninggalkan ruang kerja hanya untuk ngobrol/berdiskusi yang tidak penting.</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <h6>Silakan Pilih Salah Satu Penilaian Bapak/Ibu Terhadap TAD:</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xl-1">
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>STS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>1 (Satu)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>TS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>2 (Dua)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>N</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>3 (Tiga)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>S</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>4 (Empat)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>SS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>5 (Lima)</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 col-xl-12">   
+                                                        <a href="#penilaian7" data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn" >Save & Next</a>
+                                                        <a href="#penilaian6" data-toggle="tab" class="btn btn-md btn-outline-primary " >Back</a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="penilaian7">
+                                                    <div class="row">
+                                                        <!-- Penilaian 7 -->
+                                                    <div class="col-md-12 col-xl-12">
+                                                            <div class="card my-3">
+                                                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                                                    <h6 class="m-0 font-weight-bold text-primary">Detail Aspek VII</h6>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <b>Work Behavior (Safety Awarness)</b>
+                                                                    <ul>
+                                                                        <li>Mampu menjadi contoh dalam work behavior didalam pekerjaan dan dilingkungan pekerjaannya.</li>
+                                                                        <li>Menerapkan perilaku keselamatan kesehatan kerja (safety behaviour) sebagai kebutuhan dan bukan paksaan.</li>
+                                                                        <li>Menanyakan, melaporkan kejadian-kejadian/hal-hal yang dirasa tidak aman atau memiliki resiko bahaya kepada atasan / HSE Dept.</li>
+                                                                        <li>Sering mengabaikan Aspek K3 termasuk houskeeping dilingkungan tempat kerja</li>
+                                                                        <li>Tidak memperdulikan prosedur dan rambu keselamatan ditempat kerja</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row text-center">
+                                                        <div class="col-md-12 col-xl-12">
+                                                            <h6>Silakan Pilih Salah Satu Penilaian Bapak/Ibu Terhadap TAD:</h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-xl-1">
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>STS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>1 (Satu)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>TS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>2 (Dua)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>N</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>3 (Tiga)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>S</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>4 (Empat)</h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 col-xl-2">
+                                                            <div class="card text-center">
+                                                                <label>SS</label>
+                                                                <input type="radio" name="nilai1" class="mb-2">        
+                                                                <h6>5 (Lima)</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 col-xl-12">   
+                                                        <a href="#tab3" data-toggle="tab" class="btn btn-md btn-primary float-right saveDraftBtn" >Save & Next</a>
+                                                        <a href="#penilaian7" data-toggle="tab" class="btn btn-md btn-outline-primary " >Back</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            </div>
+                                        </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
+                                    <div class="col-md-12 col-xl-12">    
+                                        <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save & Next</a>
+                                        <a href="#" class="btn btn-md btn-outline-primary " id="">Back</a>
+                                    </div>
+                                </div> -->
+                            </div>
+
+                            <!-- Review Section -->
+                              <div class="tab-pane fade" id="tab3">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card my-3">
+                                            <div class="card-body row mt-4">
+                                                <div class="col-md-12 col-xl-12 text-center mb-4">
+                                                    <h5>Data Personal</h5>
+                                                    <hr>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12">
+                                                    <label class="float-right">Date : <?= date('d F Y') ?></label>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Name</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9">Darwin Pratama</div>
+                                                </div>
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Position</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9">Associate Staff HCBP Zona 12</div>
+                                                </div>
+                                                 <!-- Row 2 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Division</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9">HCBP</div>
+                                                </div>
+                                                 <!-- Row 3 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Department</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9">HUman Capital</div>
+                                                </div>
+                                                 <!-- Row 4 -->
+                                                 <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Periode Penilaian</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9">19/07/2022 s/d 19/07/2023</div>
+                                                </div>
+                                                 <!-- Row 5 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Perusahaan Alih Daya</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9">PT Intercons</div>
+                                                </div>
+                                                  <!-- Row 6 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Jenis Penilaian</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9">1 Tahun</div>
+                                                </div>
+                                                
+                                                <!-- Separator -->
+                                                <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                                                    <h5 class="text-center">Assessment Result</h5>
+                                                    <hr>
+                                                </div>
+                                                <!-- Row 1 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-12 col-xl-12">
+                                                    <table class="table table-sm table-bordered" style="width:100%" style="text-align: center">
+                                                            <tr>
+                                                                <th rowspan="2" >No</th>
+                                                                <th rowspan="2">Aspek Penilaian</th>
+                                                                <th rowspan="2">Nilai</th>
+                                                                <th rowspan="2">Bobot</th>
+                                                                <th>Kinerja</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Angka = Nilai x Bobot</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>Job Knowledge & Technical Skill</td>
+                                                                <td>2</td>
+                                                                <td>15</td>
+                                                                <td>30</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>2</td>
+                                                                <td>Capacity of Work</td>
+                                                                <td>4</td>
+                                                                <td>20</td>
+                                                                <td>80</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>3</td>
+                                                                <td>Maturity & Self-Confidence</td>
+                                                                <td>4</td>
+                                                                <td>15</td>
+                                                                <td>60</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>4</td>
+                                                                <td>Acceptance of Work Responsibilities</td>
+                                                                <td>4</td>
+                                                                <td>15</td>
+                                                                <td>60</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>5</td>
+                                                                <td>Team Work & Synergy</td>
+                                                                <td>4</td>
+                                                                <td>10</td>
+                                                                <td>40</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>6</td>
+                                                                <td>Disciplinary & Attitude</td>
+                                                                <td>3</td>
+                                                                <td>15</td>
+                                                                <td>45</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>7</td>
+                                                                <td>Work Behaviour</td>
+                                                                <td>4</td>
+                                                                <td>10</td>
+                                                                <td>10</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-12 text-center">
+                                                    <a href="#" class="btn btn-primary"> Back </a>
+                                                    <a href="#Submit" class="btn btn-success submitBtn"> SUBMIT </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
+
+                        </form>
+                    </div>
+                </div>
+        </div>
+        
+<script type="text/javascript">
+    
+    $(document).ready(function() {
+
+      $('#dataTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        select: {
+              style: 'single' // Enable multi- hj row selection (can also use 'single')
+        },
+      });
+
+      $('#dynamicTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        }
+      });
+      $('#dynamicTable').on('click', '.delete-btn', function() {
+              
+              var dynamicTable = $('#dynamicTable').DataTable();
+              var row = $(this).closest('tr');
+              var id = $(this).data('id');
+              dynamicTable.row(row).remove().draw();
+
+      });
+
+      $('#qualifyTable').DataTable({
+        ordering : true,
+        autoWidth : false,
+        select: {
+              style: 'single' // Enable multi-row selection (can also use 'single')
+        }
+      });
+
+    });
+
+    var listRole = JSON.parse('<?php echo $listRoles; ?>');
+
+
+
+</script>
+
+<script type="text/javascript">
+    
+
+    $(".saveDraftBtn").click(function() {
+    var responsibilityTable = $('#dynamicTable').DataTable();
+    var Responsibility = responsibilityTable.data().toArray();
+
+    var qualifyTable = $('#qualifyTable').DataTable();
+    var Qualification = qualifyTable.data().toArray();
+    var costType = '';
+
+        var data = {
+            'RequestorID' : $('[name="empID"]').val(),
+            'Code' : $('[name="OCF_No"]').val(),
+            'DirectPos' : $('[name="DirID"]').val(),
+            'PosTitle' : $('[name="newPos"]').val(),
+            'Headcount' : $('[name="newCount"]').val(),
+            'Grade' : $('[name="newGrade"]').val(),
+            'WorkLoc' : $('[name="newWL"]').val(),
+            'WorkSch' : $('[name="newWS"]').val(),
+            'WorkCity' : $('[name="newWC"]').val(),
+            'costType' : costType,
+            'costCenter' : $('[name="costCenter"]').val(),
+            'Justification' : $('[name="Justification"]').val(),
+            'Responsibility' : Responsibility,
+            'Qualification' : Qualification,
+        }
+
+        console.log(data);
+    });
+
+    function selectList(input){
+
+
+        $.ajax({
+                url: "<?php echo base_url()?>orgChange/getListPos",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    let tableHtml = "<table class='table table-sm table-bordered small' id='positionTable'>";
+                     tableHtml += "<thead><tr><th>ID Position</th><th>Job Position</th><th>Employee Name</th><th>Action</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(row => {
+                       tableHtml += `<tr><td>${row.ID_Position}</td><td>${row.Position}</td><td>${row.Name}</td><td><a href="#" class="btn btn-primary select-button" data-id="${row.ID_Position}">Select</a></td></tr>`;
+                     });
+                     tableHtml += "</tbody></table>";
+                     Swal.fire({
+                       title: 'Select Requestor',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+
+                     $('#positionTable').DataTable({
+                       ordering : true,
+                       autoWidth : false,
+                       select: {
+                             style: 'single'
+                       },
+                     });
+
+                     var currentDate = new Date(); // Current date
+                     var currentYear = currentDate.getFullYear(); // Get the current year
+
+                     $('#positionTable').on('click', '.select-button', function() {
+                             var index;
+                             var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].ID_Position == id) {
+                                 $('[name="empName"]').val(data[key].Name);
+                                 $('[name="empID"]').val(data[key].Person_Id);
+                                 $('[name="empPos"]').val(data[key].Position);
+                                 $('[name="empDiv"]').val(data[key].Divisi);
+                                 $('[name="empDept"]').val(data[key].Departemen);
+                                 var DirectID = data[key].ID_Position_Atasan;
+                                    for (var key2 in data) {
+                                        if (data[key].ID_Position_Atasan == data[key2].ID_Position) {
+
+                                            $('[name="DirID"]').val(data[key2].ID_Position);
+                                            $('[name="DirPos"]').val(data[key2].Position);
+                                            $('[name="DirName"]').val(data[key2].Name);
+                                            $('[name="DirDiv"]').val(data[key2].Divisi);
+                                            $('[name="DirDept"]').val(data[key2].Departemen);
+                                            $('[name="costCenter"]').val(data[key2].Cost_Center_Posisi);
+                                            $('[name="OCF_No"]').val('PPC51200/'+currentYear+'/____');
+                                            $('[name="empSubs"]').val(data[key].Company_Name);
+                                        }
+                                    }
+                                 Swal.close()
+                                 break;
+                               }
+                             }
+
+                         });
+
+                }
+        });
+    }
+
+    async function addJobdesc(){
+        let listOption ='';
+        listRole.forEach(row => {
+          listOption += `<option value="${row.Verb}">${row.Verb}</option>`;
+        });
+
+        var dynamicTable = $('#dynamicTable').DataTable();
+        var lastRow = dynamicTable.row().count();
+        console.log(lastRow);
+
+        const { value: formValues } = await Swal.fire({
+          title: 'Add Position',
+          html: '<div class="table-responsive px-2">'+
+                  '<div class="text-sm-left">'+
+                    '<label>Id Position</label>'+
+                    '<select name="id_position" id="id_position" class="form-control">'+
+                    listOption+
+                    '</select>'+
+                    '<label>Start Date</label>'+
+                    '<input type="date" name="start_date" id="start_date" class="form-control">'+
+                    '<label>End Date</label>'+
+                    '<input type="date" name="end_date" id="end_date" class="form-control">'+
+                  '</div>'+
+              '</div>',
+          focusConfirm: false,
+          preConfirm: () => {
+            return [
+              document.getElementById('swal-verb').value,
+              document.getElementById('swal-desc').value,
+              `<a href="#" data-id="${lastRow+1}" class="btn btn-danger delete-btn btn-sm">Remove</a>`
+            ]
+          }
+        })
+
+        if (formValues) {
+
+            dynamicTable.row.add(formValues).draw();
+        }
+    }
+    
+    function showInfo(){
+    $.ajax({
+                url: "<?php echo base_url()?>MRF/infoData",
+                type: "GET",
+                data: data,
+                dataType: "json",
+                success: function(data) {
+                    var no = 1
+                    var table = $('#dataTable').DataTable({
+                        ordering : true,
+                        autoWidth : false,
+                        select: {
+                              style: 'single' // Enable multi-row selection (can also use 'single')
+                        },
+                        data: data,
+                        columns: [
+                            { data : 'Nopek'},
+                            { data: 'Nopek' },
+                            { data: 'Nama' },
+                            { data: 'status'},
+                            { data: 'Jenis_Kelamin'},
+                            {
+                                title: 'Actions',
+                                render: function(data, type, row) {
+                                    return '<button class="btn btn-primary btn-sm select-button m-1">Info</button>'
+                                }
+                            }
+                        ]
+                    });
+                    // Handle row selection event
+                        table.on('select', function(e, dt, type, indexes) {
+                            var rowData = table.rows(indexes).data().toArray();
+                            console.log(rowData)
+                        });
+
+                        // Handle row deselection event
+                        table.on('deselect', function(e, dt, type, indexes) {
+                            // Handle deselection if needed
+                        });
+
+                    table.on('order.dt search.dt', function() {
+                            table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function(cell, i) {
+                                cell.innerHTML = i + 1;
+                            });
+                        }).draw();
+
+                    $('#dataTable').on('click', '.select-button', function() {
+                            var id = $(this).data('id');
+                             for (var key in data) {
+                                if (data[key].Nopek == id) {
+                                console.log(data[key])    
+                                 break;
+                               }
+                             }
+                            // Perform edit action with the corresponding ID
+                            Swal.fire({
+                              title: 'Personnel Card',
+                              html: '<div class="table-responsive px-2">'+
+                              '<div class="row text-sm-left">'+
+                                  // '<!-- Image Personal -->'+
+                                  // '<div class="col-lg-12 mb-4">'+
+                                  //     '<div class="card bg-success text-white shadow m-4" style="width: 65%;height: auto;" >'+
+                                  //         '<img class="responsive" src="img/aw.jpeg" alt="..." style="height: 100%;">'+
+                                  //     '</div>'+
+                                  // '</div>'+
+                                  '<div class="col-lg-12 mb-4"> '+
+                                      '<div class="card bg-white text-black-50 shadow">'+
+                                        '<h5 style="margin: 10px;">Personal Information</h5>'+ //Personal Information
+                                          '<hr class="sidebar-head my-0 bg-white"></hr>'+
+                                          '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
+                                             `<div class="col-sm-2 text-weight-800">ID</div><div class="col-sm-4"></div>`+
+                                              `<div class="col-sm-2">Birth Day</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              `<div class="col-sm-2">First Name</div><div class="col-sm-4"></div>`+
+                                              '<div class="col-sm-2">Birth Country</div><div class="col-sm-4">Indonesia</div>'+
+                                              '<br>'+
+                                              // '<div class="col-sm-2">Middle Name</div><div class="col-sm-4">Nur</div>'+
+                                              `<div class="col-sm-2">Marital Status</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              // '<div class="col-sm-2">Last Name</div><div class="col-sm-4">Bayan</div>'+
+                                              `<div class="col-sm-2">No. of Dependents</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              `<div class="col-sm-2">Gender</div><div class="col-sm-4"></div>`+
+                                              `<div class="col-sm-2">Religion</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              `<div class="col-sm-2">Birth Place</div><div class="col-sm-4"></div>`+
+                                              '<div class="col-sm-2">Blood Group</div><div class="col-sm-4">AB</div>'+
+                                              '<br>'+
+                                          '</div>'+
+                                      '</div>'+
+                                  '</div>'+
+                               '<!-- Contacts -->'+
+                                '<div class="col-lg-6 mb-4">'+
+                                    '<div class="card bg-white text-black-50 shadow">'+
+                                        '<h5 style="margin: 10px;">Contacts</h5>'+ 
+                                        '<hr class="sidebar-head my-0 bg-white"></hr>'+
+                                        '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
+                                            `<div class="col-md-4">Email</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            `<div class="col-sm-4">Phone</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            '<br>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                                '<!-- Contacts -->'+
+                                '<div class="col-lg-6 mb-4">'+
+                                    '<div class="card bg-white text-black-50 shadow">'+
+                                        '<h5 style="margin: 10px;"> Emergency Contacts</h5>'+ 
+                                        '<hr class="sidebar-head my-0 bg-white"></hr>'+
+                                        '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
+                                            `<div class="col-md-4">Name</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            `<div class="col-sm-4">Phone</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            '<br>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                                '</div>'+
+                            '</div>',
+                              width : 1200,
+                              showCloseButton: true,
+                            })
+                        });
+
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    
+    function showGrade(){
+        $.ajax({
+                url: "<?php echo base_url()?>orgChange/getGrade",
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    let tableHtml = "<table class='table table-sm table-bordered small'>";
+                     tableHtml += "<thead><tr><th>Grade</th><th>Nomenklatur</th><th>Kompetensi</th><th>Work Exp</th><th>Min Salary</th><th>Mid Salary</th><th>Max Salary</th><th>Min Education</th></tr></thead>";
+                     tableHtml += "<tbody>";
+                     data.forEach(row => {
+                       tableHtml += `<tr><td>${row.id}</td><td>${row.nomenklatur}</td><td>${row.kompetensi}</td><td>${row.WorkExp}</td><td>${row.MinSalary}</td><td>${row.MidSalary}</td><td>${row.MaxSalary}</td><td>${row.MinEdu}</td></tr>`;
+                     });
+                     tableHtml += "</tbody></table>";
+
+                     Swal.fire({
+                       title: 'Grade Matriks',
+                       html: tableHtml,
+                       width : 1000,
+                       showCloseButton: true,
+                     })
+                }
+            });
+    }
+
+    function show() {
+        Swal.fire({
+                              title: 'Personnel Card',
+                              html: '<div class="table-responsive px-2">'+
+                              '<div class="row text-sm-left">'+
+                                  // '<!-- Image Personal -->'+
+                                  // '<div class="col-lg-12 mb-4">'+
+                                  //     '<div class="card bg-success text-white shadow m-4" style="width: 65%;height: auto;" >'+
+                                  //         '<img class="responsive" src="img/aw.jpeg" alt="..." style="height: 100%;">'+
+                                  //     '</div>'+
+                                  // '</div>'+
+                                  '<div class="col-lg-12 mb-4"> '+
+                                      '<div class="card bg-white text-black-50 shadow">'+
+                                        '<h5 style="margin: 10px;">Personal Information</h5>'+ //Personal Information
+                                          '<hr class="sidebar-head my-0 bg-white"></hr>'+
+                                          '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
+                                             `<div class="col-sm-2 text-weight-800">ID</div><div class="col-sm-4"></div>`+
+                                              `<div class="col-sm-2">Birth Day</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              `<div class="col-sm-2">First Name</div><div class="col-sm-4"></div>`+
+                                              '<div class="col-sm-2">Birth Country</div><div class="col-sm-4">Indonesia</div>'+
+                                              '<br>'+
+                                              // '<div class="col-sm-2">Middle Name</div><div class="col-sm-4">Nur</div>'+
+                                              `<div class="col-sm-2">Marital Status</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              // '<div class="col-sm-2">Last Name</div><div class="col-sm-4">Bayan</div>'+
+                                              `<div class="col-sm-2">No. of Dependents</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              `<div class="col-sm-2">Gender</div><div class="col-sm-4"></div>`+
+                                              `<div class="col-sm-2">Religion</div><div class="col-sm-4"></div>`+
+                                              '<br>'+
+                                              `<div class="col-sm-2">Birth Place</div><div class="col-sm-4"></div>`+
+                                              '<div class="col-sm-2">Blood Group</div><div class="col-sm-4">AB</div>'+
+                                              '<br>'+
+                                          '</div>'+
+                                      '</div>'+
+                                  '</div>'+
+                               '<!-- Contacts -->'+
+                                '<div class="col-lg-6 mb-4">'+
+                                    '<div class="card bg-white text-black-50 shadow">'+
+                                        '<h5 style="margin: 10px;">Contacts</h5>'+ 
+                                        '<hr class="sidebar-head my-0 bg-white"></hr>'+
+                                        '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
+                                            `<div class="col-md-4">Email</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            `<div class="col-sm-4">Phone</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            '<br>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                                '<!-- Contacts -->'+
+                                '<div class="col-lg-6 mb-4">'+
+                                    '<div class="card bg-white text-black-50 shadow">'+
+                                        '<h5 style="margin: 10px;"> Emergency Contacts</h5>'+ 
+                                        '<hr class="sidebar-head my-0 bg-white"></hr>'+
+                                        '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
+                                            `<div class="col-md-4">Name</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            `<div class="col-sm-4">Phone</div><div class="col-sm-8"></div>`+
+                                            '<br>'+
+                                            '<br>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                                '</div>'+
+                            '</div>',
+                              width : 1200,
+                              showCloseButton: true,
+                            })
+    }
+</script>

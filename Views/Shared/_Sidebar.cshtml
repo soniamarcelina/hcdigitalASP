@@ -127,7 +127,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../TAD/Performance/create">
+                    <a class="nav-link" asp-controller="Performance" asp-action="Index">
                         <i class="fas fa-fw fa-chart-line"></i>
                         <span>Performance Review</span>
                     </a>
@@ -148,7 +148,7 @@
                         <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">AO Menu:</h6>
-                                <!-- <a class="collapse-item" href="AO/interview">Offering</a> -->
+                                <a class="collapse-item" asp-area="" asp-controller="AO" asp-action="Create">Create</a>
                                 <a class="collapse-item" asp-area="" asp-controller="AO" asp-action="Index">Assignment</a>
                                 <a class="collapse-item" asp-area="" asp-controller="AO" asp-action="Approval">Approval</a>
                             </div>

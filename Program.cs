@@ -14,6 +14,17 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
   options.UseMySql(connString, ServerVersion.AutoDetect(connString)).LogTo(Console.WriteLine)
 );
 
+
+
+// private void ConfigureServices(IServiceCollection services)
+//  {
+//     services.AddLogging(builder =>
+//     {
+//         builder.AddConsole();  // Menambahkan penyimpanan log konsol
+//     });
+
+//  }
+
 builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
@@ -40,3 +51,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+

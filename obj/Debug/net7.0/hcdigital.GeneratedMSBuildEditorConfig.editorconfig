@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQU9cQXBwcm92YWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/hh/source/hcdigital/Views/AO/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQU9cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/hh/source/hcdigital/Views/AO/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQU9cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -118,6 +122,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/hh/source/hcdigital/Views/OCF/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT0NGXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/hh/source/hcdigital/Views/Performance/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyZm9ybWFuY2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/hh/source/hcdigital/Views/Position/Index.cshtml]

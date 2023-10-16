@@ -9,7 +9,6 @@ namespace hcdigital.Models
     [Table("tadposition")]
     public class Position
     {
-        [Column("id_position")]
         public int? id_position {get; set;}
         [ForeignKey("ID_AO")]
         public int? ID_AO {get; set;}
@@ -21,7 +20,6 @@ namespace hcdigital.Models
         public string? Sub_division{get; set;}
         public string? Department{get; set;}
         public string? Section{get; set;}
-         [Column("Company_ID")]
         public string? Company_ID{get; set;}
         public string? PersArea_ID{get; set;}
         public string? PersSubArea_ID{get; set;}
