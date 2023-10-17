@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,10 +11,8 @@ namespace hcdigital.Models
     public class Position
     {
         public int? id_position {get; set;}
-        [ForeignKey("ID_AO")]
         public int? ID_AO {get; set;}
         public string? PosTitle {get; set;}
-        [ForeignKey("DirectPos_ID")]
         public string? DirectPos_ID {get; set;}
         public string? Direktorat{get; set;}
         public string? Division{get; set;}
@@ -35,12 +34,6 @@ namespace hcdigital.Models
         public string? Skill{get; set;}
         public string? Status{get; set;}
         public string? Ocf_id{get; set;}
-        public int? PositionCount {get; set;}
 
-        public DirectPos? DirectPos { get; set; }
-        public AO? Assignment { get; set; }
-        public TKJP? Employee {get; set;}
-
-      
     }
 }

@@ -384,7 +384,7 @@
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">MRF Type</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-7" id="rvType">Extend</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvType"></div>
                                                 </div>
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">Prev MRF</div>
@@ -421,24 +421,24 @@
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">Working Location</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-7" id="rvWL">Extend</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvWL"></div>
                                                 </div>
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">Working Schedule</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-7" id="rvWS">Extend</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvWS"></div>
                                                 </div>
 
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">Budget Type</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-7" id="rvBudget">ABO - Monthly</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvBudget"></div>
                                                 </div>
 
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">Cost Center</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-7" id="rvCost">HZN10111</div>
+                                                    <div class="col-md-6 col-xl-7" id="rvCost"></div>
                                                 </div>
                                                 <!-- Separator -->
                                                 <div class="col-md-12 col-xl-12 mt-4 mb-2">
@@ -561,22 +561,22 @@ function selectList(input) {
         var lastRow = dynamicTable.row().count();
 
         $.ajax({
-                url: '/MRF/GetTADPosition',
+                url: '/MRF/GetTadPosition',
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
                     let tableHtml = "<table id='posisiTable' class='table table-sm table-bordered small valign-middle nowrap'>";
-                     tableHtml += "<thead><tr><th style='width:10%'>ID Position</th><th style='width:20%' >Position Title</th><th>Direct Supervisor</th><th>Direktorat</th><th>Division</th><th>Pers Area</th><th>Action</th></tr></thead>";
+                     tableHtml += "<thead><tr><th style='width:10%'>ID Position</th><th style='width:20%'>Position Title</th><th>Direct Supervisor</th><th>Direktorat</th><th>Division</th><th>Pers Area</th><th>Action</th></tr></thead>";
                      tableHtml += "<tbody>";
                      data.forEach(function(row) {
                         tableHtml += "<tr>";
-                        tableHtml += "<td>" + row.id_position + "</td>";
-                        tableHtml += "<td>" + row.posTitle + "</td>";
+                        tableHtml += "<td>" + row.position.id_position + "</td>";
+                        tableHtml += "<td>" + row.position.posTitle + "</td>";
                         tableHtml += "<td>" + row.directPos.position + "</td>";
-                        tableHtml += "<td>" + row.direktorat + "</td>";
-                        tableHtml += "<td>" + row.division + "</td>";
-                        tableHtml += "<td>" + row.persArea_ID + "</td>";
-                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id_position + "'>Select</a></td>";
+                        tableHtml += "<td>" + row.position.direktorat + "</td>";
+                        tableHtml += "<td>" + row.position.division + "</td>";
+                        tableHtml += "<td>" + row.position.persArea_ID + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.position.id_position + "'>Select</a></td>";
                         tableHtml += "</tr>";
                         });
                      tableHtml += "</tbody></table>";
@@ -603,10 +603,10 @@ function selectList(input) {
                              var index;
                              var id = $(this).data('id');
                              for (var key in data) {
-                                if (data[key].id_position == id) {
+                                if (data[key].position.id_position == id) {
                                     
-                                     $('[name="posTitle"]').val(data[key].posTitle);
-                                     $('[name="posID"]').val(data[key].id_position);
+                                     $('[name="posTitle"]').val(data[key].position.posTitle);
+                                     $('[name="posID"]').val(data[key].position.id_position);
 
                                      if ($('[name="type"]').val() == "Extension" || $('[name="type"]').val() == "Replacement") {
                                         
@@ -637,11 +637,11 @@ function selectList(input) {
                                      }
                                      $('[name="DirName"]').val(data[key].directPos.name);
                                      $('[name="DirPos"]').val(data[key].directPos.position);
-                                     $('[name="Division"]').val(data[key].division);
-                                     $('[name="Department"]').val(data[key].department);
-                                     $('[name="workSchedule"]').val(data[key].work_Schedule);
-                                     $('[name="workLoc"]').val(data[key].persArea_ID);
-                                     $('[name="costCenter"]').val(data[key].costCenter);
+                                     $('[name="Division"]').val(data[key].position.division);
+                                     $('[name="Department"]').val(data[key].position.department);
+                                     $('[name="workSchedule"]').val(data[key].position.work_Schedule);
+                                     $('[name="workLoc"]').val(data[key].position.persArea_ID);
+                                     $('[name="costCenter"]').val(data[key].position.costCenter);
                                         
                                 }
                                 Swal.close();
@@ -774,7 +774,7 @@ function selectList(input) {
 
     //Check Review
     $("#link-tab4").click(function() {
-        if (checkInputs()) {
+        @* if (checkInputs()) {
             console.log('test')
             var data = {
                 'mrf_code' : $('[name="MRF_No"]').val(),
@@ -789,21 +789,21 @@ function selectList(input) {
                 'end_date' : $('[name="end"]').val(),
                 'requestorID' : $('[name="empID"]').val(),
                 'created_by' : '1',
-            }
+            } *@
+
             $('#rvNO').text($('[name="MRF_No"]').val())
             $('#rvSubs').text($('[name="empSubs"]').val())
             $('#rvCreator').text($('[name="empName"]').val())
             $('#rvCrPos').text($('[name="empPos"]').val())
-            
 
             $('#rvTitle').text($('[name="posTitle"]').val())
             $('#RvCost').text($('[name="aBO_ABI"]').val()+ ' - ' + $('[name="workTerm"]').val())
 
             $('#rvDiv').text($('[name="division"]').val())
             $('#rvDept').text($('[name="dept"]').val())
-            $('#rvDirPos').text($('[name="dirPos"]').val())
-            $('#rvDirDept').text($('[name="division"]').val())
-            $('#rvDirDiv').text($('[name="dept"]').val())
+            $('#rvDirPos').text($('[name="DirPos"]').val())
+            $('#rvDirDept').text($('[name="DirDept"]').val())
+            $('#rvDirDiv').text($('[name="DirDiv"]').val())
             $('#rvJus').text($('[name="justification"]').val())
 
             $('#rvType').text($('[name="type"]').val())
@@ -814,7 +814,7 @@ function selectList(input) {
 
             $('#rvWL').text($('[name="workLoc"]').val())
             $('#rvWS').text($('[name="workSchedule"]').val())
-            $('#rvBudget').text($('[name="aBO_ABI"]').val()+' - '+$('[name="workTerm"]').val())
+            $('#rvBudget').text($('[name="ABO_ABI"]').val()+' - '+$('[name="workTerm"]').val())
             $('#rvCost').text($('[name="costCenter"]').val())
             
             function differenceInMonths(date1, date2) {
@@ -834,10 +834,10 @@ function selectList(input) {
 
            $('#rvDur').text(difference+ ' Months')
 
-        }else{
+        @* }else{
             
             alert('Some Required Fields are not filled!');
-        }
+        } *@
     });
 
 </script>

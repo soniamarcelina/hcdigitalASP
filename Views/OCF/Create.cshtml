@@ -585,7 +585,7 @@
       });
 
       //Load Responsibility Table
-      @* const resptable = JSON.parse('');
+      const resptable = JSON.parse('');
       if(resptable.length > 0){
         resptable.forEach((element, index) => {
             var i = 0
@@ -608,11 +608,11 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      }); *@
+      }); 
 
 
       //Load Education Table
-      @* const edutable = JSON.parse('');
+       const edutable = JSON.parse('');
       if(edutable.length > 0){
         edutable.forEach((element, index) => {
             var i = 0
@@ -634,10 +634,10 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      }); *@
+      }); 
 
       //Load Competency Table
-      @* const comptable = JSON.parse('');
+      const comptable = JSON.parse('');
       if(comptable.length > 0){
         comptable.forEach((element, index) => {
             var i = 0
@@ -660,10 +660,10 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      }); *@
+      }); 
 
       //Load Experience Table
-      @* const exptable = JSON.parse('');
+      const exptable = JSON.parse('');
       if(exptable.length > 0){
         exptable.forEach((element, index) => {
             var i = 0
@@ -687,10 +687,10 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      }); *@
+      }); 
 
       //Load Skill Table
-      @* const skilltable = JSON.parse('');
+       const skilltable = JSON.parse('');
       if(skilltable.length > 0){
         skilltable.forEach((element, index) => {
             var i = 0
@@ -714,16 +714,16 @@
               var id = $(this).data('id');
               dynamicTable.row(row).remove().draw();
 
-      });*@
+      });
 
     }); 
 
-   @* var listRole = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Role>>(listRoles);
+    var listRole = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Role>>(listRoles);
     string tempKey = "";
     string OCF_id = Request["OCF_id"]; 
     if (OCF_id != "0") {
         tempKey = tempKey; 
-    } *@
+    } 
 
     $(".saveDraftBtn").click(function() {
         var responsibilityTable = $('#respTable').DataTable();
@@ -801,7 +801,7 @@
     //Check Review
     $("#link-tab5").click(function() {
 
-        if (checkInputs()) { 
+        @* if (checkInputs()) { 
             $('#tab5').show();
             var responsibilityTable = $('#respTable').DataTable();
             var arrResponsibility = responsibilityTable.data().toArray();  
@@ -830,7 +830,7 @@
             }else{
                 costType = 'AFE'
                 costName = 'Authorization for Expenditure'
-            }
+            } *@
             var data = {
                 'subject': $('[name="subject"]').val(),
                 'status' : 'Draft',
@@ -904,10 +904,10 @@
             $("#tb-skill tbody").html(contentSkill)
             console.log(data);
             
-        }else{
+        @* }else{
             
             alert('Some Required Fields are not filled!');
-        }
+        } *@
     }); 
 
     $(".submitBtn").click(function() {

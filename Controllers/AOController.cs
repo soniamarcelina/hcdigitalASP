@@ -90,52 +90,37 @@ public class AOController : Controller
         }
     }
 
-        [HttpGet("GetMRF")]
-        public IActionResult GetMRF()
+    [HttpGet("GetMRF")]
+    public IActionResult GetMRF()
        {
           try
         {
             if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null)
+            
             {
-                var res = _context.mrf
-                    .Join(
-                        _context.tadposition,
-                        m => m.id_position,
-                        p => p.id_position,
-                        (MRF m, Position p) => new { MRF = m, Position = p }
-                    )
-                    .Join(
-                        _context.masteremployee,
-                        pm => pm.Position.DirectPos_ID,
-                        masteremployee => masteremployee.ID_Position,
-                        (mp, masteremployee) => new {mp.MRF, mp.Position, DirectPos = masteremployee}
-                    )
-                    .Select(mp => new MRF {
-                        id_mrf = mp.MRF.id_mrf,
-                        status = mp.MRF.status,
-                        mrf_code = mp.MRF.mrf_code,
-                        mrf_type = mp.MRF.mrf_type,
-                        start_date = mp.MRF.start_date,
-                        end_date = mp.MRF.end_date,
-                        tempKey = mp.MRF.tempKey,
-                        id_position = mp.MRF.id_position,
-                        Position = mp.Position,
-                        DirectPos = mp.DirectPos,
+                var query = from mrf in _context.mrf
+                        join position in _context.tadposition on mrf.id_position equals position.id_position
+                        join directpos in _context.masteremployee on position.DirectPos_ID equals directpos.ID_Position
+                        select new
+                        {
+                            MRF = mrf,
+                            Position = position,
+                            DirectPos = directpos
+                        };
 
-                    });
+                var result = query.ToList();
+                return Ok(result);
+            } else {
+                return Ok(new List<MRF>()); 
+            }
 
-                return Ok(res);
-            } else { 
-            return Ok(new List<Position>()); 
-        }
-
-        }
-        catch (Exception ex)
-        {
-            // Tangani kesalahan jika ada
-            return BadRequest(new { error = ex.Message });
-        }
-    }
+            }
+            catch (Exception ex)
+            {
+                // Tangani kesalahan jika ada
+                return BadRequest(new { error = ex.Message });
+            }
+       }
 
     [HttpGet("GetTKJP")]
     public IActionResult GetTKJP()

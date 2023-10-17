@@ -27,8 +27,24 @@ public class MRFController : Controller
      [HttpGet("Index")]
     public IActionResult Index()
     {
-      var result = _context.mrf?.ToList() ?? new List<MRF>();
-      return View(result);
+        if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null )
+        {
+                var query = from mrf in _context.mrf
+                        join position in _context.tadposition on mrf.id_position equals position.id_position
+                        join directpos in _context.masteremployee on position.DirectPos_ID equals directpos.ID_Position
+                        select new
+                        {
+                            MRF = mrf,
+                            Position = position,
+                            DirectPos = directpos
+                        };
+
+            var result = query.ToList();
+            return View(result);
+        } else {
+            return View(new List<MRF>()); 
+        }
+
     }
 
      [HttpGet("Approval")]
@@ -51,57 +67,28 @@ public class MRFController : Controller
         return View(scr);
     }
 
-     [HttpGet("GetTADPosition")]
-    public IActionResult GetTADPosition()
+     [HttpGet("GetTadPosition")]
+    public IActionResult GetTadPosition()
     {
        try
         {
             if (_context.tadposition != null && _context.masteremployee != null && _context.assignmentorder != null && _context.tademployee != null )
             {
-            var result = _context.tadposition
-            .Join(
-                _context.masteremployee,
-                p => p.DirectPos_ID,
-                d => d.ID_Position,
-                (Position p, DirectPos d) => new { DirectPos = d, Position = p }
-            )
-            .Join(
-                _context.assignmentorder,
-                dp => dp.Position.ID_AO,
-                assignmentorder => assignmentorder.id,
-                (pd, assignmentorder) => new {pd.Position, pd.DirectPos, Assignment = assignmentorder}
-            ).Join(
-                _context.tademployee, 
-                ta => ta.Assignment.id_personnel,
-                tademployee => tademployee.Nopek,
-                (pd, tademployee) => new {pd.Position, pd.DirectPos, pd.Assignment, Employee = tademployee}
-            )
-            .Select(pd => new Position
-            {
-                id_position = pd.Position.id_position,
-                ID_AO = pd.Position.ID_AO,
-                PosTitle = pd.Position.PosTitle,
-                Direktorat = pd.Position.Direktorat,
-                Division = pd.Position.Division,
-                Sub_division = pd.Position.Sub_division,
-                Department = pd.Position.Department,
-                Section = pd.Position.Section,
-                Company_ID = pd.Position.Company_ID,
-                PersArea_ID = pd.Position.PersArea_ID,
-                PersSubArea_ID = pd.Position.PersSubArea_ID,
-                CostType = pd.Position.CostType,
-                CostCenter = pd.Position.CostCenter,
-                Work_Schedule = pd.Position.Work_Schedule,
-                Grade = pd.Position.Grade,
-                DirectPos_ID = pd.Position.DirectPos_ID,
-                DirectPos = pd.DirectPos,
-                Assignment = pd.Assignment,
-                Employee = pd.Employee,
-            
-            })
-            .ToList();
+                var query = from position in _context.tadposition
+                    join directpos in _context.masteremployee on position.DirectPos_ID equals directpos.ID_Position
+                    join assign in _context.assignmentorder on position.ID_AO equals assign.id
+                    join employee in _context.tademployee on assign.id_personnel equals employee.Nopek
+                    select new
+                    {
+                        Position = position,
+                        DirectPos = directpos,
+                        Assignment = assign,
+                        TKJP = employee
+                    };
 
-        return Ok(result);
+            var result = query.ToList();
+            return Ok(result);
+
             } else { 
             return Ok(new List<Position>()); 
         }
@@ -195,6 +182,26 @@ public class MRFController : Controller
             return BadRequest(new { error = ex.Message });
         }
     }
+
+    public IActionResult SubmitMRF([FromBody] MRF mrf)
+    {
+        // Konversi ViewModel ke model data yang sesuai
+        var data = new MRF
+        {
+            mrf_code = mrf.mrf_code,
+            
+            // Set properti lainnya sesuai kebutuhan
+        };
+
+        // Menggunakan DbContext untuk menyimpan data
+        
+            _context.mrf?.Add(data); // Menambahkan data MRF ke DbSet
+            _context.SaveChanges(); // Simpan perubahan ke database
+        
+
+        return Ok(new { Message = "Data MRF berhasil disimpan" });
+    }
+
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

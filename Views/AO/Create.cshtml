@@ -219,27 +219,27 @@
                                                 <div class="col-md-12 col-xl-12 row">
                                                     <div class="col-md-5 col-xl-3">Contract No./Period </div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-8" id="rvNO"></div>
+                                                    <div class="col-md-6 col-xl-8" id="CrNO"></div>
                                                 </div>
                                                 <!-- Row 3 -->
                                                 <div class="col-md-12 col-xl-12 row">
                                                     <div class="col-md-5 col-xl-3">Contractor</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-8" id="rvSubs"></div>
+                                                    <div class="col-md-6 col-xl-8" id="CrName"></div>
                                                 </div>
                                                 <div class="col-xl-6"></div>
                                                 <!-- Row 4 -->
                                                 <div class="col-md-12 col-xl-12 row">
                                                     <div class="col-md-5 col-xl-3">Assignment Order No</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-8" id="rvCreator"></div>
+                                                    <div class="col-md-6 col-xl-8" id="AoNo"></div>
                                                 </div>
                                                 <div class="col-xl-6"></div>
                                                 <!-- Row 4 -->
                                                 <div class="col-md-12 col-xl-12 row">
                                                     <div class="col-md-5 col-xl-3">MRF No</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-8" id="rvCrPos"></div>
+                                                    <div class="col-md-6 col-xl-8" id="rvNo"></div>
                                                 </div>
                                                 <div class="col-xl-6 mb-2"> 
                                                 </div>
@@ -265,11 +265,11 @@
                                                                 <th>Remarks</th>
                                                             </tr>
                                                             <tr>
-                                                                <td>Associate Operations Contractor Performance Analyst</td>
-                                                                <td>5:2</td>
-                                                                <td>R.A Farah Wiratanuningrat</td>
-                                                                <td>Jakarta</td>
-                                                                <td>12 Months</td>
+                                                                <td</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
                                                                 <td></td>
                                                                 <td></td>
                                                                 <td></td>
@@ -441,13 +441,13 @@ function selectMRF(input){
              tableHtml += "<tbody>";
              data.forEach(function(row) {
                     tableHtml += "<tr>";
-                    tableHtml += "<td>" + row.mrf_code + "</td>";
-                    tableHtml += "<td>" + row.Position.posTitle + "</td>";
-                    tableHtml += "<td>" + row.division + "</td>";
-                    tableHtml += "<td>" + row.department + "</td>";
-                    tableHtml += "<td>" + row.prev_mrf + "</td>";
-                    tableHtml += "<td>" + row.start_date + " - "+ row.end_date + "</td>";
-                    tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id_mrf + "'>Select</a></td>";
+                    tableHtml += "<td>" + row.mrf.mrf_code + "</td>";
+                    tableHtml += "<td>" + row.position.posTitle + "</td>";
+                    tableHtml += "<td>" + row.position.division + "</td>";
+                    tableHtml += "<td>" + row.position.department + "</td>";
+                    tableHtml += "<td>" + row.mrf.prev_mrf + "</td>";
+                    tableHtml += "<td>" + row.mrf.start_date + " - "+ row.mrf.end_date + "</td>";
+                    tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.mrf.id_mrf + "'>Select</a></td>";
                     tableHtml += "</tr>";
              });
              tableHtml += "</tbody></table>";
@@ -473,24 +473,24 @@ function selectMRF(input){
                      var index;
                      var id = $(this).data('id');
                      for (var key in data) {
-                        if (data[key].id_mrf == id) {
-                                 $('[name="MRF_No"]').val(data[key].mrf_code);
-                                 $('[name="mrf_type"]').val(data[key].mrf_type);
-                                 $('[name="posID"]').val(data[key].id_position);
-                                 $('[name="posTitle"]').val(data[key].posTitle);
-                                 $('[name="DirName"]').val(data[key].name);
-                                 $('[name="DirPos"]').val(data[key].position);
-                                 $('[name="posDiv"]').val(data[key].division);
-                                 $('[name="posSub"]').val(data[key].sub_division);
-                                 $('[name="posDept"]').val(data[key].department);
-                                 $('[name="posSec"]').val(data[key].section);
-                                 $('[name="costCenter"]').val(data[key].costCenter);
-                                 $('[name="abi_abo"]').val(data[key].aBI_ABO);
-                                 $('[name="prev_mrf"]').val(data[key].prev_mrf);
-                                 $('[name="workTerm"]').val(data[key].workTerm);
-                                 $('[name="workSch"]').val(data[key].workSch);
-                                 $('[name="workLoc"]').val(data[key].workLoc);
-                                 $('[name="Justification"]').val(data[key].justification);
+                        if (data[key].mrf.id_mrf == id) {
+                                 $('[name="MRF_No"]').val(data[key].mrf.mrf_code);
+                                 $('[name="mrf_type"]').val(data[key].mrf.mrf_type);
+                                 $('[name="posID"]').val(data[key].mrf.id_position);
+                                 $('[name="posTitle"]').val(data[key].position.posTitle);
+                                 $('[name="DirName"]').val(data[key].directPos.name);
+                                 $('[name="DirPos"]').val(data[key].directPos.position);
+                                 $('[name="posDiv"]').val(data[key].position.division);
+                                 $('[name="posSub"]').val(data[key].position.sub_division);
+                                 $('[name="posDept"]').val(data[key].position.department);
+                                 $('[name="posSec"]').val(data[key].position.section);
+                                 $('[name="costCenter"]').val(data[key].mrf.costCenter);
+                                 $('[name="abi_abo"]').val(data[key].mrf.aBI_ABO);
+                                 $('[name="prev_mrf"]').val(data[key].mrf.prev_mrf);
+                                 $('[name="workTerm"]').val(data[key].mrf.workTerm);
+                                 $('[name="workSch"]').val(data[key].mrf.workSch);
+                                 $('[name="workLoc"]').val(data[key].mrf.workLoc);
+                                 $('[name="Justification"]').val(data[key].mrf.justification);
                             console.log(data[key]);
                          Swal.close()
                          break;
@@ -743,7 +743,7 @@ function selectMRF(input){
 
     //Check Review
     $("#link-tab4").click(function() {
-        if (checkInputs()) {
+        @* if (checkInputs()) {
             console.log('test')
             var data = {
                 'mrf_code' : $('[name="MRF_No"]').val(),
@@ -758,12 +758,15 @@ function selectMRF(input){
                 'end_date' : $('[name="end"]').val(),
                 'RequestorID' : $('[name="empID"]').val(),
                 'created_by' : '1',
-            }
-            $('#rvNO').text($('[name="MRF_No"]').val())
+            } *@
+            $('#rvNo').text($('[name="MRF_No"]').val())
             $('#rvSubs').text($('[name="empSubs"]').val())
             $('#rvCreator').text($('[name="empName"]').val())
             $('#rvCrPos').text($('[name="empPos"]').val())
             
+            $('#CrNo').text($('name="contrID').val())
+            $('#CrName').text($('name="contrName').val())
+            $('#AoNo').text($('name="MRF_No').val())
 
             $('#rvTitle').text($('[name="posTitle"]').val())
             $('#RvCost').text($('[name="ABO_ABI"]').val()+ ' - ' + $('[name="workTerm"]').val())
@@ -803,10 +806,10 @@ function selectMRF(input){
 
            $('#rvDur').text(difference+ ' Months')
 
-        }else{
+        @* }else{
             
             alert('Some Required Fields are not filled!');
-        }
+        } *@
     });
 
 </script>
