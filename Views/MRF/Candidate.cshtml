@@ -1,5 +1,4 @@
- @model hcdigital.Models.MRF
-
+@model hcdigital.Models.MRF
  @{
     ViewData["Title"] = "Candidate";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
@@ -10,6 +9,7 @@
             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
         </div>
         <!-- Card Body -->
+
         <div class="card-body">
         		<div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -22,17 +22,17 @@
                                 
                                     <div class="col-lg-4">
                                         <label>Position Name</label>
-                                        <input type="text" class="form-control" name="Position" readonly="">
+                                        <input type="text" class="form-control" name="Position" value="@Model.Position?.PosTitle" readonly="">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>Fungsi</label>
-                                        <input type="text" class="form-control" name="Fungsi" readonly="">
+                                        <input type="text" class="form-control" name="Fungsi" value="@Model.Position?.Division - @Model.Position?.Department" readonly="">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>Supervisor Name</label>
-                                        <input type="text" class="form-control" name="Supervisor" readonly="">
+                                        <input type="text" class="form-control" name="Supervisor" value="@Model.DirectPos?.Name" readonly="">
                                     </div>
-
+                        
                                 </div>
                                 <div class="p-2">
                                     <a href="#" onclick="selectCandidate()">

@@ -26,6 +26,9 @@ namespace hcdigital.Models
         public int created_by {get; set;}
         public string? tempKey {get; set;}
         public DateTime? created_at {get; set;}
-        
+
+        public Position? Position {get; set;}
+        public DirectPos? DirectPos {get; set;}
+       
     }
 }

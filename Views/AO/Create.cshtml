@@ -441,13 +441,13 @@ function selectMRF(input){
              tableHtml += "<tbody>";
              data.forEach(function(row) {
                     tableHtml += "<tr>";
-                    tableHtml += "<td>" + row.mrf.mrf_code + "</td>";
+                    tableHtml += "<td>" + row.mrf_code + "</td>";
                     tableHtml += "<td>" + row.position.posTitle + "</td>";
                     tableHtml += "<td>" + row.position.division + "</td>";
                     tableHtml += "<td>" + row.position.department + "</td>";
-                    tableHtml += "<td>" + row.mrf.prev_mrf + "</td>";
-                    tableHtml += "<td>" + row.mrf.start_date + " - "+ row.mrf.end_date + "</td>";
-                    tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.mrf.id_mrf + "'>Select</a></td>";
+                    tableHtml += "<td>" + row.prev_mrf + "</td>";
+                    tableHtml += "<td>" + row.start_date + " - "+ row.end_date + "</td>";
+                    tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id_mrf + "'>Select</a></td>";
                     tableHtml += "</tr>";
              });
              tableHtml += "</tbody></table>";
@@ -473,10 +473,10 @@ function selectMRF(input){
                      var index;
                      var id = $(this).data('id');
                      for (var key in data) {
-                        if (data[key].mrf.id_mrf == id) {
-                                 $('[name="MRF_No"]').val(data[key].mrf.mrf_code);
-                                 $('[name="mrf_type"]').val(data[key].mrf.mrf_type);
-                                 $('[name="posID"]').val(data[key].mrf.id_position);
+                        if (data[key].id_mrf == id) {
+                                 $('[name="MRF_No"]').val(data[key].mrf_code);
+                                 $('[name="mrf_type"]').val(data[key].mrf_type);
+                                 $('[name="posID"]').val(data[key].id_position);
                                  $('[name="posTitle"]').val(data[key].position.posTitle);
                                  $('[name="DirName"]').val(data[key].directPos.name);
                                  $('[name="DirPos"]').val(data[key].directPos.position);
@@ -485,12 +485,12 @@ function selectMRF(input){
                                  $('[name="posDept"]').val(data[key].position.department);
                                  $('[name="posSec"]').val(data[key].position.section);
                                  $('[name="costCenter"]').val(data[key].mrf.costCenter);
-                                 $('[name="abi_abo"]').val(data[key].mrf.aBI_ABO);
-                                 $('[name="prev_mrf"]').val(data[key].mrf.prev_mrf);
-                                 $('[name="workTerm"]').val(data[key].mrf.workTerm);
-                                 $('[name="workSch"]').val(data[key].mrf.workSch);
-                                 $('[name="workLoc"]').val(data[key].mrf.workLoc);
-                                 $('[name="Justification"]').val(data[key].mrf.justification);
+                                 $('[name="abi_abo"]').val(data[key].aBI_ABO);
+                                 $('[name="prev_mrf"]').val(data[key].prev_mrf);
+                                 $('[name="workTerm"]').val(data[key].workTerm);
+                                 $('[name="workSch"]').val(data[key].workSch);
+                                 $('[name="workLoc"]').val(data[key].workLoc);
+                                 $('[name="Justification"]').val(data[key].justification);
                             console.log(data[key]);
                          Swal.close()
                          break;
