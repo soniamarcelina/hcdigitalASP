@@ -217,21 +217,39 @@ public class MRFController : Controller
 
     public IActionResult SubmitMRF([FromBody] MRF mrf)
     {
-        // Konversi ViewModel ke model data yang sesuai
-        var data = new MRF
+        if (mrf != null)
         {
-            mrf_code = mrf.mrf_code,
-            
-            // Set properti lainnya sesuai kebutuhan
-        };
+            try
+            {
+                var data = new MRF
+                {
+                    mrf_code = mrf.mrf_code,
+                    status = "Routing",
+                    mrf_type = mrf.mrf_type,
+                    id_position = mrf.id_position,
+                    workTerm = mrf.workTerm,
+                    ABI_ABO = mrf.ABI_ABO,
+                    prev_mrf = mrf.prev_mrf,
+                    
 
-        // Menggunakan DbContext untuk menyimpan data
-        
-            _context.mrf?.Add(data); // Menambahkan data MRF ke DbSet
-            _context.SaveChanges(); // Simpan perubahan ke database
-        
+                    // Set properti lainnya sesuai kebutuhan
+                };
 
-        return Ok(new { Message = "Data MRF berhasil disimpan" });
+                _context.mrf.Add(data); // Perhatikan perubahan pada penulisan DbSet (MRF, bukan mrf)
+                _context.SaveChanges(); // Simpan perubahan ke database
+
+                return Ok(new { Message = "Data MRF berhasil disimpan" });
+            }
+            catch (Exception ex)
+            {
+                // Tangani kesalahan dengan baik, misalnya, log pesan kesalahan
+                return StatusCode(500, new { Message = "Gagal menyimpan data MRF: " + ex.Message });
+            }
+        }
+        else
+        {
+            return BadRequest(new { Message = "Data MRF tidak valid" });
+        }
     }
 
 

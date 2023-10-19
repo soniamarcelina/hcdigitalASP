@@ -35,19 +35,28 @@ public class MPPController : Controller
     }
 
      [HttpGet("Existing")]
-    public IActionResult Existing()
+    public IActionResult Existing(string Department)
     {
+       var positionsByDepartment = _context.tadposition
+        .Where(p => p.Department == Department)
+        .Select(p => p.PosTitle)
+        .ToList();
 
-        var positions = _context.tadposition?
-            .GroupBy(m => new {m.Department, m.PosTitle})
-            .Select(group => new
-            {
-                Department = group.Key.Department,
-                PosTitle = group.Key.PosTitle
-            })
-            .ToList();
+        ViewBag.Department = Department;
 
-        return View(positions);
+        return View(positionsByDepartment);
+
+        // var positions = _context.tadposition?
+        //     .GroupBy(m => new {m.Department, m.PosTitle})
+        //     .Select(group => new
+        //     {
+        //         Department = group.Key.Department,
+        //         PosTitle = group.Key.PosTitle
+        //     })
+        //     .ToList();
+
+        // return View(positions);
+
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

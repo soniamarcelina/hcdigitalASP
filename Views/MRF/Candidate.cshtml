@@ -178,9 +178,9 @@
                                  var ids = rows.map(function(x) {
                                      return x[12];
                                  });
-                                 if ((rows[0].candidate_status).includes("Offer")) {
+                                 @* if ((rows[0].candidate_status).includes("Offer")) {
                                     window.location.href = '<?php echo base_url()?>TAD/AO/confirm/'+rows[0].id   
-                                 }else{
+                                 }else{ *@
                                     Swal.fire({
                                       title: 'Confirm Assignment!',
                                       text: "Kandidat belum Offering, yakin langsung ke tahap assignment?",
@@ -191,10 +191,10 @@
                                       confirmButtonText: 'Ya, lanjutkan!'
                                     }).then((result) => {
                                       if (result.isConfirmed) {
-                                        window.location.href = '<?php echo base_url()?>TAD/AO/confirm/'+rows[0].id   
+                                        window.location.href = '/AO/Assign/'  
                                       }
                                     })
-                                 }
+                                 //}
                              }
                          },
                          {

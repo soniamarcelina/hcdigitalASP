@@ -1146,16 +1146,21 @@
   function selectList(input){
       console.log(input.id)
       $.ajax({
-              url: "<?php echo base_url()?>TAD/MRF/getListPos",
-              type: "GET",
-              dataType: "json",
+              url: '/OCF/GetPosition',
+              type: 'GET',
+              dataType: 'json',
               success: function(data) {
                   let tableHtml = "<table class='table table-sm table-bordered small' id='positionTable'>";
                    tableHtml += "<thead><tr><th>ID Position</th><th>Job Position</th><th>Employee Name</th><th>Action</th></tr></thead>";
                    tableHtml += "<tbody>";
-                   data.forEach(row => {
-                     tableHtml += `<tr><td>${row.ID_Position}</td><td>${row.Position}</td><td>${row.Name}</td><td><a href="#" class="btn btn-primary select-button" data-id="${row.ID_Position}">Select</a></td></tr>`;
-                   });
+                   data.forEach(function(row) {
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.iD_Position + "</td>";
+                        tableHtml += "<td>" + row.position + "</td>";
+                        tableHtml += "<td>" + row.name + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.iD_Position + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                    });
                    tableHtml += "</tbody></table>";
                    Swal.fire({
                      title: 'Select Requestor',
@@ -1179,9 +1184,9 @@
                            var index;
                            var id = $(this).data('id');
                            for (var key in data) {
-                              if (data[key].ID_Position == id) {
-                               $(input).val(data[key].Position);
-                               $('#'+input.id+'_name').val(data[key].Name);
+                              if (data[key].iD_Position == id) {
+                               $(input).val(data[key].position);
+                               $('#'+input.id+'_name').val(data[key].name);
                                Swal.close()
                                break;
                              }

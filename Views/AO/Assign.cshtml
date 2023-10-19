@@ -1,0 +1,491 @@
+@{
+    ViewData["Title"] = "Confirmation AO";
+    Layout = "~/Views/Shared/_Sidebar.cshtml";
+}
+<div class="card-body">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Assignment Order</h6>
+    </div>
+    <div class="card-body">
+      <!-- <?= print_r($MRFData) ?> -->
+      <form method="post">
+        <div class="container px-0">
+          <ul class="nav nav-tabs"> 
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#tab1">1. Contract Detail</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tab2" id="link-tab2">2. Review</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <!-- PJP -->
+            <div class="tab-pane active" id="tab1">
+              <div class="row">
+                <!-- Contract -->
+                <div class="col-md-12 col-xl-6">
+                  <div class="card my-3">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Contract Data</h6>
+                    </div>
+                    <div class="card-body">
+                      <label>MRF Number</label>
+                      <input type="text" class="form-control form-control-bot-border" name="MRFNumber" value="" readonly>
+                      <label>Candidate Name</label>
+                      <input type="text" class="form-control form-control-bot-border" name="PersonnelName" value="" readonly>
+                      <label>Position Title</label>
+                      <input type="text" class="form-control form-control-bot-border" name="PosTitle" value="" readonly>
+                      <label>Position Division</label>
+                      <input type="text" class="form-control form-control-bot-border" name="PosDiv" value="" readonly>
+                      <label>Input / Based on Offering Salary</label>
+                      <input type="text" class="form-control required"  data-type="currency" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" name="salary" value="" readonly> 
+                      <label>Start Date</label>
+                      <input type="date" class="form-control required" name="start" value="" required>
+                      <label>End Date</label>
+                      <input type="date" class="form-control required" name="end" value="" required>
+                    </div>
+                  </div>
+                </div>
+                <!-- Contractor -->
+                <div class="col-md-12 col-xl-6">
+                  <div class="card my-3">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Contractor Data</h6>
+                    </div>
+                    <div class="card-body">
+                      <label>No. Contract</label>
+                      <input type="text" class="form-control form-control-bot-border required" name="contrID" placeholder="Select Contractor" value="" list="requestor" onclick="selectListContr(this)" autocomplete="off" required>
+                      <label>Name</label>
+                      <input type="text" class="form-control form-control-bot-border" name="contrName" value="" readonly>
+                      <label>Zona</label>
+                      <input type="text" class="form-control form-control-bot-border" name="contrZona" value="" readonly>
+                      <label>Company</label>
+                      <input type="text" class="form-control form-control-bot-border" name="contrComp" value="" readonly>
+
+                      <input type="text" class="form-control form-control-bot-border" name="contrStart" value="" hidden>
+                      <input type="text" class="form-control form-control-bot-border" name="contrEnd" value="" hidden>
+                      <input type="text" class="form-control form-control-bot-border" name="contrSF" value="" hidden>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-xl-12">
+                  <!-- <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a> -->
+                </div>
+              </div>
+            </div>
+            <!-- Role Profile section -->
+            <!--Review Section -->
+            <div class="tab-pane fade" id="tab2">
+              <div class="row">
+                <div class="col-md-12 col-xl-12">
+                  <div class="card my-3">
+                    <div class="card-body row mt-4">
+                      <div class="col-md-12 col-xl-12 text-center mb-4">
+                        <h5 class="font-weight-bold">ASSIGNMENT ORDER</h5>
+                        <div class="col-md-12 col-xl-12">
+                          <label class="float-right font-weight-bold" style="border: 3px solid black"> CONFIDENTIAL </label>
+                        </div>
+                        <hr>
+                      </div>
+                      <!-- Row 1 -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-5 col-xl-3">Date </div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8"> <?= date('d F Y')?> </div>
+                      </div>
+                      <!-- Row 2 -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-5 col-xl-3">Contract No./Period </div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvCrNO"></div>
+                      </div>
+                      <!-- Row 3 -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-5 col-xl-3">Contractor</div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvCrName"></div>
+                      </div>
+                      <div class="col-xl-6"></div>
+                      <!-- Row 4 -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-5 col-xl-3">Assignment Order No</div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvAO"></div>
+                      </div>
+                      <div class="col-xl-6"></div>
+                      <!-- Row 4 -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-5 col-xl-3">MRF No</div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvMRF"></div>
+                      </div>
+                      <div class="col-xl-6 mb-2"></div>
+                      <!-- Separator -->
+                      <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                        <h6>In accordance with the terms and conditions on Contract No. <b id="rvcrNo">...</b> between <b id="rvcrComp">...</b>, ("COMPANY") and <b id="rvcrName">...</b> ("CONTRACTOR"), this Assignment Order authorizes CONTRACTOR to supply CONTRACTOR'S Personnel to perform the Work as describe fully in Exhibit B of the Contract: </h6>
+                      </div>
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-12 col-xl-12">
+                          <table class="table table-sm table-bordered" style="width:100%" style="text-align: center">
+                            <tr>
+                              <th>Title</th>
+                              <th>Schedule of Service</th>
+                              <th>Name</th>
+                              <th>Point Of Hire</th>
+                              <th>Period</th>
+                              <th>Start Date for Services</th>
+                              <th>Completion Date of Services</th>
+                              <th>Remarks</th>
+                            </tr>
+                            <tr>
+                              <td id="rvTitle">....</td>
+                              <td id="rvWS"></td>
+                              <td id="rvPersonnel"></td>
+                              <td id="rvPOH"></td>
+                              <td id="rvPeriod"></td>
+                              <td id="rvStart"></td>
+                              <td id="rvEnd"></td>
+                              <td id="rvRemark"></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                        <h6>In no case shall CONTRACTOR be compensated for any costs incurred after the Completion date, unless as is otherwise stated in the Contract and / or in this Assignment Order.</h6>
+                        <hr>
+                      </div>
+                      <!-- Separator -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-6 col-xl-3">Company's Operation Area</div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvPAPSA"></div>
+                      </div>
+                      <!-- Row 3 -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-6 col-xl-3">Company's Supervisor</div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvSPV"></div>
+                      </div>
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-6 col-xl-3">Cost Center</div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvCC"></div>
+                      </div>
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-6 col-xl-3">Personnel Classified/Category</div>
+                        <div class="col-md-1 col-xl-1">:</div>
+                        <div class="col-md-6 col-xl-8" id="rvPersCat"></div>
+                      </div>
+                      <div class="col-xl-6"></div>
+                      <!-- Separator -->
+                      <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                        <!-- <h6>Information Budget</h6> -->
+                        <hr>
+                      </div>
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-12 col-xl-12">
+                          <table class="table table-sm table-bordered" style="width:100%" style="text-align: center">
+                            <tr>
+                              <th rowspan="2" class="text-center">Currency</th>
+                              <th>Billing Rate</th>
+                              <th rowspan="2">Gross Rate</th>
+                              <th>Service Fee</th>
+                            </tr>
+                            <tr>
+                              <td>Gross Salary + BPJSTK 5.74% + Service Fee</td>
+                              <td>{Gross Salary + (BPJSTK 5.74%)} x <p id="crServFee"></p></td>
+                            </tr>
+                            <tr>
+                              <td>IDR/Month</td>
+                              <td id="rvBill"></td>
+                              <td id="rvGross"></td>
+                              <td id="rvServFee"></td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                        <h6>Any question regarding commercial terms or Contract conditions should be referred to <b id="rvMgrHC"></b> (Manager HCBP). <br> All invoices related to Service Provider under this Assignment Order must show the number on Contract and the Assignment Order as listed above, and shall be submitted in accordance with the terms of Contract. <br> COMPANY has accepted the above listed personnel as the CONTRACTOR'S Personnel to perform the Work hereunder. </h6>
+                        <hr>
+                      </div>
+                      <div class="col-md-12 col-xl-12 mt-4 mb-2">
+                        <h6>
+                          <b>This Assignment Order (AO) shall no longer be valid when either it has been completed on the date of service or a new AO under the same personnel name has been issued</b>
+                        </h6>
+                        <hr>
+                      </div>
+                      <br>
+                      <!--  -->
+                      <div class="col-md-12 col-xl-12 row">
+                        <div class="col-md-6 col-xl-6">
+                          <table style="width:120% text-align=center;">
+                            <tr>
+                              <td style="width:10%">Date</td>
+                              <td style="width:10%">:</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td colspan="3">On Behalf of COMPANY</td>
+                            </tr>
+                            <tr>
+                              <td colspan="3">
+                                <br>
+                                <br>
+                                <br>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="width:10%">By</td>
+                              <td style="width:10%">:</td>
+                              <td id="rvMgrHc"></td>
+                            </tr>
+                            <tr>
+                              <td style="width:10%">Title</td>
+                              <td style="width:10%">:</td>
+                              <td>Manager HCBP</td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="col-md-6 col-xl-6">
+                          <table style="width:100%">
+                            <tr>
+                              <td style="width:10%">Date</td>
+                              <td style="width:10%">:</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td colspan="3">On Behalf of CONTRACTOR</td>
+                            </tr>
+                            <tr>
+                              <td colspan="3">
+                                <br>
+                                <br>
+                                <br>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="width:10%">By</td>
+                              <td style="width:10%">:</td>
+                              <td id="rvCrCEO"></td>
+                            </tr>
+                            <tr>
+                              <td style="width:10%">Title</td>
+                              <td style="width:10%">:</td>
+                              <td id="rvCrCEOPos">PRESIDEN DIREKTUR</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-12 text-center">
+                    <a href="#" class="btn btn-primary"> Back </a>
+                    <a href="#Submit" class="btn btn-success submitBtn"> SUBMIT </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function selectListContr(input){
+      $.ajax({
+                  url: '/AO/GetContractor',
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function(data) {
+                      let tableHtml = "<table class='table table-sm table-bordered small' id='contractorTable'>";
+                       tableHtml += "<thead><tr><th>Nomor</th><th>Name</th><th style='width:20%'>Title</th><th>Zona</th><th>Company</th><th style='width:15%'>Work Location</th><th>Headcount</th><th>Action</th></tr></thead>";
+                       tableHtml += "<tbody>";
+                       data.forEach(function (row) {
+                            tableHtml += "<tr>";
+                            tableHtml += "<td>" + row.contractNo + "</td>";
+                            tableHtml += "<td>" + row.name + "</td>";
+                            tableHtml += "<td>" + row.title + "</td>";
+                            tableHtml += "<td>" + row.zona + "</td>";
+                            tableHtml += "<td>" + row.company + "</td>";
+                            tableHtml += "<td>" + row.workLoc + "</td>";
+                            tableHtml += "<td>" + row.headcount + "</td>";
+                            tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.contractNo + "'>Select</a></td>";
+                            tableHtml += "</tr>";
+                        });
+                       tableHtml += "</tbody></table>";
+                       Swal.fire({
+                         title: 'Select Contractor',
+                         html: tableHtml,
+                         width : 1200,
+                         showCloseButton: true,
+                       })
+
+                       $('#contractorTable').DataTable({
+                         ordering : true,
+                         autoWidth : false,
+                         select: {
+                               style: 'single'
+                         },
+                       });
+
+                       var currentDate = new Date(); // Current date
+                       var currentYear = currentDate.getFullYear(); // Get the current year
+
+                       $('#contractorTable').on('click', '.select-button', function() {
+                               var index;
+                               var id = $(this).data('id');
+                               for (var key in data) {
+                                  if (data[key].contractNo == id) {
+                                  $('[name="contrID"]').val(data[key].contractNo);
+                                  $('[name="contrName"]').val(data[key].name);
+                                  $('[name="contrComp"]').val(data[key].company);
+                                  $('[name="contrStart"]').val(data[key].start_date);
+                                  $('[name="contrEnd"]').val(data[key].end_date);
+                                  $('[name="contrSF"]').val((data[key].service_fee*100).toFixed(1));
+                           
+                                   
+                                   Swal.close()
+                                   break;
+                                 }
+                               }
+
+                           });
+                  }
+          });
+  }
+  //Check Review
+  $("#link-tab2").click(function() {
+      if (checkInputs()) {
+          
+          $('#rvNO').text($('[name="MRF_No"]').val())
+          $('#rvCrNO').text($('[name="contrID"]').val() + ' / '+ $('[name="contrStart"]').val() +' To '+$('[name="contrEnd"]').val())
+          $('#rvCrName').text($('[name="contrName"]').val())
+          $('#rvCrComp').text($('[name="contrComp"]').val())
+          $('#rvMRF').text($('[name="MRFNumber"]').val())
+
+          $('#rvcrNo').text($('[name="contrID"]').val())
+          $('#rvcrName').text($('[name="contrName"]').val())
+          $('#rvcrComp').text($('[name="contrComp"]').val())
+          
+          $('#rvTitle').text('<?= $MRFData->PosTitle ?>')
+          $('#rvWS').text('<?= $MRFData->Work_Schedule ?>')
+          $('#rvPersonnel').text('<?= $MRFData->Nama ?>')
+          $('#rvPOH').text('<?= $MRFData->PersSubArea_ID ?>')
+          $('#rvStart').text($('[name="start"]').val())
+          $('#rvEnd').text($('[name="end"]').val())
+          $('#rvRemark').text('')
+
+          $('#crServFee').text($('[name="contrSF"]').val()+'%')
+          $('#rvPAPSA').text('<?= $MRFData->PersSubArea_ID.' - '.$MRFData->PersArea_ID ?>')
+          $('#rvSPV').text('<?= $this->DirectPosition_model->getById($MRFData->DirectPos_ID)->row()->Position ?>')
+          $('#rvCC').text('<?= $MRFData->PersSubArea_ID ?>')
+          
+          var grade = '<?= $MRFData->Grade ?>'
+          var classify = ''
+          if ( grade == 'A' || grade == 'B' || grade == 'C' || grade == 'D' ) {
+            classify ='Non Staff'
+          }else{
+            classify = 'Staff'
+          }
+          $('#rvPersCat').text(classify+' / <?= $MRFData->Grade ?>')
+
+          var salary = parseInt($('[name="salary"]').val().replace(/,/g,''));
+          var contrSF = parseFloat($('[name="contrSF"]').val())
+          var bpjstk = (salary*0.0574)
+          var service_fee = (salary + bpjstk) * (contrSF/100);
+          var bill = salary + bpjstk + service_fee
+          
+          $('#rvBill').text(formatNumber(bill))
+          $('#rvGross').text(formatNumber(salary))
+          $('#rvServFee').text(formatNumber(service_fee.toFixed(2)))
+
+          $('#rvMgrHC').text('Jundan Nurbarik') //mgr hcbp
+          $('#rvMgrHc').text('Jundan Nurbarik') //mgr hcbp
+          $('#rvCrCEO').text('________________')
+          $('#rvCrCEOPos').text('_________________')
+          
+          function differenceInMonths(date1, date2) {
+            const monthDiff = date1.getMonth() - date2.getMonth();
+            const yearDiff = date1.getYear() - date2.getYear();
+
+            return monthDiff + yearDiff * 12;
+          }
+
+          // June 5, 2022
+          const date1 = new Date($('[name="end"]').val());
+
+          // March 17, 2021
+          const date2 = new Date($('[name="start"]').val());
+
+          const difference = differenceInMonths(date1, date2);
+
+         $('#rvPeriod').text(difference+ ' Months')
+
+      }else{
+          
+          alert('Some Required Fields are not filled!');
+      }
+  });
+
+  $(".submitBtn").click(function() {
+      
+      var grade = '<?= $MRFData->Grade ?>'
+      var classify = ''
+      if ( grade == 'A' || grade == 'B' || grade == 'C' || grade == 'D' ) {
+        classify ='Non Staff'
+      }else{
+        classify = 'Staff'
+      }
+
+      var salary = parseInt($('[name="salary"]').val().replace(/,/g,''));
+      var contrSF = parseFloat($('[name="contrSF"]').val())
+      var bpjstk = (salary*0.0574)
+      var service_fee = (salary + bpjstk) * (contrSF/100);
+      var bill = salary + bpjstk + service_fee
+
+      var data = {
+        'AO_No' : '',
+        'status' : 'Submit',
+        'contractor_id' : $('[name="contrID"]').val(),
+        'mrf_id' : '<?= $MRFData->id_mrf ?>',
+        'PositionID' : '<?= $MRFData->Id_Position ?>',
+        'id_personnel' : '<?= $MRFData->Nopek ?>',
+        'personnel_salary' : salary,
+        'personnel_billing' : bill,
+        'personnel_category' : classify,
+        'point_of_hire' : '<?= $MRFData->PersSubArea_ID ?>',
+        'contract_start' : $('[name="start"]').val(),
+        'contract_end' : $('[name="end"]').val(),
+        'created_by' : '1',
+      }
+      //alert(JSON.stringify(data));
+      $.ajax({
+        url: "<?php echo base_url()?>TAD/AO/confirmSubmit/<?= $MRFData->id ?>",
+        type: "POST",
+        dataType: "json",
+        data: data,
+        success: function(data) {
+            n = JSON.stringify(data)
+            o = JSON.parse(n)
+            var tempKey =o.data.tempKey;
+            if (o.status == 2) {
+                Swal.fire({
+                  title: 'Update Status',
+                  html: o.msg,
+                  showCloseButton: true,
+                });
+                window.location.href = '<?php echo base_url()?>/MRF/Candidate/<?= $MRFData->id_mrf?>';
+            }else{
+                Swal.fire({
+                  title: 'Update Status',
+                  html: o.msg,
+                  showCloseButton: true,
+                }); 
+            }
+            
+        }
+      });
+  });
+</script>

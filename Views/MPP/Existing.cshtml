@@ -1,4 +1,4 @@
-
+@model List<string>
  @{
     ViewData["Title"] = "Existing";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
@@ -11,7 +11,7 @@
         		</div>
                 <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary"></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">@ViewBag.Department</h6>
                         </div>
                         <div class="card-body">
                             <div class="py-2">
@@ -29,7 +29,6 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Department</th>
                                             <th>Position</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -37,12 +36,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     @foreach (var ex in Model)
+                                     @foreach (var position in Model)
                                      {
                                      <tr>
                                             <td></td>
-                                            <td>@ex.Department</td>
-                                            <td>@ex.Postitle</td>
+                                            <td>@position</td>
                                             <td></td>
                                              <td class="text-center">
                                                <a class="btn btn-success btn-sm" href="#">Keep</a>

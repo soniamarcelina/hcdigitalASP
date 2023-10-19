@@ -470,6 +470,7 @@
                     </div>
                 </div>
         </div>
+
 <script type="text/javascript">
     function perfReview(){
         Swal.fire({
@@ -661,57 +662,66 @@ function selectList(input) {
     
 
     $(".saveDraftBtn").click(function() {
-        var tempKey = '';
-        var MRF_id = getQueryParameter("id_mrf"); // Fungsi yang mengambil parameter query string.
+    var tempKey = '';
+    var MRF_id = getQueryParameter("id_mrf"); // Fungsi yang mengambil parameter query string.
 
-        if (MRF_id !== '0') {
+    if (MRF_id !== '0') {
         tempKey = getQueryParameter("tempKey");
-        }
-        var data = {
-            mrf_code: $('[name="MRF_No"]').val(),
-            status: 'Draft',
-            mrf_type: $('[name="type"]').val(),
-            id_position: $('[name="posID"]').val(),
-            workTerm: $('[name="workTerm"]').val(),
-            aBI_ABO: $('[name="ABO_ABI"]').val(),
-            prev_mrf: $('[name="prevMRF"]').val(),
-            justification: $('[name="Justification"]').val(),
-            start_date: $('[name="start"]').val(),
-            end_date: $('[name="end"]').val(),
-            RequestorID: $('[name="empID"]').val(),
-            created_by: '<%= this.Session["id"] %>',
-            tempKey: tempKey
-        }; 
+    }
+    var data = {
+        mrf_code: $('[name="MRF_No"]').val(),
+        status: 'Draft',
+        mrf_type: $('[name="type"]').val(),
+        id_position: parseInt($('[name="posID"]').val()),
+        workTerm: $('[name="workTerm"]').val(),
+        aBI_ABO: $('[name="ABO_ABI"]').val(),
+        prev_mrf: $('[name="prevMRF"]').val(),
+        justification: $('[name="Justification"]').val(),
+        start_date: $('[name="start"]').val(),
+        end_date: $('[name="end"]').val(),
+        RequestorID: $('[name="empID"]').val(),
+        created_by: '<%= this.Session["id"] %>',
+        tempKey: tempKey
+    };
 
-        $.ajax({
-            url: '/MRF/Insert',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data), // data adalah objek JavaScript yang akan dikirim.
-            dataType: 'json',
-            success: function (response) {
-                var o = JSON.parse(data);
-                var tempKey = o.data.tempKey;
-                
-                if (o.status === 2) {
-                    Swal.fire({
-                        title: 'Update Status',
-                        html: o.msg,
-                        showCloseButton: true
-                    });
+    $.ajax({
+        url: '/MRF/Insert', 
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        success: function (response) {
+            if (response.status === 2) {
+                Swal.fire({
+                    title: 'Update Status',
+                    html: response.msg,
+                    showCloseButton: true
+                });
+                if (tempKey) {
                     window.location.href = 'MRF/Create' + tempKey;
                 } else {
-                    Swal.fire({
-                        title: 'Update Status',
-                        html: o.msg,
-                        showCloseButton: true
-                    });
+                    window.location.href = 'MRF'; // Redirect ke halaman yang sesuai
                 }
+            } else {
+                Swal.fire({
+                    title: 'Update Status',
+                    html: response.msg,
+                    showCloseButton: true
+                });
             }
-        });
-
-        return false; // Prevent the postback
+        },
+        error: function (error) {
+            Swal.fire({
+                title: 'Error',
+                html: 'Terjadi kesalahan saat menyimpan draft.',
+                showCloseButton: true
+            });
+        }
     });
+
+    return false; // Prevent the postback
+});
+    
 
     $(".submitBtn").click(function() {
         var tempKey =''

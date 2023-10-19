@@ -43,6 +43,12 @@ public class AOController : Controller
         return View();
     }
 
+    [HttpGet("Assign")]
+    public IActionResult Assign()
+    {
+        return View();
+    }
+
     [HttpGet("Approval")]
     public IActionResult Approval()
     {
