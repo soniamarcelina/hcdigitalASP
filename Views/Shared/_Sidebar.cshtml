@@ -450,6 +450,43 @@
         <i class="fas fa-angle-up"></i>
     </a> 
 
+         <script type="text/javascript">
+                function checkInputs() {
+                  const requiredInputs = document.querySelectorAll('.required');
+        
+                  let allInputsFilled = true;
+                  requiredInputs.forEach(inputElement => {
+                    const inputValue = inputElement.value.trim(); // Remove leading/trailing white spaces
+        
+                    if (inputValue === '') {
+                      allInputsFilled = false;
+                      // Optionally, you can add a visual indication that the input is required and empty
+                      inputElement.style.border = '2px solid red';
+                    } else {
+                      // Optionally, you can remove the visual indication when the input is filled
+                      inputElement.style.border = '';
+                    }
+                  });
+        
+                  if (allInputsFilled) {
+                    //alert('All required inputs are filled.');
+                    return true;
+                    // You can proceed with form submission or other actions here
+                  } else {
+                    //alert('Some required inputs are empty.');
+                    return false;
+                    // You can prevent form submission or take other actions here
+                  }
+                }
+        
+                function formatNumber(x) {
+                    // format number 1000000 to 1,234,567
+                    //return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+            </script>
+           
+
      <!-- Bootstrap core JavaScript-->
     <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

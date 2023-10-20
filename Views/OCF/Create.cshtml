@@ -1,6 +1,6 @@
 
  @{
-    ViewData["Title"] = "Create OCF";
+    ViewData["Title"] = "Create Organization Change";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
 }
 
@@ -56,6 +56,12 @@
                                                 <input type="text" class="form-control form-control-bot-border" name="empDept" readonly>
                                                 <label>Section</label>
                                                 <input type="text" class="form-control form-control-bot-border" name="empSec" readonly>
+                                                <label>No #</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="OCF_No" readonly>
+                                                <label>Date</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="CreatedDate" readonly>
+                                                <label>Subsidiaries</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="empSubs" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -137,10 +143,10 @@
                                                 <input type="text" class="form-control form-control-bot-border" name="DirPos" onclick="selectSPVList(this)"  placeholder="Select Direct Report/Spv Position">
                                                 <label>Direct Report Name</label>      
                                                 <input type="text" class="form-control form-control-bot-border" name="DirName" readonly>
-                                                <label>Department</label>
-                                                <input type="text" class="form-control form-control-bot-border" name="DirDept" readonly>
                                                 <label>Division</label>
                                                 <input type="text" class="form-control form-control-bot-border" name="DirDiv" readonly>
+                                                <label>Department</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="DirDept" readonly>
                                                 <div class="btn-group py-2" data-toggle="buttons">
                                                   <label class="btn btn-primary active">
                                                     <input type="radio" name="cost_opt" id="cost_opt_cc" autocomplete="off"> Cost Center
@@ -427,15 +433,15 @@
                                                 </div>
                                                  <!-- Row 5 -->
                                                 <div class="col-md-12 col-xl-12 row">
-                                                    <div class="col-md-5 col-xl-2">Department</div>
-                                                    <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-9" id="rvDept"></div>
-                                                </div>
-                                                 <!-- Row 6 -->
-                                                <div class="col-md-12 col-xl-12 row">
                                                     <div class="col-md-5 col-xl-2">Division</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
                                                     <div class="col-md-6 col-xl-9" id="rvDiv"></div>
+                                                </div>
+                                                 <!-- Row 6 -->
+                                                <div class="col-md-12 col-xl-12 row">
+                                                    <div class="col-md-5 col-xl-2">Department</div>
+                                                    <div class="col-md-1 col-xl-1">:</div>
+                                                    <div class="col-md-6 col-xl-9" id="rvDept"></div>
                                                 </div>
 
                                                 <!-- Separator -->
@@ -612,7 +618,7 @@
 
 
       //Load Education Table
-       const edutable = JSON.parse('');
+      const edutable = JSON.parse('');
       if(edutable.length > 0){
         edutable.forEach((element, index) => {
             var i = 0
@@ -718,12 +724,13 @@
 
     }); 
 
-    var listRole = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Role>>(listRoles);
-    string tempKey = "";
-    string OCF_id = Request["OCF_id"]; 
+    //var listRole = JSON.parse(listRoles);
+    var tempKey = "";
+    var OCF_id = Request["id"];
     if (OCF_id != "0") {
-        tempKey = tempKey; 
-    } 
+        tempKey = Request["tempKey"];
+    }
+
 
     $(".saveDraftBtn").click(function() {
         var responsibilityTable = $('#respTable').DataTable();
@@ -777,7 +784,7 @@
          } 
        console.log(data); 
         $.ajax({
-                url: "",
+                url: "/OCF/SubmitOCF",
                 type: "POST",
                 dataType: "json",
                 data: data,
@@ -792,7 +799,7 @@
                           showCloseButton: true,
                         });
                     }else{
-                        window.location.href = '<?php echo base_url()?>TAD/orgChange/create/'+tempKey;    
+                        window.location.href = 'OCF/Create/'+tempKey;    
                     }
                 }
             });
@@ -800,8 +807,7 @@
 
     //Check Review
     $("#link-tab5").click(function() {
-
-        @* if (checkInputs()) { 
+        if (checkInputs()) { 
             $('#tab5').show();
             var responsibilityTable = $('#respTable').DataTable();
             var arrResponsibility = responsibilityTable.data().toArray();  
@@ -830,7 +836,7 @@
             }else{
                 costType = 'AFE'
                 costName = 'Authorization for Expenditure'
-            } *@
+            } 
             var data = {
                 'subject': $('[name="subject"]').val(),
                 'status' : 'Draft',
@@ -869,6 +875,9 @@
             $('#rvDept').text($('[name="DirDept"]').val())
             $('#rvDiv').text($('[name="DirDiv"]').val())
             $('#rvJus').text($('[name="Justification"]').val())
+             $('#rvWS').text($('[name="newWS"]').val())
+             $('#rvWL').text($('[name="newWL"]').val())
+
             var contentResp = '';
             arrResponsibility.forEach((element, index) => {
               contentResp = contentResp+`<tr><td>${element[0]}</td><td>${element[1]}</td></tr>`;
@@ -904,10 +913,10 @@
             $("#tb-skill tbody").html(contentSkill)
             console.log(data);
             
-        @* }else{
+         }else{
             
             alert('Some Required Fields are not filled!');
-        } *@
+        } 
     }); 
 
     $(".submitBtn").click(function() {

@@ -75,8 +75,8 @@ public class OCFController : Controller
         }
     }
 
-    [HttpPost("Submit")]
-    public IActionResult Submit([FromBody] OCF ocf)
+    [HttpPost("SubmitOCF")]
+    public IActionResult SubmitOCF([FromBody] OCF ocf)
     {
         try
         {

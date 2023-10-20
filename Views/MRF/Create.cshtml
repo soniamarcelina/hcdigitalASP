@@ -368,13 +368,13 @@
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">Division</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-7" id="rvDirDept"></div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDirDiv"></div>
                                                 </div>
                                                  <!-- Row 6 -->
                                                 <div class="col-md-6 col-xl-6 row">
                                                     <div class="col-md-5 col-xl-4">Department</div>
                                                     <div class="col-md-1 col-xl-1">:</div>
-                                                    <div class="col-md-6 col-xl-7" id="rvDirDiv"></div>
+                                                    <div class="col-md-6 col-xl-7" id="rvDirDept"></div>
                                                 </div>
 
                                                 <div class="col-md-12 col-xl-12 mt-4 mb-2">
@@ -724,10 +724,11 @@ function selectList(input) {
     
 
     $(".submitBtn").click(function() {
-        var tempKey =''
-        var MRF_id = '<?php echo $MRF_id ?>'
-        if (MRF_id != '0') {
-            tempKey = '<?php echo $tempKey; ?>'
+        var tempKey = '';
+        var mrf_id = '0'; 
+
+        if (mrf_id !== '0') {
+            tempKey = 'tempKeyValue'; 
         }
         if (checkInputs()) {
             var data = {
@@ -737,7 +738,7 @@ function selectList(input) {
             'id_position' : $('[name="posID"]').val(),
             'workTerm' : $('[name="workTerm"]').val(),
             'ABI_ABO' : $('[name="ABO_ABI"]').val(),
-            'prev_mrf' : $('[name="prevMRF"]').val(),
+            //'prev_mrf' : $('[name="prevMRF"]').val(),
             'justification' : $('[name="Justification"]').val(),
             'start_date' : $('[name="start"]').val(),
             'end_date' : $('[name="end"]').val(),
@@ -747,25 +748,24 @@ function selectList(input) {
         }
         //alert(JSON.stringify(data));
         $.ajax({
-                url: "<?php echo base_url()?>TAD/MRF/submit",
-                type: "POST",
-                dataType: "json",
-                data: data,
-                success: function(data) {
-                    n = JSON.stringify(data)
-                    o = JSON.parse(n)
-                    var tempKey =o.data.tempKey;
-                    if (o.status == 2) {
-                        Swal.fire({
-                          title: 'Update Status',
-                          html: o.msg,
-                          showCloseButton: true,
-                        });
-                        window.location.href = '<?php echo base_url()?>TAD/MRF'; 
+            url: '/MRF/SubmitMRF',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function(data) {
+                var tempKey = data.tempKey;
+                if (data.status === 2) {
+                    Swal.fire({
+                        title: 'Update Status',
+                        html: data.msg,
+                        showCloseButton: true
+                    });
+                    window.location.href = '/MRF/Index';
                     }else{
                         Swal.fire({
                           title: 'Update Status',
-                          html: o.msg,
+                          html: data.msg,
                           showCloseButton: true,
                         });
                          
@@ -776,7 +776,7 @@ function selectList(input) {
         }else{
            Swal.fire({
              title: 'Submit Error',
-             html: 'Some Data Requireed Before Submit OCF',
+             html: 'Some Data Requireed Before Submit MRF',
              showCloseButton: true,
            }); 
         }
@@ -784,7 +784,7 @@ function selectList(input) {
 
     //Check Review
     $("#link-tab4").click(function() {
-        @* if (checkInputs()) {
+        if (checkInputs()) {
             console.log('test')
             var data = {
                 'mrf_code' : $('[name="MRF_No"]').val(),
@@ -794,12 +794,13 @@ function selectList(input) {
                 'workTerm' : $('[name="workTerm"]').val(),
                 'aBI_ABO' : $('[name="ABO_ABI"]').val(),
                 'prev_mrf' : $('[name="prevMRF"]').val(),
+                'divisi' : $('[name="div"]').val(),
                 'justification' : $('[name="Justification"]').val(),
                 'start_date' : $('[name="start"]').val(),
                 'end_date' : $('[name="end"]').val(),
                 'requestorID' : $('[name="empID"]').val(),
                 'created_by' : '1',
-            } *@
+            } 
 
             $('#rvNO').text($('[name="MRF_No"]').val())
             $('#rvSubs').text($('[name="empSubs"]').val())
@@ -809,12 +810,12 @@ function selectList(input) {
             $('#rvTitle').text($('[name="posTitle"]').val())
             $('#RvCost').text($('[name="aBO_ABI"]').val()+ ' - ' + $('[name="workTerm"]').val())
 
-            $('#rvDiv').text($('[name="division"]').val())
-            $('#rvDept').text($('[name="dept"]').val())
+            $('#rvDiv').text($('[name="Division"]').val())
+            $('#rvDept').text($('[name="Department"]').val())
             $('#rvDirPos').text($('[name="DirPos"]').val())
-            $('#rvDirDept').text($('[name="DirDept"]').val())
-            $('#rvDirDiv').text($('[name="DirDiv"]').val())
-            $('#rvJus').text($('[name="justification"]').val())
+            $('#rvDirDept').text($('[name="Department"]').val())
+            $('#rvDirDiv').text($('[name="Division"]').val())
+            $('#rvJus').text($('[name="Justification"]').val())
 
             $('#rvType').text($('[name="type"]').val())
             $('#rvPrevTad').text($('[name="prevTAD"]').val())
@@ -844,10 +845,12 @@ function selectList(input) {
 
            $('#rvDur').text(difference+ ' Months')
 
-        @* }else{
+           console.log(data);
+
+        }else{
             
             alert('Some Required Fields are not filled!');
-        } *@
+        } 
     });
 
 </script>

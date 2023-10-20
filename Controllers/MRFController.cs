@@ -24,43 +24,43 @@ public class MRFController : Controller
         return View();
     }
 
-     [HttpGet("Index")]
-    public IActionResult Index()
-    {
-        if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null )
-        {
-                 var result = _context.mrf
-                    .Join(
-                        _context.tadposition,
-                        m => m.id_position,
-                        p => p.id_position,
-                        (MRF m, Position p) => new { MRF = m, Position = p }
-                    )
-                    .Join(
-                        _context.masteremployee,
-                        pm => pm.Position.DirectPos_ID,
-                        masteremployee =>  masteremployee.ID_Position,
-                        (mp, masteremployee ) => new {mp.MRF, mp.Position, Direct = masteremployee}
-                    )
-                    .Select(mp => new MRF {
-                        id_mrf = mp.MRF.id_mrf,
-                        status = mp.MRF.status,
-                        mrf_code = mp.MRF.mrf_code,
-                        mrf_type = mp.MRF.mrf_type,
-                        start_date = mp.MRF.start_date,
-                        end_date = mp.MRF.end_date,
-                        tempKey = mp.MRF.tempKey,
-                        id_position = mp.MRF.id_position,
-                        Position = mp.Position,
-                        DirectPos = mp.Direct,
-                    })
-                    .ToList();
-                return View(result);
-        } else {
-            return View(new List<MRF>()); 
-        }
+    //  [HttpGet("Index")]
+    // public IActionResult Index()
+    // {
+    //     if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null )
+    //     {
+    //              var result = _context.mrf
+    //                 .Join(
+    //                     _context.tadposition,
+    //                     m => m.id_position,
+    //                     p => p.id_position,
+    //                     (MRF m, Position p) => new { MRF = m, Position = p }
+    //                 )
+    //                 .Join(
+    //                     _context.masteremployee,
+    //                     pm => pm.Position.DirectPos_ID,
+    //                     masteremployee =>  masteremployee.ID_Position,
+    //                     (mp, masteremployee ) => new {mp.MRF, mp.Position, Direct = masteremployee}
+    //                 )
+    //                 .Select(mp => new MRF {
+    //                     id_mrf = mp.MRF.id_mrf,
+    //                     status = mp.MRF.status,
+    //                     mrf_code = mp.MRF.mrf_code,
+    //                     mrf_type = mp.MRF.mrf_type,
+    //                     start_date = mp.MRF.start_date,
+    //                     end_date = mp.MRF.end_date,
+    //                     tempKey = mp.MRF.tempKey,
+    //                     id_position = mp.MRF.id_position,
+    //                     Position = mp.Position,
+    //                     DirectPos = mp.Direct,
+    //                 })
+    //                 .ToList();
+    //             return View(result);
+    //     } else {
+    //         return View(new List<MRF>()); 
+    //     }
 
-    }
+    // }
 
      [HttpGet("Approval")]
      public IActionResult Approval()
@@ -68,37 +68,37 @@ public class MRFController : Controller
         return View();
     }
      
-    [HttpGet("Candidate/{id_mrf}")]
-    public IActionResult Candidate(int id_mrf)
-    {
-        if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null)
-        {
+    // [HttpGet("Candidate/{id_mrf}")]
+    // public IActionResult Candidate(int id_mrf)
+    // {
+    //     if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null)
+    //     {
        
-                var query = from mrf in _context.mrf
-                    join position in _context.tadposition on mrf.id_position equals position.id_position
-                    join directpos in _context.masteremployee on position.DirectPos_ID equals directpos.ID_Position
-                    where mrf.id_mrf == id_mrf
-                    select new MRF
-                    {
-                        Position = position,
-                        DirectPos = directpos
-                    };
+    //             var query = from mrf in _context.mrf
+    //                 join position in _context.tadposition on mrf.id_position equals position.id_position
+    //                 join directpos in _context.masteremployee on position.DirectPos_ID equals directpos.ID_Position
+    //                 where mrf.id_mrf == id_mrf
+    //                 select new MRF
+    //                 {
+    //                     Position = position,
+    //                     DirectPos = directpos
+    //                 };
 
-           var result = query.SingleOrDefault();
+    //        var result = query.SingleOrDefault();
 
-            if (result == null)
-            {
-                return NotFound();
-            } else {
-                return View(result);
-            }
-        }
+    //         if (result == null)
+    //         {
+    //             return NotFound();
+    //         } else {
+    //             return View(result);
+    //         }
+    //     }
         
-        else {
-            return NotFound();
-        }
+    //     else {
+    //         return NotFound();
+    //     }
 
-    }
+    // }
 
      [HttpGet("GetTadPosition")]
     public IActionResult GetTadPosition()
@@ -215,43 +215,47 @@ public class MRFController : Controller
         }
     }
 
+    [HttpPost("SubmitMRF")]
     public IActionResult SubmitMRF([FromBody] MRF mrf)
-    {
-        if (mrf != null)
         {
-            try
-            {
-                var data = new MRF
-                {
-                    mrf_code = mrf.mrf_code,
-                    status = "Routing",
-                    mrf_type = mrf.mrf_type,
-                    id_position = mrf.id_position,
-                    workTerm = mrf.workTerm,
-                    ABI_ABO = mrf.ABI_ABO,
-                    prev_mrf = mrf.prev_mrf,
-                    
-
-                    // Set properti lainnya sesuai kebutuhan
-                };
-
-                _context.mrf.Add(data); // Perhatikan perubahan pada penulisan DbSet (MRF, bukan mrf)
-                _context.SaveChanges(); // Simpan perubahan ke database
-
-                return Ok(new { Message = "Data MRF berhasil disimpan" });
-            }
-            catch (Exception ex)
-            {
-                // Tangani kesalahan dengan baik, misalnya, log pesan kesalahan
-                return StatusCode(500, new { Message = "Gagal menyimpan data MRF: " + ex.Message });
-            }
-        }
-        else
+        if (mrf == null)
         {
             return BadRequest(new { Message = "Data MRF tidak valid" });
         }
-    }
 
+        try
+        {
+            var data = new MRF
+            {
+                id_mrf = mrf.id_mrf,
+                mrf_code = mrf.mrf_code,
+                yID = mrf.yID,
+                status = "Routing",
+                mrf_type = mrf.mrf_type,
+                id_position = mrf.id_position,
+                workTerm = mrf.workTerm,
+                ABI_ABO = mrf.ABI_ABO,
+                //prev_mrf = mrf.prev_mrf,
+                justification = mrf.justification,
+                start_date = mrf.start_date,
+                end_date = mrf.end_date,
+                RequestorID = mrf.RequestorID,
+                created_by = mrf.created_by,
+                tempKey = mrf.tempKey,
+
+            };
+
+            _context.mrf?.Add(data);
+            _context.SaveChanges();
+
+            return Ok(new { Message = "Data MRF berhasil disimpan" });
+        }
+        catch (Exception ex)
+            {
+                // Tangani kesalahan dengan baik, misalnya, log pesan kesalahan
+                return StatusCode(500, new { Message = "Gagal menyimpan data MRF: " + ex.Message, InnerException = ex.InnerException?.Message });
+            }
+        }
 
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

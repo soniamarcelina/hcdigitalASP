@@ -27,8 +27,5 @@ namespace hcdigital.Models
         public string? tempKey {get; set;}
         public DateTime? created_at {get; set;}
 
-        public Position? Position {get; set;}
-        public DirectPos? DirectPos {get; set;}
-       
     }
 }

@@ -116,14 +116,14 @@
 
                     $('#dataTable').on('click', '.select-button', function() {
                         $.ajax({
-                        url: "<?php echo base_url()?>TAD/employeeTKJP/selectData",
-                        type: "GET",
+                        url: '/TKJP/selectData',
+                        type: 'GET',
                         data: data,
-                        dataType: "json",
+                        dataType: 'json',
                         success: function(data) {   
                             var id = $(this).data('id');
                                 for (var key in data) {
-                                    if (data[key].Nopek == id) {
+                                    if (data[key].nopek == id) {
                                     console.log(data[key])    
                                     break;
                                 }
@@ -138,21 +138,21 @@
                                         '<h5 style="margin: 10px;">Personal Information</h5>'+ //Personal Information
                                           '<hr class="sidebar-head my-0 bg-white"></hr>'+
                                           '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
-                                             `<div class="col-sm-2 text-weight-800">ID</div><div class="col-sm-4">${data[key].Nopek}</div>`+
-                                              `<div class="col-sm-2">Birth Day</div><div class="col-sm-4">${data[key].Tgl_Lahir}</div>`+
+                                             '<div class="col-sm-2 text-weight-800">ID</div><div class="col-sm-4">' + data.Nopek + '</div>'+
+                                              '<div class="col-sm-2">Birth Day</div><div class="col-sm-4">' + data.tgl_Lahir + '</div>'+
                                               '<br>'+
-                                              `<div class="col-sm-2">First Name</div><div class="col-sm-4">${data[key].Nama}</div>`+
+                                              '<div class="col-sm-2">First Name</div><div class="col-sm-4">' + data.nama + '</div>'+
                                               '<div class="col-sm-2">Birth Country</div><div class="col-sm-4">Indonesia</div>'+
                                               '<br>'+
-                                              `<div class="col-sm-2">Marital Status</div><div class="col-sm-4">${data[key].Status_Pernikahan}</div>`+
+                                              '<div class="col-sm-2">Marital Status</div><div class="col-sm-4">' + data.status_Pernikahan + '</div>'+
                                               '<br>'+
-                                              `<div class="col-sm-2">No. of Dependents</div><div class="col-sm-4">${data[key].Jumlah_Tanggungan}</div>`+
+                                              '<div class="col-sm-2">No. of Dependents</div><div class="col-sm-4">' + data.jumlah_Tanggungan + '</div>'+
                                               '<br>'+
-                                              `<div class="col-sm-2">Gender</div><div class="col-sm-4">${data[key].Jenis_Kelamin}</div>`+
-                                              `<div class="col-sm-2">Religion</div><div class="col-sm-4">${data[key].Agama}</div>`+
+                                              '<div class="col-sm-2">Gender</div><div class="col-sm-4">' + data.jenis_Kelamin + '</div>'+
+                                              '<div class="col-sm-2">Religion</div><div class="col-sm-4">' + data.agama +'</div>'+
                                               '<br>'+
-                                              `<div class="col-sm-2">Birth Place</div><div class="col-sm-4">${data[key].Tempat_lahir}</div>`+
-                                              '<div class="col-sm-2">Blood Group</div><div class="col-sm-4">AB</div>'+
+                                              '<div class="col-sm-2">Birth Place</div><div class="col-sm-4">' + data.tempat_lahir + '</div>'+
+                                              '<div class="col-sm-2">Blood Group</div><div class="col-sm-4"></div>'+
                                               '<br>'+
                                           '</div>'+
                                       '</div>'+
@@ -163,11 +163,11 @@
                                         '<h5 style="margin: 10px;">Education</h5>'+ 
                                         '<hr class="sidebar-head my-0 bg-white"></hr>'+
                                         '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
-                                            `<div class="col-md-4">Degree</div><div class="col-sm-8">${data[key].Tingkat_Pendidikan }</div>`+
+                                            '<div class="col-md-4">Degree</div><div class="col-sm-8">' + data.tingkat_Pendidikan + '</div>'+
                                             '<br>'+
-                                            `<div class="col-sm-4">Last Majoring</div><div class="col-sm-8">${data[key].Jurusan_Pendidikan_Terakhir}</div>`+
+                                            '<div class="col-sm-4">Last Majoring</div><div class="col-sm-8">' + data.jurusan_Pendidikan_Terakhir + '</div>'+
                                             '<br>'+
-                                            `<div class="col-sm-4">Last Institution</div><div class="col-sm-8">${data[key].Last_Education_Institution}</div>`+
+                                            '<div class="col-sm-4">Last Institution</div><div class="col-sm-8">' + data.last_Education_Institution + '</div>'+
                                             '<br>'+
                                             '<br>'+
                                         '</div>'+
@@ -179,11 +179,11 @@
                                         '<h5 style="margin: 10px;">Experience</h5>'+ 
                                         '<hr class="sidebar-head my-0 bg-white"></hr>'+
                                         '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
-                                            `<div class="col-md-6">First Work Experience</div><div class="col-sm-6">${data[key].Pengalaman_Kerja_Pertama}</div>`+
+                                            '<div class="col-md-6">First Work Experience</div><div class="col-sm-6">' + data.pengalaman_Kerja_Pertama + '</div>'+
                                             '<br>'+
-                                            `<div class="col-sm-6">First Joined Pertamina</div><div class="col-sm-6">${data[key].Bergabung_Pertama_kali_di_Pertamina}</div>`+
+                                            '<div class="col-sm-6">First Joined Pertamina</div><div class="col-sm-6">' + data.bergabung_Pertama_kali_di_Pertamina + '</div>'+
                                             '<br>'+
-                                            `<div class="col-sm-6">Company Name Before SHU</div><div class="col-sm-6">${data[key].Nama_Perusahaan_Sebelum_SHU}</div>`+
+                                            '<div class="col-sm-6">Company Name Before SHU</div><div class="col-sm-6">' + data.nama_Perusahaan_Sebelum_SHU + '</div>'+
                                             '<br>'+
                                             '<br>'+
                                         '</div>'+
@@ -195,9 +195,9 @@
                                         '<h5 style="margin: 10px;">Contacts</h5>'+ 
                                         '<hr class="sidebar-head my-0 bg-white"></hr>'+
                                         '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
-                                            `<div class="col-md-4">Email</div><div class="col-sm-8">${data[key].email_pertamina}</div>`+
+                                            '<div class="col-md-4">Email</div><div class="col-sm-8">' + data.email_pertamina + '</div>'+
                                             '<br>'+
-                                            `<div class="col-sm-4">Phone</div><div class="col-sm-8">${data[key].Phone}</div>`+
+                                            '<div class="col-sm-4">Phone</div><div class="col-sm-8">' + data.phone + '</div>'+
                                             '<br>'+
                                             '<br>'+
                                         '</div>'+
@@ -209,9 +209,9 @@
                                         '<h5 style="margin: 10px;"> Emergency Contacts</h5>'+ 
                                         '<hr class="sidebar-head my-0 bg-white"></hr>'+
                                         '<div class="row justify-content-md-right text-sm-left" style="margin: 10px;">'+
-                                            `<div class="col-md-4">Name</div><div class="col-sm-8">${data[key].Nama_Kontak_Emergency}</div>`+
+                                            '<div class="col-md-4">Name</div><div class="col-sm-8">' + data.nama_Kontak_Emergency + '</div>'+
                                             '<br>'+
-                                            `<div class="col-sm-4">Phone</div><div class="col-sm-8">${data[key].Nomor_Kontak_Emergency}</div>`+
+                                            '<div class="col-sm-4">Phone</div><div class="col-sm-8">' + data.nomor_Kontak_Emergency + '</div>'+
                                             '<br>'+
                                             '<br>'+
                                         '</div>'+
