@@ -10,6 +10,7 @@ namespace hcdigital.Models
         public int id {get; set;}
         public string? Code {get; set;}
         public string? subject {get; set;}
+        public string? status {get; set;}
         public string? tempKey {get; set;}
         public int yID {get; set;}
         public int RequestorID {get; set;}

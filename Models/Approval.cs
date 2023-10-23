@@ -13,7 +13,7 @@ namespace hcdigital.Models
         public string? approver_role {get; set;}
         public int approver_id {get; set;}
         public int approver_order {get; set;}
-        public int approver_PersID {get; set;}
+        public int approver_persID {get; set;}
         public string? status {get; set;}
         public string? comments {get; set;}
     }

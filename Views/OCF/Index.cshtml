@@ -151,7 +151,7 @@
                             }).then((result) => {
                               /* Read more about isConfirmed, isDenied below */
                               if (result.isConfirmed) {
-                                window.location.href = '<?php echo base_url()?>orgChange/delete/'+ids
+                                window.location.href = 'OCF/Delete/'+ids
                               } else if (result.isDenied) {
                                 Swal.close()
                               }
@@ -249,10 +249,10 @@
         }
     }
 
-    function viewOCF(approval_id) {
-        
+    function viewOCF(approval_id) 
+    {
         $.ajax({
-                url: "<?php echo base_url()?>TAD/OrgChange/view/"+approval_id,
+                url: '/OCF/view/"+approval_id,
                 type: "GET",
                 dataType: "json",
                 success: function(data) {

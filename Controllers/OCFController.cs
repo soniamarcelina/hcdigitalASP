@@ -103,6 +103,22 @@ public class OCFController : Controller
         }
     }
 
+    [HttpGet("Delete/{id}")]
+    public IActionResult Delete(int id)
+    {
+        // Dapatkan data employee berdasarkan ID dari database
+        OCF? ocf = _context.ocf?.Find(id);
+
+        if (ocf == null)
+        {
+            return NotFound();
+        }
+
+        _context.ocf?.Remove(ocf);
+        _context.SaveChanges();
+
+        return RedirectToAction("Index"); // Redirect ke halaman utama atau tampilan daftar data.
+    }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
