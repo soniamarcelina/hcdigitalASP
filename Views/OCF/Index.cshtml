@@ -179,17 +179,24 @@
 </script>
 <script type="text/javascript">
     function viewProgress(id){
-        @* $.ajax({
-                url: '',
-                type: '',
-                dataType: '',
-                success: function(data) { *@
+        $.ajax({
+                url: '/Approval/GetApproval' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) { 
                     let tableHtml = "<table class='table table-sm table-bordered small'>";
                      tableHtml += "<thead><tr><th>No</th><th>Approver Role</th><th>Approver</th><th>Status</th><th>Last Update</th></thead>";
                      tableHtml += "<tbody>";
-                     @* data.forEach(function (row) { *@
-                       tableHtml += `<tr><td></td><td></td><td></td><td></td><td></td></tr>`;
-                     @* }); *@
+                     data.forEach(function (row) { 
+                        tableHtml += "<tr>";
+                        tableHtml += "<td>" + row.approver_order + "</td>";
+                        tableHtml += "<td>" + row.approver_role + "</td>";
+                        tableHtml += "<td>" + row.type +"</td>";
+                        tableHtml += "<td>" + row.status + "</td>";
+                        tableHtml += "<td>" + row.updated_at + "</td>";
+                        tableHtml += "<td><a class='btn btn-primary select-button' data-id='" + row.id + "'>Select</a></td>";
+                        tableHtml += "</tr>";
+                     }); 
                      tableHtml += "</tbody></table>";
 
                      Swal.fire({
@@ -198,8 +205,8 @@
                        width : 1000,
                        showCloseButton: true,
                      })
-                @* }
-            }); *@
+                 }
+            }); 
     }
 
     async function forceApprove(tempKey){
@@ -252,9 +259,9 @@
     function viewOCF(approval_id) 
     {
         $.ajax({
-                url: '/OCF/view/"+approval_id,
-                type: "GET",
-                dataType: "json",
+                url: '/OCF/View/' +approval_id,
+                type: 'GET',
+                dataType: 'json"\'',
                 success: function(data) {
                             var id = $(this).data('id');
                              for (var key in data) {
@@ -299,33 +306,33 @@
                                         '<hr>'+
                                     '</div>'+
                                     '<div class="col-md-12 col-xl-12">'+
-                                        `<label class="float-right">Date :${data.OCFData.CreatedDate}</label>`+
+                                        '<label class="float-right">Date : </label>'+
                                     '</div>'+
                                     '<!-- Row 2 -->'+
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">No OCF</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9">${data.OCFData.Code}</div>`+
+                                        '<div class="col-md-6 col-xl-9"> </div>'+
                                     '</div>'+
                                     '<!-- Row 3 -->'+
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">Subsidiaries</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9" id="rvSubs">${data.ReqData.Company_Name}</div>`+
+                                        '<div class="col-md-6 col-xl-9" id="rvSubs"></div>'+
                                     '</div>'+
                                     '<div class="col-xl-6"></div>'+
                                     '<!-- Row 4 -->'+
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">Creator</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9" id="rvCreator">${data.ReqData.Name}</div>`+
+                                        '<div class="col-md-6 col-xl-9" id="rvCreator"></div>'+
                                     '</div>'+
                                     '<div class="col-xl-6"></div>'+
                                     '<!-- Row 4 -->'+
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">Job Position</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9" id="rvCrPos">${data.ReqData.Position}</div>`+
+                                        '<div class="col-md-6 col-xl-9" id="rvCrPos"></div>'+
                                     '</div>'+
                                     '<div class="col-xl-6 mb-4"></div>'+
                                     '<!-- Separator -->'+
@@ -337,25 +344,25 @@
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">Position Title</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9" id="rvTitle">${data.OCFData.PosTitle}</div>`+
+                                        '<div class="col-md-6 col-xl-9" id="rvTitle"></div>+
                                     '</div>'+
                                     '<!-- Row 2 -->'+
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">Headcount</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9" id="rvHC">${data.OCFData.Headcount}</div>`+
+                                        '<div class="col-md-6 col-xl-9" id="rvHC"></div>'+
                                     '</div>'+
                                     '<!-- Row 3 -->'+
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">Budget</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9" id="RvCost">${data.OCFData.costType}</div>`+
+                                        '<div class="col-md-6 col-xl-9" id="RvCost"></div>'+
                                     '</div>'+
                                     '<!-- Row 4 -->'+
                                     '<div class="col-md-12 col-xl-12 row">'+
                                         '<div class="col-md-5 col-xl-2">Location</div>'+
                                         '<div class="col-md-1 col-xl-1">:</div>'+
-                                        `<div class="col-md-6 col-xl-9" id="rvWL">${data.OCFData.WorkLoc}</div>`+
+                                        '<div class="col-md-6 col-xl-9" id="rvWL"></div>'+
                                     '</div>'+
                                     '<!-- Row 8 -->'+
                                     '<div class="col-md-12 col-xl-12 row mb-4">'+

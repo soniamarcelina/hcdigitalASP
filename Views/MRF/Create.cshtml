@@ -63,6 +63,8 @@
                                                 <input type="text" class="form-control form-control-bot-border" name="CreatedDate" readonly>
                                                 <label>Subsidiaries</label>
                                                 <input type="text" class="form-control form-control-bot-border" name="empSubs" readonly>
+                                                <label>yID</label>
+                                                <input type="text" class="form-control form-control-bot-border" name="yID">
                                             </div>
                                         </div>
                                         <a href="#" class="btn btn-md btn-primary float-right saveDraftBtn" id="saveDraft">Save as Draft</a>
@@ -734,15 +736,16 @@ function selectList(input) {
             var data = {
             'mrf_code' : $('[name="MRF_No"]').val(),
             'status' : 'Routing',
+            'yID' : $('[name="yID"]').val(),
             'mrf_type' : $('[name="type"]').val(),
             'id_position' : $('[name="posID"]').val(),
             'workTerm' : $('[name="workTerm"]').val(),
-            'ABI_ABO' : $('[name="ABO_ABI"]').val(),
-            'prev_mrf' : $('[name="prevMRF"]').val(),
+            'aBI_ABO' : $('[name="ABO_ABI"]').val(),
+            'prev_mrf': parseInt($('[name="prevMRF"]').val(), 10),
             'justification' : $('[name="Justification"]').val(),
             'start_date' : $('[name="start"]').val(),
             'end_date' : $('[name="end"]').val(),
-            'RequestorID' : $('[name="empID"]').val(),
+            'requestorID' : $('[name="empID"]').val(),
             'created_by' : '1',
             'tempKey' : tempKey,
         }

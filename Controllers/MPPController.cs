@@ -37,7 +37,7 @@ public class MPPController : Controller
      [HttpGet("Existing")]
     public IActionResult Existing(string Department)
     {
-       var positionsByDepartment = _context.tadposition
+       var positionsByDepartment = _context.tadposition?
         .Where(p => p.Department == Department)
         .Select(p => p.PosTitle)
         .ToList();

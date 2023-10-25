@@ -75,33 +75,56 @@ public class OCFController : Controller
         }
     }
 
-    [HttpPost("SubmitOCF")]
+     [HttpPost("SubmitOCF")]
     public IActionResult SubmitOCF([FromBody] OCF ocf)
-    {
+        {
+        if (ocf == null)
+        {
+            return BadRequest(new { Message = "Data OCF tidak valid" });
+        }
+
         try
         {
-             _context.ocf?.Add(ocf);
+            var data = new OCF
+            {
+                id = ocf.id,
+                Code = ocf.Code,
+                subject = ocf.subject,
+                status = "Routing",
+                yID = ocf.yID,
+                DirectPos = ocf.DirectPos,
+                PosTitle = ocf.PosTitle,
+                Headcount = ocf.Headcount,
+                Grade = ocf.Grade,
+                WorkLoc = ocf.WorkLoc,
+                WorkSch = ocf.WorkSch,
+                WorkCity = ocf.WorkCity,
+                RequestorID = ocf.RequestorID,
+                costType = ocf.costType,
+                costCenter = ocf.costCenter,
+                Justification = ocf.Justification,
+                tempKey = ocf.tempKey,
+                CreatorID = ocf.CreatorID,
+                Responsibility = ocf.Responsibility,
+                Qualification = ocf.Qualification,
+                Competency = ocf.Competency,
+                Education = ocf.Education,
+                Experience = ocf.Experience,
+                Skill = ocf.Skill
+
+            };
+
+            _context.ocf?.Add(data);
             _context.SaveChanges();
 
-            // Response berhasil
-            var response = new
-            {
-                status = 2,
-                msg = "Data berhasil disimpan."
-            };
-            return Json(response);
+            return Ok(new { Message = "Data OCF berhasil disimpan" });
         }
         catch (Exception ex)
-        {
-            // Response gagal
-            var response = new
             {
-                status = 1,
-                msg = "Terjadi kesalahan saat menyimpan data: " + ex.Message
-            };
-            return Json(response);
+                // Tangani kesalahan dengan baik, misalnya, log pesan kesalahan
+                return StatusCode(500, new { Message = "Gagal menyimpan data OCF: " + ex.Message, InnerException = ex.InnerException?.Message });
+            }
         }
-    }
 
     [HttpGet("Delete/{id}")]
     public IActionResult Delete(int id)

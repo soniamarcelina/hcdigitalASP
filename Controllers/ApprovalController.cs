@@ -20,6 +20,23 @@ public class ApprovalController : Controller
         return View(app);
     }
 
+    [HttpGet("GetApproval/{id}")]
+    public IActionResult GetApproval(int id)
+     {
+        try
+        {
+            // Ambil data dari database 
+            var data = _context.Approval?.ToList() ?? new List<Approval>(); 
+            return Ok(data);
+            
+        }
+        catch (Exception ex)
+        {
+            // Tangani kesalahan jika ada
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

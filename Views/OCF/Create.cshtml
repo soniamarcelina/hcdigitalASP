@@ -778,15 +778,15 @@
             'Competency' : JSON.stringify(Competency),
             'Experience' : JSON.stringify(Experience),
             'Skill' : JSON.stringify(Skill),
-            'Qualification' : Qualification,
+            'Qualification' : JSON.stringify(Qualification),
             'CreatorID' : '1',
             'tempKey' : tempKey, 
          } 
        console.log(data); 
         $.ajax({
-                url: "/OCF/SubmitOCF",
-                type: "POST",
-                dataType: "json",
+                url: '/OCF/SubmitOCF',
+                type: 'POST',
+                dataType: 'json',
                 data: data,
                 success: function(data) {
                     n = JSON.stringify(data)
@@ -920,6 +920,13 @@
     }); 
 
     $(".submitBtn").click(function() {
+        var tempKey = '';
+        var id = '0'; 
+
+        if (id !== '0') 
+        {
+            tempKey = 'tempKeyValue'; 
+        }
         if (checkInputs()) {
             var responsibilityTable = $('#respTable').DataTable();
             var Responsibility = responsibilityTable.data().toArray();
@@ -966,13 +973,13 @@
                 'Competency' : JSON.stringify(Competency),
                 'Experience' : JSON.stringify(Experience),
                 'Skill' : JSON.stringify(Skill),
-                'Qualification' : Qualification,
+                'Qualification' : JSON.stringify(Qualification),
                 'CreatorID' : '1',
                 'tempKey' : tempKey, 
              }
             console.log(data);  
             $.ajax({
-                    url: 'OCF/Submit', 
+                    url: '/OCF/Submit', 
                     type: 'POST',
                     dataType: 'json',
                     data: data,
@@ -987,7 +994,7 @@
                             }).then((result) => {
                               if (result.isConfirmed) {
                                 
-                                window.location.href = '';   
+                                window.location.href = '/OCF/Index';   
                               }
                             })
 
