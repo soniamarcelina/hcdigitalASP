@@ -56,37 +56,38 @@ public class MRFController : Controller
         return View();
     }
      
-    // [HttpGet("Candidate/{id_mrf}")]
-    // public IActionResult Candidate(int id_mrf)
-    // {
-    //     if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null)
-    //     {
+    [HttpGet("Candidate/{id_mrf}")]
+    public IActionResult Candidate(int id_mrf)
+    {
+        if (_context.mrf != null && _context.tadposition != null && _context.masteremployee != null)
+        {
        
-    //             var query = from mrf in _context.mrf
-    //                 join position in _context.tadposition on mrf.id_position equals position.id_position
-    //                 join directpos in _context.masteremployee on position.DirectPos_ID equals directpos.ID_Position
-    //                 where mrf.id_mrf == id_mrf
-    //                 select new MRF
-    //                 {
-    //                     Position = position,
-    //                     DirectPos = directpos
-    //                 };
+                var query = from mrf in _context.mrf
+                    join position in _context.tadposition on mrf.id_position equals position.id_position
+                    join directpos in _context.masteremployee on position.DirectPos_ID equals directpos.ID_Position
+                    where mrf.id_mrf == id_mrf
+                    select new ViewCand
+                    {
+                        MRF = mrf,
+                        Position = position,
+                        DirectPos = directpos
+                    };
 
-    //        var result = query.SingleOrDefault();
+           var result = query.SingleOrDefault();
 
-    //         if (result == null)
-    //         {
-    //             return NotFound();
-    //         } else {
-    //             return View(result);
-    //         }
-    //     }
+            if (result == null)
+            {
+                return NotFound();
+            } else {
+                return View(result);
+            }
+        }
         
-    //     else {
-    //         return NotFound();
-    //     }
+        else {
+            return NotFound();
+        }
 
-    // }
+    }
 
      [HttpGet("GetTadPosition")]
     public IActionResult GetTadPosition()
@@ -170,14 +171,27 @@ public class MRFController : Controller
     }
 
      [HttpPost("Insert")]
-    public IActionResult Insert([FromBody] MRF data)
+    public IActionResult Insert([FromBody] MRF mrf)
     {
         try
         {
                 var mrfEntity = new MRF
             {
-                mrf_code = data.mrf_code,
-                status = data.status,
+                id_mrf = mrf.id_mrf,
+                mrf_code = mrf.mrf_code,
+                yID = mrf.yID,
+                status = "Draft",
+                mrf_type = mrf.mrf_type,
+                id_position = mrf.id_position,
+                workTerm = mrf.workTerm,
+                ABI_ABO = mrf.ABI_ABO,
+                prev_mrf = mrf.prev_mrf,
+                justification = mrf.justification,
+                start_date = mrf.start_date,
+                end_date = mrf.end_date,
+                RequestorID = mrf.RequestorID,
+                created_by = mrf.created_by,
+                tempKey = mrf.tempKey,
                 
             };
               _context.mrf?.Add(mrfEntity);

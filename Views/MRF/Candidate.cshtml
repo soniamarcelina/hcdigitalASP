@@ -1,4 +1,4 @@
-@model hcdigital.Models.MRF
+@model hcdigital.Models.ViewCand
  @{
     ViewData["Title"] = "Candidate";
     Layout = "~/Views/Shared/_Sidebar.cshtml";
@@ -13,7 +13,7 @@
         <div class="card-body">
         		<div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Table Candidate - @Model.mrf_code</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Table Candidate - @Model.MRF?.mrf_code</h6>
 
                         </div>
                         <div class="card-body">
@@ -22,15 +22,15 @@
                                 
                                     <div class="col-lg-4">
                                         <label>Position Name</label>
-                                        <input type="text" class="form-control" name="Position" value="" readonly="">
+                                        <input type="text" class="form-control" name="Position" value="@Model.Position?.PosTitle" readonly="">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>Fungsi</label>
-                                        <input type="text" class="form-control" name="Fungsi" value="" readonly="">
+                                        <input type="text" class="form-control" name="Fungsi" value="@Model.Position?.Division - @Model.Position?.Sub_division" readonly="">
                                     </div>
                                     <div class="col-lg-4">
                                         <label>Supervisor Name</label>
-                                        <input type="text" class="form-control" name="Supervisor" value="" readonly="">
+                                        <input type="text" class="form-control" name="Supervisor" value="@Model.DirectPos?.Name" readonly="">
                                     </div>
                         
                                 </div>
@@ -290,7 +290,7 @@
                                 if (data[key].Nopek == id) {
                                     
                                     cData = {
-                                        'mrf_id' : '@Model.id_mrf',
+                                        'mrf_id' : '',
                                         'status' : 'Candidate',
                                         'personnel_id' : data[key].Nopek
                                     }
